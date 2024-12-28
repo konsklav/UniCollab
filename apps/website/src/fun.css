@@ -1,0 +1,24 @@
+@keyframes BonkersAnimation {
+    0% { 
+        transform: rotate(-5deg); 
+    }
+    100% { 
+        transform: rotate(5deg);
+     }
+}
+
+.spin {
+    user-select: none;
+    text-align: center;
+    transform-origin: center;
+    animation: BonkersAnimation 1.5s ease-out infinite alternate
+}
+
+.container {
+    height: 100dvh;
+    width: 100dvh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+}
