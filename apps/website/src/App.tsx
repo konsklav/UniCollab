@@ -1,4 +1,3 @@
-import { useState } from 'react'
 import './fun.css'
 import Test from './Test'
 
