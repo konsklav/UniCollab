@@ -1,0 +1,19 @@
+﻿services:
+  web-api:
+    container_name: saas-api
+    build:
+      context: ./Saas.Api
+      dockerfile: Dockerfile
+    ports:
+      - "4000:8080"
+    depends_on:
+      - database
+
+  database:
+    image: mcr.microsoft.com/mssql/server:2019-latest
+    container_name: saas-db
+    ports:
+      - "5433:1433"
+    environment:
+      SA_PASSWORD: "YourStrong(!)Password"
+      ACCEPT_EULA: "Y"
