@@ -10,4 +10,4 @@ app.UseHttpsRedirection();
 
 app.MapGet("/test", () => $"Testing! The time is {DateTime.UtcNow}");
 
-app.Run();
+app.Run(); //Test
