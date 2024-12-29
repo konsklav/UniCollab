@@ -13,5 +13,7 @@
 ### Running the website
 ```bash
 cd ./apps/website
+npm install vite
+npm install
 npm run dev
 ```
