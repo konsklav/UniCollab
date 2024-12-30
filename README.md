@@ -8,7 +8,10 @@
 
 # Setup
 ### Running the Web API
-Ανοίγουμε με το IDE της αρέσκιάς μας το .sln αρχείο στο /apps/api/SaaS.Api και το τρέχουμε. 
+```bash
+cd ./apps/api/Saas.Api
+docker-compose up --build
+```
 
 ### Running the website
 ```bash
