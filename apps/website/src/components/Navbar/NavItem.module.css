@@ -1,0 +1,23 @@
+.navItem {
+    background-color: rgba(255, 255, 255, 0.05);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    cursor: pointer;
+    transition: 0.2s;
+
+    padding: 0.75rem;
+}
+
+a.navItem  {
+    text-decoration: none;
+}
+
+.navItem:hover {
+    background-color: rgba(255, 255, 255, 0.15);
+}
+
+.navItem.active {
+    background-color: rgba(255, 255, 255, 0.5);
+}

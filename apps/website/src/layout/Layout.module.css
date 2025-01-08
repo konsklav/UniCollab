@@ -1,0 +1,12 @@
+@media (min-width: 576px) {
+    #layout {
+        height: 100dvh;
+    }
+}
+
+@media only screen and (max-width: 576px) {
+    #layout {
+        width: 100dvh;
+        height: 12.5rem;
+    }
+}
