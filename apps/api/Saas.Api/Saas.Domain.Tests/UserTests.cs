@@ -1,5 +1,4 @@
-﻿using System.Runtime.CompilerServices;
-using Ardalis.Result;
+﻿using Ardalis.Result;
 using FluentAssertions;
 
 namespace Saas.Domain.Tests;
@@ -7,7 +6,7 @@ namespace Saas.Domain.Tests;
 public class UserTests
 {
     [Fact]
-    public void AddFriend_AddsUser_ToFriendList()
+    public void AddFriend_Should_AddUserToFriendList()
     {
         // Arrange
         var user1 = new User(Guid.NewGuid(), "Test", "password", []);
