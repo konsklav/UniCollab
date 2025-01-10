@@ -32,4 +32,17 @@ public class User(Guid id, string username, string password, List<User> friends)
         _friends.Remove(user);
         return Result.Success();
     }
+
+    // !!! From here on I'm not sure about the implementation. Let's discuss them next time. !!!
+    public Result JoinGroup(Group group)
+    {
+        var result = group.AddMember(this);
+        return result;
+    }
+
+    public Result LeaveGroup(Group group)
+    {
+        var result = group.RemoveMember(this);
+        return result;
+    }
 }

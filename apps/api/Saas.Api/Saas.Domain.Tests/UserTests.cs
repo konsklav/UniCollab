@@ -82,4 +82,34 @@ public class UserTests
         result.IsSuccess.Should().BeFalse();
         result.IsConflict().Should().BeTrue();
     }
+
+    [Fact]
+    public void JoinGroup_Should_SuccessfullyAddUserToGroup()
+    {
+        // Arrange
+        var user1 = new User(Guid.NewGuid(), "Test", "password", []);
+        var user2 = new User(Guid.NewGuid(), "Test 2", "password", []);
+        var group = new Group(Guid.NewGuid(), "Test", [user1], user1);
+        
+        // Act
+        var result = user2.JoinGroup(group);
+        
+        // Assert
+        result.IsSuccess.Should().BeTrue();
+    }
+
+    [Fact]
+    public void LeaveGroup_Should_SuccessfullyRemoveUserFromGroup()
+    {
+        // Arrange
+        var user1 = new User(Guid.NewGuid(), "Test", "password", []);
+        var user2 = new User(Guid.NewGuid(), "Test 2", "password", []);
+        var group = new Group(Guid.NewGuid(), "Test", [user1, user2], user1);
+        
+        // Act
+        var result = user2.LeaveGroup(group);
+        
+        // Assert
+        result.IsSuccess.Should().BeTrue();
+    }
 }
