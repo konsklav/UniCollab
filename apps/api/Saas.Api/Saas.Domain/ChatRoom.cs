@@ -12,7 +12,7 @@ public class ChatRoom(Guid id, string name, string type, List<User> participants
     public string Name { get; } = name;
     public string Type { get; } = type;
     public IReadOnlyList<User> Participants => _participants;
-    public List<Message> Messages => _messages;
+    public IReadOnlyList<Message> Messages => _messages;
 
     public Result AddParticipant(User user)
     {
