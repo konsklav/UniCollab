@@ -85,7 +85,7 @@ public class ChatRoomTests
         // Arrange
         var user = new User(Guid.NewGuid(), "Test", "password", []);
         
-        var message = new Message(Guid.NewGuid(), "Test", DateTime.Now, user);
+        var message = new Message("Test", DateTime.Now, user);
         
         var chatRoom = new ChatRoom(Guid.NewGuid(), "test", "test", [user], []);
         
@@ -107,7 +107,7 @@ public class ChatRoomTests
         // Arrange
         var user = new User(Guid.NewGuid(), "Test", "password", []);
 
-        var message = new Message(Guid.NewGuid(), "Test", DateTime.Now, user);
+        var message = new Message("Test", DateTime.Now, user);
         
         var chatRoom = new ChatRoom(Guid.NewGuid(), "test", "test", [user], [message]);
         
