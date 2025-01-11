@@ -1,4 +1,5 @@
 using Ardalis.Result;
+// ReSharper disable ReplaceWithPrimaryConstructorParameter
 
 namespace Saas.Domain;
 
