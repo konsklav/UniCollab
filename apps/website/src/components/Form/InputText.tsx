@@ -1,15 +1,11 @@
 import { ChangeEvent, useState } from "react";
 import { InputProps } from "./inputs.types";
 
-export default function InputText({onChange, placeholder, label, id}: InputProps<string>) {
-    const [value, setValue] = useState('')
-
+export default function InputText({value, onChange, placeholder, label, id}: InputProps<string>) {
     const inputId: string = id ?? crypto.randomUUID()
 
     function handleInput(event: ChangeEvent<HTMLInputElement>): void {
-        const newValue = event.target.value
-        setValue(_ => newValue)
-        onChange(newValue)
+        onChange(event.target.value)
     }
 
     return (
