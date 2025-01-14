@@ -1,4 +1,4 @@
-.toast-container {
+.my-toast-container {
     position: fixed;
     top: 0;
     left: 0;
@@ -12,4 +12,25 @@
     flex-direction: column;
     justify-content: end;
     align-items: end;
+
+    gap: 0.5rem;
+
+    z-index: -1;
+
+}
+
+.my-toast {
+    border: 1px solid black;
+    width: 15rem;
+    z-index: 1337;
+
+    --toast-br: 0.5rem;
+}
+
+.my-toast-container:has(:nth-child(2)) .my-toast:last-child {
+    border-bottom-right-radius: var(--toast-br);
+}
+
+.my-toast-container:has(:nth-child(2)) .my-toast:first-child {
+    border-top-left-radius: var(--toast-br);
 }

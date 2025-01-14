@@ -10,8 +10,8 @@ interface ToastInternal {
     timeShown: number
 }
 
-const toastDuration = 1000
-const toastDisappearDuration = 500
+const toastDuration = 5000
+// const toastDisappearDuration = 500
 
 export function ToastContainer() {
     const [toasts, setToasts] = useState<readonly ToastInternal[]>([])
@@ -42,8 +42,8 @@ export function ToastContainer() {
     }
 
     return (
-        <div className="toast-container">
-            {toasts.map(toast => <Toast>{toast.toast.content}</Toast>)}
+        <div className="my-toast-container">
+            {toasts.map(toast => <Toast key={toast.timeShown}>{toast.toast.content}</Toast>)}
         </div>
     )
 }
