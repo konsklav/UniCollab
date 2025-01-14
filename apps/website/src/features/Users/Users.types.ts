@@ -1,10 +1,4 @@
-export interface LoginCredentials {
+export interface UserCredentials {
     username: string
     password: string
-}
-
-export interface RegisterProperties {
-    username: string
-    password: string
-    verifyPassword: string
 }
