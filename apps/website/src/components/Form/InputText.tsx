@@ -1,4 +1,4 @@
-import { ChangeEvent, useState } from "react";
+import { ChangeEvent } from "react";
 import { InputProps } from "./inputs.types";
 import { generateUniqueId } from "../../utils/uniqueId";
 
