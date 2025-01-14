@@ -10,9 +10,11 @@ import GuestLayout from "./layout/GuestLayout";
 import RegisterPage from "./pages/Users/RegisterPage";
 import PostsPage from "./pages/PostsPage";
 import PostPage from "./pages/PostPage";
+import { NotificationProvider } from "./notifications/NotificationProvider";
 
 export default function App() {
   return (
+    <NotificationProvider>
     <AuthenticationProvider>
     <BrowserRouter>
       <Routes>
@@ -32,5 +34,6 @@ export default function App() {
       </Routes>
     </BrowserRouter>
     </AuthenticationProvider>
+    </NotificationProvider>
   )
 }
