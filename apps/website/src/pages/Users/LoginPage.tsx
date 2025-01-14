@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import { UserCredentials } from "../../features/Users/Users.types";
 import LoginForm from "../../features/Users/Login/LoginForm";
 
@@ -13,5 +13,10 @@ export default function LoginPage() {
         navigate('/')
     } 
 
-    return <LoginForm onLogin={handleLogin}/>
+    return <div>
+        <LoginForm onLogin={handleLogin}/>
+        <div>
+            To create an account, <NavLink to='/register'>sign up</NavLink>.
+        </div>
+    </div>
 }

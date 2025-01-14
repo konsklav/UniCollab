@@ -7,6 +7,10 @@
     font-weight: 600;
 }
 
+.form-input-group input {
+    width: 100%;
+}
+
 .password-input {
     position: relative;
 }
