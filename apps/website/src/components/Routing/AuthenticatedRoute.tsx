@@ -1,11 +1,8 @@
-import { redirect, Route } from "react-router-dom";
+import { Navigate, Route, RouteProps } from "react-router-dom";
 import { useAuth } from "../Authentication/AuthenticationProvider";
 
-interface AuthenticatedRouteProps {
-    element: React.ReactElement
-}
 
-export default function AuthenticatedRoute({element, ...rest}: AuthenticatedRouteProps) {
+export default function AuthenticatedRoute({element, ...rest}: RouteProps ) {
     const { isAuthenticated } = useAuth();
 
     return isAuthenticated
@@ -13,6 +10,6 @@ export default function AuthenticatedRoute({element, ...rest}: AuthenticatedRout
         <Route {...rest} element={element}/>
     )
     : (
-        redirect('/login')
+        <Navigate to={'/login'} replace/>
     ) 
 }
