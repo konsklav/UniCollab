@@ -1,7 +1,7 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Saas.Application.Interfaces;
 using Saas.Domain;
-using Saas.Infrastructure.Data;
+using Saas.Infrastructure.Repositories;
 
 namespace Saas.Infrastructure;
 

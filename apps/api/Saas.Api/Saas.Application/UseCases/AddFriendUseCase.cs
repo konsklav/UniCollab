@@ -18,8 +18,8 @@ public class AddFriendUseCase(IUserRepository userRepository)
 
         if (!addFriendResult.IsSuccess)
             return addFriendResult;
-        
-        await userRepository.UpdateAsync(user);
+
+        await userRepository.SaveChangesAsync();
         
         return Result.Success();
     }
