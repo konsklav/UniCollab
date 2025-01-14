@@ -2,8 +2,7 @@ import { useNavigate } from "react-router-dom";
 import { LoginCredentials } from "../../features/Users/Users.types";
 import LoginForm from "../../features/Users/Login/LoginForm";
 
-import styles from './loginPage.module.css'
-import Logo from "../../components/Text/Logo";
+import './auth.css'
 import { useAuth } from "../../components/Authentication/AuthenticationProvider";
 
 export default function LoginPage() {
@@ -15,12 +14,5 @@ export default function LoginPage() {
         navigate('/')
     } 
 
-    return (
-        <div id={styles.login}>
-            <div id={styles['login-logo']}>
-                <Logo color="dark"/>
-            </div>
-            <LoginForm onLogin={handleLogin}/>
-        </div>
-    )
+    return <LoginForm onLogin={handleLogin}/>
 }
