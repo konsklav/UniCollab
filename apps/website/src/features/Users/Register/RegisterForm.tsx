@@ -7,14 +7,14 @@ import '../userForms.css'
 import ValidationError from '../../../components/Form/ValidationError'
 
 interface RegisterFormProps {
-    onRegister: (registerData: UserCredentials) => void
+    onValidRegister: (registerData: UserCredentials) => void
 }
 
 interface RegisterData extends UserCredentials {
     verifyPassword: string
 }
 
-export default function RegisterForm({onRegister}: RegisterFormProps) {
+export default function RegisterForm({onValidRegister: onRegister}: RegisterFormProps) {
     const [registerData, setRegisterData] = useState<RegisterData>({
         username: '',
         password: '',
