@@ -4,7 +4,7 @@ import InputText from '../../../components/Form/InputText'
 import InputPassword from '../../../components/Form/InputPassword'
 
 import '../userForms.css'
-import ValidationErrors from '../../../components/Form/ValidationErrors'
+import ValidationError from '../../../components/Form/ValidationError'
 
 interface RegisterFormProps {
     onRegister: (registerData: UserCredentials) => void
@@ -20,7 +20,7 @@ export default function RegisterForm({onRegister}: RegisterFormProps) {
         password: '',
         verifyPassword: ''
     })
-    const [validationErrors, setValidationErrors] = useState<readonly string[]>([])
+    const [validationError, setValidationError] = useState<string | undefined>(undefined)
 
     const setUsername = (username: string) => setRegisterData({...registerData, username: username})
     const setPassword = (password: string) => setRegisterData({...registerData, password: password})
@@ -30,7 +30,12 @@ export default function RegisterForm({onRegister}: RegisterFormProps) {
         e.preventDefault()
 
         if (registerData.password !== registerData.verifyPassword)
-            setValidationErrors(() => ['Passwords do not match.'])
+        {
+            setValidationError('Passwords do not match.')
+            return;
+        }
+
+        onRegister(registerData)
     }
 
     return (
@@ -41,7 +46,7 @@ export default function RegisterForm({onRegister}: RegisterFormProps) {
                 <InputPassword value={registerData.verifyPassword} onChange={setVerifyPassword} label='Verify Password'/>
                 <button type='submit' className='btn btn-primary'>Sign Up</button>
             </form>
-            <ValidationErrors messages={validationErrors}/>
+            {validationError && <ValidationError message={validationError}/>}
         </div>
     )
 }
