@@ -1,24 +1,23 @@
-import { NavLink } from "react-router-dom";
 import NavItem from "./NavItem";
 
 import './Navbar.module.css'
-
-const flexConfig = "d-flex flex-sm-column flex-row"
+import Logo from "../Text/Logo";
+import { useAuth } from "../Authentication/AuthenticationProvider";
 
 export default function Navbar() {
+    const auth = useAuth()
+
     return (
-        <div className={`bg-secondary flex-grow-1 ${flexConfig}`}>
-            <div className="p-2 fs-2 text-center fw-bolder">
-                UniCollab
-            </div>
-            <nav className={`${flexConfig} flex-grow-1`}>
+        <div className="bg-secondary flex-grow-1">
+            <Logo color="light"/>
+            <nav className="flex-grow-1">
                 <ul className="p-0">
                     <NavItem to={'/'}>Home</NavItem>
                     <NavItem to={'/chat'}>Chat</NavItem>
                 </ul>
             </nav>
             <div className="text-center p-3">
-                <NavLink to={'/login'} className="text-danger">Log Out</NavLink>
+                <button type="button" className="btn btn-danger" onClick={auth.logout}>Sign Out</button>
             </div>
         </div>
     )

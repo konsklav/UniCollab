@@ -1,3 +1,5 @@
+import styles from './Logo.module.css'
+
 interface LogoProps {
     color: 'light' | 'dark'
 }
@@ -10,6 +12,6 @@ export default function Logo({color}: LogoProps) {
     }
 
     return (
-        <div className={`h1 fw-bold ${getColorClass()}`}>UniCollab</div>
+        <div className={`${styles.logo} ${getColorClass()}`}>UniCollab</div>
     )
 }

@@ -1,12 +1,22 @@
+#layout {
+    display: flex;
+}
+
+#content {
+    padding: .5rem;
+}
+
 @media (min-width: 576px) {
     #layout {
         height: 100dvh;
+        flex-direction: row;
     }
 }
 
-@media only screen and (max-width: 576px) {
+@media only screen and (max-width: 800px) {
     #layout {
         width: 100dvh;
         height: 12.5rem;
+        flex-direction: column;
     }
 }
