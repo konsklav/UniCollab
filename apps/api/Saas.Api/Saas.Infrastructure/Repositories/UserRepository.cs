@@ -1,9 +1,9 @@
 ﻿using Saas.Application.Interfaces;
 using Saas.Domain;
 
-namespace Saas.Infrastructure.Data;
+namespace Saas.Infrastructure.Repositories;
 
-public class UserRepository : IUserRepository
+public class UserRepository : IUserRepository, IUnitOfWork
 {
     public Task<User?> GetUserByIdAsync(Guid id)
     {
@@ -15,7 +15,7 @@ public class UserRepository : IUserRepository
         throw new NotImplementedException();
     }
 
-    public Task UpdateAsync(User user)
+    public Task SaveChangesAsync()
     {
         throw new NotImplementedException();
     }
