@@ -1,3 +1,3 @@
 export default function GroupsPage() {
-    return <></>
+    return <>Groups Page</>
 }

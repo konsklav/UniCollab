@@ -8,6 +8,8 @@ import AuthenticatedRoute from "./components/Routing/AuthenticatedRoute";
 import { AuthenticationProvider } from "./components/Authentication/AuthenticationProvider";
 import GuestLayout from "./layout/GuestLayout";
 import RegisterPage from "./pages/Users/RegisterPage";
+import PostsPage from "./pages/PostsPage";
+import PostPage from "./pages/PostPage";
 
 export default function App() {
   return (
@@ -19,11 +21,13 @@ export default function App() {
             <Route index element={<HomePage/>}/>
             <Route path="chat" element={<ChatPage/>}/>
             <Route path="groups" element={<GroupsPage/>}/>
+            <Route path="posts" element={<PostsPage/>}/>
+            <Route path="posts/:slug" element={<PostPage/>}/>
           </Route>
         </Route>
         <Route path="/" element={<GuestLayout/>}>
-          <Route path="/login" element={<LoginPage/>}/>
-          <Route path="/register" element={<RegisterPage/>}/>
+          <Route path="login" element={<LoginPage/>}/>
+          <Route path="register" element={<RegisterPage/>}/>
         </Route>
       </Routes>
     </BrowserRouter>

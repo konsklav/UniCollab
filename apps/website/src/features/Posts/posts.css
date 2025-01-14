@@ -1,0 +1,22 @@
+.post-preview {
+    background-color: hsl(10, 45%, 40%);
+    padding: 1.5rem;
+    border-radius: .75rem;
+    width: 15rem;
+
+    transition: 0.2s;
+}
+
+a:has(> .post-preview) {
+    text-decoration: none !important;
+    color: var(--bs-light);
+}
+
+.post-preview:hover {
+    background-color: hsl(15, 55%, 30%);
+}
+
+.post-preview-content {
+    font-size: 1.5rem;
+    font-weight: 700;
+}

@@ -14,9 +14,11 @@ export default function Navbar() {
                 <ul className="p-0">
                     <NavItem to={'/'}>Home</NavItem>
                     <NavItem to={'/chat'}>Chat</NavItem>
+                    <NavItem to={'/groups'}>My Groups</NavItem>
+                    <NavItem to={'/posts'}>My Posts</NavItem>
                 </ul>
             </nav>
-            <div className="text-center p-3">
+            <div className="text-center">
                 <button type="button" className="btn btn-danger" onClick={auth.logout}>Sign Out</button>
             </div>
         </div>
