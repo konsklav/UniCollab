@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
-import { LoginCredentials } from "../../features/Login/Login.types";
-import LoginForm from "../../features/Login/LoginForm";
+import { LoginCredentials } from "../../features/Users/Users.types";
+import LoginForm from "../../features/Users/Login/LoginForm";
 
 import styles from './loginPage.module.css'
 import Logo from "../../components/Text/Logo";

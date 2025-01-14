@@ -5,3 +5,7 @@ export interface InputProps<T> {
     label?: string    
     id?: string
 }
+
+export interface PasswordInputProps extends InputProps<string> {
+    isVisible?: boolean 
+}

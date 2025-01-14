@@ -1,8 +1,9 @@
 import { FormEvent, useState } from "react";
-import InputText from "../../components/Form/InputText";
-import { LoginCredentials } from "./Login.types";
+import InputText from "../../../components/Form/InputText";
+import { LoginCredentials } from "../Users.types";
 
-import styles from './LoginForm.module.css'
+import '../userForms.css'
+import InputPassword from "../../../components/Form/InputPassword";
 
 interface LoginFormProps {
     onLogin: (credentials: LoginCredentials) => void
@@ -23,9 +24,9 @@ export default function LoginForm({onLogin}: LoginFormProps) {
     }
 
     return (
-        <form id={styles['login-form']} name="login-form" onSubmit={handleSubmit} aria-label="login-form">
+        <form className="user-form" name="login-form" onSubmit={handleSubmit} aria-label="login-form">
             <InputText value={credentials.username} onChange={setUsername} label="Username" />
-            <InputText value={credentials.password} onChange={setPassword} label="Password" />
+            <InputPassword value={credentials.password} onChange={setPassword} label="Password" isVisible={false} />
             <button className="btn btn-primary mt-4" type="submit">Sign In</button>
         </form>
     )

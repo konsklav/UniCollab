@@ -1,6 +1,6 @@
 import { fireEvent, render, screen } from "@testing-library/react"
 import LoginForm from "./LoginForm"
-import { LoginCredentials } from "./Login.types"
+import { LoginCredentials } from "../Users.types"
 
 describe('LoginForm', () => {
     test('Renders two input fields and a submit button', () => {
