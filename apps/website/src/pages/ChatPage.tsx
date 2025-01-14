@@ -10,7 +10,7 @@ export default function ChatPage() {
         const toast: ToastType = {content: <Cool count={count}/>}
 
         publish('toast', toast)
-    }, [count, publish])
+    }, [count])
 
     const handleClick = () => {
         setCount(c => c += 1)
