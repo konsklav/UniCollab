@@ -29,6 +29,21 @@ export function NotificationProvider({children}: ChildrenProps) {
             newListeners.get(notifactionType)!.add(callback)
             return newListeners
         })
+
+        return () => {
+            setListeners(listeners => {
+                const newListeners = new Map(listeners)
+                const eventListeners = listeners.get(notifactionType)
+                if (!eventListeners) 
+                    return newListeners
+
+                eventListeners.delete(callback)
+                if (eventListeners.size === 0)
+                    newListeners.delete(notifactionType)
+
+                return newListeners
+            })
+        }
     }
 
     return (

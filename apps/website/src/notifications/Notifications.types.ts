@@ -7,7 +7,7 @@ export interface NotificationEvent {
 }
 
 export interface NotificationContextType {
-    subscribe: (notificationType: string, callback: NotificationEventCallback) => void
+    subscribe: (notificationType: string, callback: NotificationEventCallback) => () => void
     publish: (notificationType: string, payload: any) => void
 }
 
