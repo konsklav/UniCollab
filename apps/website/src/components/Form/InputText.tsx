@@ -1,8 +1,9 @@
 import { ChangeEvent, useState } from "react";
 import { InputProps } from "./inputs.types";
+import { generateUniqueId } from "../../utils/uniqueId";
 
 export default function InputText({value, onChange, placeholder, label, id}: InputProps<string>) {
-    const inputId: string = id ?? crypto.randomUUID()
+    const inputId: string = id ?? generateUniqueId()
 
     function handleInput(event: ChangeEvent<HTMLInputElement>): void {
         onChange(event.target.value)
