@@ -11,6 +11,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Saas.Domain", "Saas.Domain\
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Saas.Domain.Tests", "Saas.Domain.Tests\Saas.Domain.Tests.csproj", "{A2E2BAE2-615D-488C-BAAD-1CFC152370D9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Saas.Application", "Saas.Application\Saas.Application.csproj", "{34854ED8-D19B-42DF-992B-445699080F70}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Saas.Infrastructure", "Saas.Infrastructure\Saas.Infrastructure.csproj", "{BE2165C6-3AE2-42E4-9987-1D88B0CC18B0}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -29,5 +33,13 @@ Global
 		{A2E2BAE2-615D-488C-BAAD-1CFC152370D9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{A2E2BAE2-615D-488C-BAAD-1CFC152370D9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{A2E2BAE2-615D-488C-BAAD-1CFC152370D9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{34854ED8-D19B-42DF-992B-445699080F70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{34854ED8-D19B-42DF-992B-445699080F70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{34854ED8-D19B-42DF-992B-445699080F70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{34854ED8-D19B-42DF-992B-445699080F70}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BE2165C6-3AE2-42E4-9987-1D88B0CC18B0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BE2165C6-3AE2-42E4-9987-1D88B0CC18B0}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BE2165C6-3AE2-42E4-9987-1D88B0CC18B0}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BE2165C6-3AE2-42E4-9987-1D88B0CC18B0}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
