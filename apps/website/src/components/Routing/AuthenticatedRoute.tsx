@@ -1,4 +1,4 @@
-import { Navigate, Route } from "react-router-dom";
+import { redirect, Route } from "react-router-dom";
 import { useAuth } from "../Authentication/AuthenticationProvider";
 
 interface AuthenticatedRouteProps {
@@ -13,6 +13,6 @@ export default function AuthenticatedRoute({element, ...rest}: AuthenticatedRout
         <Route {...rest} element={element}/>
     )
     : (
-        <Navigate to='/login' replace/>
+        redirect('/login')
     ) 
 }
