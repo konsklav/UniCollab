@@ -2,7 +2,11 @@ import { FormEvent, useState } from "react";
 import InputText from "../../components/Form/InputText";
 import { LoginCredentials } from "./Login.types";
 
-export default function LoginForm() {
+interface LoginFormProps {
+    onLogin: (credentials: LoginCredentials) => void
+}
+
+export default function LoginForm({onLogin}: LoginFormProps) {
     const [credentials, setCredentials] = useState<LoginCredentials>({
         username: '',
         password: ''
@@ -13,12 +17,11 @@ export default function LoginForm() {
 
     function handleSubmit(e: FormEvent<HTMLFormElement>): void {
         e.preventDefault()
-
-        console.log(credentials)
+        onLogin(credentials)
     }
 
     return (
-        <form onSubmit={handleSubmit}>
+        <form name="login-form" onSubmit={handleSubmit} aria-label="login-form">
             <InputText value={credentials.username} onChange={setUsername} label="Username" />
             <InputText value={credentials.password} onChange={setPassword} label="Password" />
             <button className="btn btn-primary" type="submit">Sign In</button>
