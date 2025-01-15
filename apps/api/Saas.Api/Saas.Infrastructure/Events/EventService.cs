@@ -1,5 +1,5 @@
 ﻿using System.Collections.Concurrent;
-using Saas.Application.Interfaces.Events;
+using Saas.Application.Interfaces;
 
 namespace Saas.Infrastructure.Events;
 

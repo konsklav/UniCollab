@@ -1,7 +1,7 @@
 ﻿using System.Text.RegularExpressions;
 using Microsoft.AspNetCore.SignalR;
 using Saas.Application.Events;
-using Saas.Application.Interfaces.Events;
+using Saas.Application.Interfaces;
 using Saas.Domain;
 using Saas.Websockets.Models.Notifications;
 
@@ -33,10 +33,11 @@ internal sealed class ChatHub(
         
         var messageSentEvent = new ChatMessageSentEvent(
             UserId: userId,
+            ChatId: chatId,
             Message: message,
             SentAt: DateTime.UtcNow);
 
-        await eventService.PublishAsync(messageSentEvent);
+        // await eventService.PublishAsync(messageSentEvent);
         
         await Clients.Group(chatId.ToString()).ReceiveMessage(username, message);
 

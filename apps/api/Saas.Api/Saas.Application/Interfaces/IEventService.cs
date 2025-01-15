@@ -1,4 +1,4 @@
-﻿namespace Saas.Application.Interfaces.Events;
+﻿namespace Saas.Application.Interfaces;
 
 public interface IEventService
 {

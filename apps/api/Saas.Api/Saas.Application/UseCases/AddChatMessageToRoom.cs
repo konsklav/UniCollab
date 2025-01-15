@@ -1,5 +1,4 @@
-﻿using Saas.Application.Interfaces.Events;
-using Saas.Domain;
+﻿using Saas.Domain;
 
 namespace Saas.Application.UseCases;
 
