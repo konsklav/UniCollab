@@ -24,6 +24,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Saas.Infrastructure\Saas.Infrastructure.csproj" />
+      <ProjectReference Include="..\Saas.Websockets\Saas.Websockets.csproj" />
     </ItemGroup>
 
 </Project>

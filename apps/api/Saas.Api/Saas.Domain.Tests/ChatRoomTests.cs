@@ -9,10 +9,10 @@ public class ChatRoomTests
     public void AddParticipant_Should_AddUserToTheParticipantsList()
     {
         // Arrange
-        var user1 = new User(Guid.NewGuid(), "Test", "password", []);
-        var user2 = new User(Guid.NewGuid(), "Test 2", "password", [user1]);
+        var user1 = new User("Test", "password", []);
+        var user2 = new User("Test 2", "password", [user1]);
 
-        var chatRoom = new ChatRoom(Guid.NewGuid(), "test", "test", [user2], []);   // I just added user2 in there as a participant
+        var chatRoom = new ChatRoom("test", "test", [user2], []);   // I just added user2 in there as a participant
         var initialparticipantsCount = chatRoom.Participants.Count;
         
         // Act
@@ -29,10 +29,10 @@ public class ChatRoomTests
     public void AddParticipant_Should_ReturnConflict_WhenUserIsAlreadyAParticipant()
     {
         // Arrange
-        var user1 = new User(Guid.NewGuid(), "Test", "password", []);
-        var user2 = new User(Guid.NewGuid(), "Test 2", "password", [user1]);
+        var user1 = new User("Test", "password", []);
+        var user2 = new User("Test 2", "password", [user1]);
 
-        var chatRoom = new ChatRoom(Guid.NewGuid(), "test", "test", [user1, user2], []);
+        var chatRoom = new ChatRoom("test", "test", [user1, user2], []);
         
         // Act
         var result = chatRoom.AddParticipant(user1);
@@ -46,9 +46,9 @@ public class ChatRoomTests
     public void RemoveParticipant_Should_RemoveParticipantFromTheParticipantsList()
     {
         // Arrange
-        var user1 = new User(Guid.NewGuid(), "Test", "password", []);
+        var user1 = new User("Test", "password", []);
 
-        var chatRoom = new ChatRoom(Guid.NewGuid(), "test", "test", [user1], []);
+        var chatRoom = new ChatRoom("test", "test", [user1], []);
         
         var initialparticipantsCount = chatRoom.Participants.Count;
         
@@ -66,10 +66,10 @@ public class ChatRoomTests
     public void RemoveParticipant_Should_ReturnNotFound_WhenUserIsNotInParticipantsList()
     {
         // Arrange
-        var user1 = new User(Guid.NewGuid(), "Test", "password", []);
-        var user2 = new User(Guid.NewGuid(), "Test 2", "password", [user1]);
+        var user1 = new User("Test", "password", []);
+        var user2 = new User("Test 2", "password", [user1]);
 
-        var chatRoom = new ChatRoom(Guid.NewGuid(), "test", "test", [user2], []);   // I just added user2 in there as a participant
+        var chatRoom = new ChatRoom("test", "test", [user2], []);   // I just added user2 in there as a participant
         
         // Act
         var result = chatRoom.RemoveParticipant(user1);
@@ -83,11 +83,11 @@ public class ChatRoomTests
     public void AddMessage_Should_AddMessageToTheMessagesList()
     {
         // Arrange
-        var user = new User(Guid.NewGuid(), "Test", "password", []);
+        var user = new User("Test", "password", []);
         
         var message = new Message("Test", DateTime.Now, user);
         
-        var chatRoom = new ChatRoom(Guid.NewGuid(), "test", "test", [user], []);
+        var chatRoom = new ChatRoom("test", "test", [user], []);
         
         var initialMessagesCount = chatRoom.Messages.Count;
         
@@ -105,11 +105,11 @@ public class ChatRoomTests
     public void AddMessage_Should_ReturnConflict_WhenMessageIsAlreadyInMessagesList()
     {
         // Arrange
-        var user = new User(Guid.NewGuid(), "Test", "password", []);
+        var user = new User("Test", "password", []);
 
         var message = new Message("Test", DateTime.Now, user);
         
-        var chatRoom = new ChatRoom(Guid.NewGuid(), "test", "test", [user], [message]);
+        var chatRoom = new ChatRoom("test", "test", [user], [message]);
         
         // Act
         var result = chatRoom.AddMessage(message);

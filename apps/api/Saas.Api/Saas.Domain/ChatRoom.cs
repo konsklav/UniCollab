@@ -1,14 +1,15 @@
 using Ardalis.Result;
+using Saas.Domain.Common;
+
 // ReSharper disable ReplaceWithPrimaryConstructorParameter
 
 namespace Saas.Domain;
 
-public class ChatRoom(Guid id, string name, string type, List<User> participants, List<Message> messages)
+public class ChatRoom(string name, string type, List<User> participants, List<Message> messages, Guid? id = null) : Entity(id)
 {
     private readonly List<User> _participants = participants;
     private readonly List<Message> _messages = messages;
     
-    public Guid Id { get; } = id;
     public string Name { get; } = name;
     public string Type { get; } = type;
     public IReadOnlyList<User> Participants => _participants;

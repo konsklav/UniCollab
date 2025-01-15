@@ -1,6 +1,5 @@
 ﻿using Ardalis.Result;
-using Saas.Application.Interfaces;
-using Saas.Domain;
+using Saas.Application.Interfaces.Data;
 
 namespace Saas.Application.UseCases;
 

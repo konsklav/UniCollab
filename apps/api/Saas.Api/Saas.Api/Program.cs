@@ -32,6 +32,16 @@ app.MapGet("/users/{userId:guid}/friends", async (Guid userId, [FromServices] Ge
     return Results.Ok(user.Friends);
 });
 
+app.MapGet("/users/{userId}", async (Guid userId, [FromServices] GetUserUseCase getUser) =>
+{
+    var result = await getUser.Handle(userId);
+    if (!result.IsSuccess)
+        return result.ToMinimalApiResult();
+    
+    var user = result.Value;
+    return Results.Ok(user);
+});
+
 app.Run();
 
 static async Task<IResult> AddFriend(
