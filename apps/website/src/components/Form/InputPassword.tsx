@@ -2,7 +2,7 @@ import { ChangeEvent, useRef, useState } from "react";
 import { generateUniqueId } from "../../utils/uniqueId";
 import { PasswordInputProps } from "./inputs.types";
 
-
+import styles from './inputs.module.css'
 
 export default function InputPassword({value, onChange, placeholder, label, id, isVisible = false}: PasswordInputProps) {
     const [visible, setVisible] = useState(isVisible)
@@ -18,15 +18,15 @@ export default function InputPassword({value, onChange, placeholder, label, id, 
     }
 
     return (
-        <div className="form-input-group">
-            {label !== undefined && <label className="form-label" htmlFor={inputId.current}>{label}</label>}
-            <div className="password-input">
+        <div className={styles["form-input-group"]}>
+            {label !== undefined && <label className={styles["form-label"]} htmlFor={inputId.current}>{label}</label>}
+            <div className={styles["password-input"]}>
                 <input type={inputType}
                         placeholder={placeholder}
                         id={inputId.current} 
                         value={value} 
                         onChange={handleInput}/>
-                <span onClick={toggleVisible} className="password-toggle-visible">
+                <span onClick={toggleVisible} className={styles["password-toggle-visible"]}>
                     <i className={`bi bi-${eyeIcon}`}/>
                 </span>
             </div>

@@ -4,7 +4,7 @@ import { NotificationEventCallback } from "./Notifications.types";
 type UnsubscribeFunction = () => void
 
 type NotificationType = string
-type NotificationListeners = Map<NotificationType, Array<NotificationEventCallback>>
+type NotificationListeners = Record<NotificationType, Array<NotificationEventCallback>>
 type NotificationStore = {
     listeners: NotificationListeners
     publish: (type: NotificationType, payload: any) => void
@@ -12,14 +12,14 @@ type NotificationStore = {
 }
 
 export const useNotificationStore = create<NotificationStore>((set, get) => ({
-    listeners: new Map(),
+    listeners: { },
     publish: (type: NotificationType, payload: any) => {
-        const eventListeners = get().listeners.get(type) || new Map()
+        const eventListeners = get().listeners[type] || new Map()
         eventListeners.forEach(listener => listener.callback({payload}))
     },
     subscribe: (type: NotificationType, callback: NotificationEventCallback) => {
         set(state => {
-            const eventListeners = state.listeners.get(type) || new Map();
+            const eventListeners = state.listeners[type] || new Map();
             return {
                 listeners: {
                     ...state.listeners,
@@ -30,7 +30,7 @@ export const useNotificationStore = create<NotificationStore>((set, get) => ({
         
         return () => {
             set(state => {
-                const eventListeners = state.listeners.get(type)
+                const eventListeners = state.listeners[type] 
                 if (!eventListeners || eventListeners.length === 0)
                     return state
 

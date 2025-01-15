@@ -2,7 +2,7 @@ import { ChangeEvent, useRef } from "react";
 import { InputProps } from "./inputs.types";
 import { generateUniqueId } from "../../utils/uniqueId";
 
-import './inputs.css'
+import styles from './inputs.module.css'
 
 export default function InputText({value, onChange, placeholder, label, id}: InputProps<string>) {
     const inputId = useRef(id ?? generateUniqueId())
@@ -12,8 +12,8 @@ export default function InputText({value, onChange, placeholder, label, id}: Inp
     }
 
     return (
-        <div className="form-input-group">
-            {label !== undefined && <label className="form-label" htmlFor={inputId.current}>{label}</label>}
+        <div className={styles["form-input-group"]}>
+            {label !== undefined && <label className={styles["form-label"]} htmlFor={inputId.current}>{label}</label>}
             <input  type="text" 
                     placeholder={placeholder}
                     id={inputId.current} 
