@@ -1,10 +1,9 @@
 import { NavLink } from "react-router-dom";
 import RegisterForm from "../../features/Users/Register/RegisterForm";
-import { UserCredentials } from "../../features/Users/Users.types";
 
 export default function RegisterPage() {
 
-    const handleRegister = (registerData: UserCredentials) => {
+    const handleRegister = () => {
         
     }
 
