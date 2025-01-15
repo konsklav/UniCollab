@@ -1,6 +1,6 @@
 ﻿using Saas.Domain;
 
-namespace Saas.Application.Interfaces;
+namespace Saas.Application.Interfaces.Data;
 
 public interface IUserRepository : IUnitOfWork
 {
