@@ -3,13 +3,22 @@ using Ardalis.Result;
 
 namespace Saas.Domain;
 
-public class User(Guid id, string username, string password, List<User> friends)
+public class User
 {
-    private readonly List<User> _friends = friends;
-    
-    public Guid Id { get; } = id;
-    public string Username { get; } = username;
-    public string Password { get; } = password;
+    private readonly List<User> _friends;
+
+    private User() {}
+    public User(Guid id, string username, string password, List<User> friends)
+    {
+        _friends = friends;
+        Id = id;
+        Username = username;
+        Password = password;
+    }
+
+    public Guid Id { get; private set; }
+    public string Username { get; private set; }
+    public string Password { get; private set; }
 
     public IReadOnlyList<User> Friends => _friends;
 
