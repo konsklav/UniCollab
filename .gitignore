@@ -1,2 +1,3 @@
 apps/api/Saas.Api/.idea/.idea.Saas.Api/Docker/compose.generated.override.yml
+.DS_Store
 apps/api/Saas.Api/script.sql
