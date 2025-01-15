@@ -10,8 +10,8 @@
       - database
 
   database:
+    container_name: unicollab-db
     image: mcr.microsoft.com/mssql/server:2019-latest
-    container_name: saas-db
     ports:
       - "5433:1433"
     environment:
