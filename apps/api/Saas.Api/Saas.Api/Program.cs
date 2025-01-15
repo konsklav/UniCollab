@@ -2,8 +2,11 @@ using Ardalis.Result.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using Saas.Api.Configuration;
 using Saas.Application;
+using Saas.Application.Common.Notifications;
+using Saas.Application.Interfaces;
 using Saas.Application.UseCases;
 using Saas.Infrastructure;
+using Saas.Websockets;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,6 +15,7 @@ builder.Services.AddOpenApi();
 
 builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
+builder.Services.AddRealtimeCapabilities();
 
 var app = builder.Build();
 
@@ -42,6 +46,7 @@ app.MapGet("/users/{userId}", async (Guid userId, [FromServices] GetUserUseCase 
     return Results.Ok(user);
 });
 
+app.MapHubs();
 app.Run();
 
 static async Task<IResult> AddFriend(

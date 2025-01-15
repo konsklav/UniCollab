@@ -1,9 +1,8 @@
 ﻿using Saas.Application.Interfaces;
-using Saas.Application.Interfaces.Data;
 using Saas.Application.UseCases;
 using Saas.Domain;
 
-namespace Saas.Application.Events;
+namespace Saas.Application.Common.Events;
 
 internal sealed class ChatMessageSentEventHandler
 {

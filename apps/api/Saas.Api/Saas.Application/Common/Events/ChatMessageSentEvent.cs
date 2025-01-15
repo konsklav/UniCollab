@@ -1,4 +1,4 @@
-﻿namespace Saas.Application.Events;
+﻿namespace Saas.Application.Common.Events;
 
 public sealed record ChatMessageSentEvent(
     Guid UserId,

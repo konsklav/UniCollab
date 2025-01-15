@@ -1,11 +1,11 @@
 ﻿using Microsoft.AspNetCore.SignalR;
-using Saas.Websockets.Models.Notifications;
+using Saas.Application.Common.Notifications;
 
 namespace Saas.Websockets.Hubs;
 
 internal sealed class NotificationHub : Hub<INotificationClient>;
 
-internal interface INotificationClient
+public interface INotificationClient
 {
     Task GetNotification(NotificationDto notification);
 }

@@ -17,7 +17,10 @@ public static class CorsConfiguration
                 name: PolicyName,
                 policy =>
                 {
-                    policy.WithOrigins(allowedOrigins);
+                    policy.WithOrigins(allowedOrigins)
+                        .AllowAnyHeader()
+                        .AllowCredentials()
+                        .AllowAnyMethod();
                 });
         });
     }

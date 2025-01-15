@@ -1,13 +1,12 @@
-﻿using System.Text.RegularExpressions;
-using Microsoft.AspNetCore.SignalR;
-using Saas.Application.Events;
+﻿using Microsoft.AspNetCore.SignalR;
+using Saas.Application.Common.Events;
+using Saas.Application.Common.Notifications;
 using Saas.Application.Interfaces;
-using Saas.Domain;
-using Saas.Websockets.Models.Notifications;
+using Saas.Websockets.Contracts;
 
 namespace Saas.Websockets.Hubs;
 
-internal interface IChatClient
+public interface IChatClient
 {
     Task ReceiveMessage(string username, string message);
 }

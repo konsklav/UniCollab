@@ -1,3 +1,3 @@
-﻿namespace Saas.Websockets.Models.Notifications;
+﻿namespace Saas.Application.Common.Notifications;
 
 public sealed record NotificationDto(string Type, string Message);

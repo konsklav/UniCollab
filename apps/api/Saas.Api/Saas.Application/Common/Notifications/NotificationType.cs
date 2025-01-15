@@ -1,4 +1,4 @@
-﻿namespace Saas.Websockets.Models.Notifications;
+﻿namespace Saas.Application.Common.Notifications;
 
 public enum NotificationType
 {
