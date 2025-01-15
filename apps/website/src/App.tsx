@@ -10,12 +10,10 @@ import GuestLayout from "./layout/GuestLayout";
 import RegisterPage from "./pages/Users/RegisterPage";
 import PostsPage from "./pages/PostsPage";
 import PostPage from "./pages/PostPage";
-import { NotificationProvider } from "./notifications/NotificationProvider";
 import { ToastContainer } from "./components/Toasts/ToastContainer";
 
 export default function App() {
   return (
-    <NotificationProvider>
     <AuthenticationProvider>
     <BrowserRouter>
       <Routes>
@@ -37,6 +35,5 @@ export default function App() {
 
     <ToastContainer/>
     </AuthenticationProvider>
-    </NotificationProvider>
   )
 }

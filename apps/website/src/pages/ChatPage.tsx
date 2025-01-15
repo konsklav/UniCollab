@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react"
-import { useNotifications } from "../notifications/NotificationProvider"
 import { ToastType } from "../components/Toasts/Toast.types"
+import { useNotificationStore } from "../notifications/notificationStore"
 
 export default function ChatPage() {
     const [count, setCount] = useState(0)
-    const {publish} = useNotifications()
+    const { publish } = useNotificationStore()
 
     useEffect(() => {
         const toast: ToastType = {content: <Cool count={count}/>}

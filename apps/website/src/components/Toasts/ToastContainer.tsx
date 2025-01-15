@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react"
 import { ToastType } from "./Toast.types"
-import { useNotifications } from "../../notifications/NotificationProvider"
 
 import './toasts.css'
 import Toast from "./Toast"
+import { useNotificationStore } from "../../notifications/notificationStore"
 
 interface ToastInternal {
     toast: ToastType
@@ -15,7 +15,7 @@ const toastDuration = 5000
 
 export function ToastContainer() {
     const [toasts, setToasts] = useState<readonly ToastInternal[]>([])
-    const {subscribe} = useNotifications()
+    const { subscribe } = useNotificationStore()
 
     useEffect(() => {
         const unsubscribe = subscribe('toast', {
