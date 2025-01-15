@@ -2,12 +2,12 @@
 - Γιώργος Νικολαΐδης (**p21115**)
 - Κωνσταντίνος Σκλαβενίτης (**p21151**)
  
-# Requirements
+## Requirements
 - [Docker](https://www.docker.com/products/docker-desktop/)
 - [.NET 9 SDK](https://dotnet.microsoft.com/en-us/download/dotnet/9.0)
 - [Node.js](https://nodejs.org/en)
 
-# Setup
+## Setup
 ### 1. Running the Web API
 Τα modules του back-end (Web API, Database, WebSockets) είναι ρυθμισμένα να τρέχουν ως containers. Το **compose.yaml** που βρίσκεται στο api/Saas.Api folder φροντίζει να τρέχουν όλα τα containers μαζί.  
 ``` bash
