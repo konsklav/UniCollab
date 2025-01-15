@@ -1,7 +1,8 @@
+using Saas.Domain.Common;
+
 namespace Saas.Domain;
 
-public class Subject(Guid id, string name)
+public class Subject(string name, Guid? id = null) : Entity(id)
 {
-    private Guid Id { get; } = id;
     private string Name { get; } = name;
 }

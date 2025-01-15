@@ -1,22 +1,22 @@
 using Ardalis.Result;
+using Saas.Domain.Common;
+
 // ReSharper disable ReplaceWithPrimaryConstructorParameter
 
 namespace Saas.Domain;
 
-public class User
+public class User : Entity
 {
     private readonly List<User> _friends;
 
     private User() {}
-    public User(Guid id, string username, string password, List<User> friends)
+    public User(string username, string password, List<User> friends, Guid? id = null) : base(id)
     {
         _friends = friends;
-        Id = id;
         Username = username;
         Password = password;
     }
 
-    public Guid Id { get; private set; }
     public string Username { get; private set; }
     public string Password { get; private set; }
 

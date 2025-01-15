@@ -9,8 +9,8 @@ public class UserTests
     public void AddFriend_Should_AddUserToFriendList()
     {
         // Arrange
-        var user1 = new User(Guid.NewGuid(), "Test", "password", []);
-        var user2 = new User(Guid.NewGuid(), "Test 2", "password", []);
+        var user1 = new User("Test", "password", []);
+        var user2 = new User("Test 2", "password", []);
 
         var initialFriendCount = user1.Friends.Count;
 
@@ -28,8 +28,8 @@ public class UserTests
     public void RemoveFriend_Should_RemoveUserFromFriendList()
     {
         // Arrange
-        var user2 = new User(Guid.NewGuid(), "Test 2", "password", []);
-        var user1 = new User(Guid.NewGuid(), "Test", "password", [user2]);
+        var user2 = new User("Test 2", "password", []);
+        var user1 = new User("Test", "password", [user2]);
 
         // Act
         var result = user1.RemoveFriend(user2);
@@ -43,8 +43,8 @@ public class UserTests
     public void RemoveFriend_ShouldReturnNotFound_WhenUserIsNotInFriendList()
     {
         // Arrange
-        var user1 = new User(Guid.NewGuid(), "Test", "password", []);
-        var user2 = new User(Guid.NewGuid(), "Test 2", "password", []);
+        var user1 = new User("Test", "password", []);
+        var user2 = new User("Test 2", "password", []);
 
         // Act
         var result = user1.RemoveFriend(user2);
@@ -58,7 +58,7 @@ public class UserTests
     public void AddFriend_ShouldReturnInvalid_WhenUserAddsThemselves()
     {
         // Arrange
-        var user = new User(Guid.NewGuid(), "Test", "", []);
+        var user = new User("Test", "", []);
 
         // Act
         var result = user.AddFriend(user);
@@ -72,8 +72,8 @@ public class UserTests
     public void AddFriend_ShouldReturnConflict_WhenUserIsAlreadyAFriend()
     {
         // Arrange
-        var user2 = new User(Guid.NewGuid(), "Test 2", "password", []);
-        var user1 = new User(Guid.NewGuid(), "Test", "password", [user2]);
+        var user2 = new User("Test 2", "password", []);
+        var user1 = new User("Test", "password", [user2]);
 
         // Act
         var result = user1.AddFriend(user2);
@@ -87,9 +87,9 @@ public class UserTests
     public void JoinGroup_Should_SuccessfullyAddUserToGroup()
     {
         // Arrange
-        var user1 = new User(Guid.NewGuid(), "Test", "password", []);
-        var user2 = new User(Guid.NewGuid(), "Test 2", "password", []);
-        var group = new Group(Guid.NewGuid(), "Test", [user1], user1);
+        var user1 = new User("Test", "password", []);
+        var user2 = new User("Test 2", "password", []);
+        var group = new Group("Test", [user1], user1);
         
         // Act
         var result = user2.JoinGroup(group);
@@ -102,9 +102,9 @@ public class UserTests
     public void LeaveGroup_Should_SuccessfullyRemoveUserFromGroup()
     {
         // Arrange
-        var user1 = new User(Guid.NewGuid(), "Test", "password", []);
-        var user2 = new User(Guid.NewGuid(), "Test 2", "password", []);
-        var group = new Group(Guid.NewGuid(), "Test", [user1, user2], user1);
+        var user1 = new User("Test", "password", []);
+        var user2 = new User("Test 2", "password", []);
+        var group = new Group("Test", [user1, user2], user1);
         
         // Act
         var result = user2.LeaveGroup(group);

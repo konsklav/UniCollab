@@ -1,8 +1,9 @@
+using Saas.Domain.Common;
+
 namespace Saas.Domain;
 
-public class Post(Guid id, string title, string content, List<Subject> subjects, User author)
+public class Post(string title, string content, List<Subject> subjects, User author, Guid? id = null) : Entity(id)
 {
-    public Guid Id { get; } = id;
     public string Title { get; } = title;
     public string Content { get; } = content;
     public List<Subject> Subjects { get; } = subjects;
