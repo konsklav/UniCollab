@@ -15,7 +15,7 @@ const toastDuration = 5000
 
 export function ToastContainer() {
     const [toasts, setToasts] = useState<readonly ToastInternal[]>([])
-    const { subscribe } = useNotificationStore()
+    const subscribe = useNotificationStore(state => state.subscribe)
 
     useEffect(() => {
         const unsubscribe = subscribe('toast', {
