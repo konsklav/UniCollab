@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using Microsoft.Extensions.Logging;
 using Saas.Application.Interfaces;
 using Saas.Infrastructure.Repositories;
 
@@ -16,6 +17,7 @@ public static class DependencyInjection
         services.AddDbContext<UniCollabContext>(options =>
         {
             options.UseSqlServer(configuration.GetConnectionString("Database"));
+            options.LogTo(Console.WriteLine, LogLevel.Information);
         });
     }
 }
