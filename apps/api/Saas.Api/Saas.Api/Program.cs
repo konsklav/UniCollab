@@ -21,8 +21,8 @@ app.UseConfiguredCors();
 app.MapGet("/test", () => $"Testing! The time is {DateTime.UtcNow}");
 app.MapGet("/number", () => Random.Shared.Next(100));
 
-app.MapGet("/user/{userId}/friends/add/{friendId}", AddFriend);
-app.MapGet("/user/{userId:guid}/friends", async (Guid userId, [FromServices] GetUserUseCase getUser) =>
+app.MapGet("/users/{userId}/friends/add/{friendId}", AddFriend);
+app.MapGet("/users/{userId:guid}/friends", async (Guid userId, [FromServices] GetUserUseCase getUser) =>
 {
     var result = await getUser.Handle(userId);
     if (!result.IsSuccess)
