@@ -11,6 +11,7 @@ import RegisterPage from "./pages/Users/RegisterPage";
 import PostsPage from "./pages/PostsPage";
 import PostPage from "./pages/PostPage";
 import { ToastContainer } from "./components/Toasts/ToastContainer";
+import NotificationsManager from "./components/Notifications/NotificationsManager";
 
 export default function App() {
   return (
@@ -32,7 +33,8 @@ export default function App() {
         </Route>
       </Routes>
     </BrowserRouter>
-
+    
+    <NotificationsManager/>
     <ToastContainer/>
     </AuthenticationProvider>
   )

@@ -1,4 +1,4 @@
-import { HubConnection, HubConnectionBuilder } from "@microsoft/signalr";
+import { HubConnection, HubConnectionBuilder, HubConnectionState } from "@microsoft/signalr";
 import { commonUrls } from "../common/common.urls";
 
 export default class SignalRService {
@@ -20,13 +20,13 @@ export default class SignalRService {
     }
 
     private async startConnectionCore(timeout: number) {
-        try {
-            await this.connection.start()
-            console.log(`Connected to hub: ${this.connection.baseUrl}`)
-        } catch (err) {
-            console.error('SignalR error: ', err)
-            setTimeout(() => this.startConnectionCore(timeout * 2), timeout)
+        if (this.connection.state === HubConnectionState.Connected || 
+            this.connection.state === HubConnectionState.Connecting) {
+            return;
         }
+
+        await this.connection.start()
+        console.log(`Connected to hub: ${this.connection.baseUrl}`)
     }
 
     on(methodName: string, callback: (...args: any[]) => void) {

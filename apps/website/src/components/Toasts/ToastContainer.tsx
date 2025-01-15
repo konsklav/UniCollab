@@ -4,8 +4,10 @@ import { ToastType } from "./Toast.types"
 import './toasts.css'
 import Toast from "./Toast"
 import { useNotificationStore } from "../../notifications/notificationStore"
+import { generateUniqueId } from "../../utils/uniqueId"
 
 interface ToastInternal {
+    id: string
     toast: ToastType
     timeShown: number
 }
@@ -26,10 +28,10 @@ export function ToastContainer() {
     }, [])
 
     const handleShowToast = (toast: ToastType) => {
-        const time = new Date().getTime()
         const toastInternal: ToastInternal = {
+            id: generateUniqueId(),
             toast: toast,
-            timeShown: time 
+            timeShown: new Date().getTime() 
         } 
 
         setTimeout(() => handleRemoveToast(toastInternal), toastDuration)
@@ -43,7 +45,7 @@ export function ToastContainer() {
 
     return (
         <div className="my-toast-container">
-            {toasts.map(toast => <Toast key={toast.timeShown}>{toast.toast.content}</Toast>)}
+            {toasts.map(toast => <Toast key={toast.id}>{toast.toast.content}</Toast>)}
         </div>
     )
 }
