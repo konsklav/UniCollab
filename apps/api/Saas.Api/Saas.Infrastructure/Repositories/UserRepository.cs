@@ -1,22 +1,22 @@
-﻿using Saas.Application.Interfaces;
+﻿using Microsoft.EntityFrameworkCore;
+using Saas.Application.Interfaces;
 using Saas.Domain;
 
 namespace Saas.Infrastructure.Repositories;
 
-public class UserRepository : IUserRepository, IUnitOfWork
+internal class UserRepository(UniCollabContext db) : IUserRepository
 {
-    public Task<User?> GetUserByIdAsync(Guid id)
+    public async Task<User?> GetUserByIdAsync(Guid id)
     {
-        throw new NotImplementedException();
+        var user = await db.Users
+            .Include(u => u.Friends)
+            .FirstOrDefaultAsync(u => u.Id == id);
+            
+        return user;
     }
-
-    public Task<List<User>> GetFriendsAsync(Guid userId)
+    
+    public async Task SaveChangesAsync()
     {
-        throw new NotImplementedException();
-    }
-
-    public Task SaveChangesAsync()
-    {
-        throw new NotImplementedException();
+        await db.SaveChangesAsync();
     }
 }
