@@ -1,0 +1,12 @@
+:root {
+    --primary: #004722;
+    --primary-text: #86d1aa;
+}
+
+.bg-prim {
+    background-color: var(--primary);
+}
+
+.text-prim {
+    color: var(--primary-text);
+}

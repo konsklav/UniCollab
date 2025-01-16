@@ -7,7 +7,7 @@ interface LogoProps {
 export default function Logo({color}: LogoProps) {
 
     const getColorClass = () => {
-        if (color === 'light') return 'text-light'
+        if (color === 'light') return 'text-prim'
         if (color === 'dark') return 'text-dark'
     }
 

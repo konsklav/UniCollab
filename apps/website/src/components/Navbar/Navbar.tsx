@@ -4,11 +4,13 @@ import './Navbar.module.css'
 import Logo from "../Text/Logo";
 import { useAuth } from "../Authentication/AuthenticationProvider";
 
+import '../../common/common.styles.css'
+
 export default function Navbar() {
     const auth = useAuth()
 
     return (
-        <div className="bg-secondary flex-grow-1">
+        <div className="bg-prim flex-grow-1 d-flex flex-column">
             <Logo color="light"/>
             <nav className="flex-grow-1">
                 <ul className="p-0">
@@ -18,7 +20,7 @@ export default function Navbar() {
                     <NavItem to={'/posts'}>My Posts</NavItem>
                 </ul>
             </nav>
-            <div className="text-center">
+            <div className="text-center mb-3">
                 <button type="button" className="btn btn-danger" onClick={auth.logout}>Sign Out</button>
             </div>
         </div>
