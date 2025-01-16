@@ -22,10 +22,7 @@ var app = builder.Build();
 app.MapOpenApi();
 app.UseConfiguredCors();
 
-app.MapGet("/test", () => $"Testing! The time is {DateTime.UtcNow}");
-app.MapGet("/number", () => Random.Shared.Next(100));
-
-app.MapGet("/users/{userId}/friends/add/{friendId}", AddFriend);
+app.MapPut("/users/{userId:guid}/friends/{friendId:guid}", AddFriend);
 app.MapGet("/users/{userId:guid}/friends", async (Guid userId, [FromServices] GetUserUseCase getUser) =>
 {
     var result = await getUser.Handle(userId);
@@ -36,7 +33,7 @@ app.MapGet("/users/{userId:guid}/friends", async (Guid userId, [FromServices] Ge
     return Results.Ok(user.Friends);
 });
 
-app.MapGet("/users/{userId}", async (Guid userId, [FromServices] GetUserUseCase getUser) =>
+app.MapGet("/users/{userId:guid}", async (Guid userId, [FromServices] GetUserUseCase getUser) =>
 {
     var result = await getUser.Handle(userId);
     if (!result.IsSuccess)
@@ -46,7 +43,7 @@ app.MapGet("/users/{userId}", async (Guid userId, [FromServices] GetUserUseCase 
     return Results.Ok(user);
 });
 
-app.MapGet("/users/{userId}/friends/remove/{friendId}", RemoveFriend);
+app.MapDelete("/users/{userId:guid}/friends/{friendId:guid}", RemoveFriend);
 
 app.MapHubs();
 app.Run();
