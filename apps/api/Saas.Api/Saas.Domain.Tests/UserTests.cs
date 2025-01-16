@@ -96,6 +96,8 @@ public class UserTests
         var result = user2.JoinGroup(group);
         
         // Assert
+        group.Members.Should().Contain(user2);
+        
         result.IsSuccess.Should().BeTrue();
     }
 
@@ -111,6 +113,8 @@ public class UserTests
         var result = user2.LeaveGroup(group);
         
         // Assert
+        group.Members.Should().NotContain(user2);
+        
         result.IsSuccess.Should().BeTrue();
     }
 }
