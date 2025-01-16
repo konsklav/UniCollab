@@ -23,6 +23,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Saas.Domain\Saas.Domain.csproj" />
+      <ProjectReference Include="..\Saas.Tests.Fakes\Saas.Tests.Fakes.csproj" />
     </ItemGroup>
 
 </Project>

@@ -1,5 +1,6 @@
 using Ardalis.Result;
 using FluentAssertions;
+using Saas.Tests.Fakes;
 
 namespace Saas.Domain.Tests;
 
@@ -9,10 +10,10 @@ public class ChatRoomTests
     public void AddParticipant_Should_AddUserToTheParticipantsList()
     {
         // Arrange
-        var user1 = new User("Test", "password", []);
-        var user2 = new User("Test 2", "password", [user1]);
+        var user1 = FakeUsers.Generate();
+        var user2 = FakeUsers.Generate();
 
-        var chatRoom = new ChatRoom("test", "test", [user2], []);   // I just added user2 in there as a participant
+        var chatRoom = new ChatRoom("test", "test", [user2], []);   
         var initialparticipantsCount = chatRoom.Participants.Count;
         
         // Act
@@ -29,8 +30,8 @@ public class ChatRoomTests
     public void AddParticipant_Should_ReturnConflict_WhenUserIsAlreadyAParticipant()
     {
         // Arrange
-        var user1 = new User("Test", "password", []);
-        var user2 = new User("Test 2", "password", [user1]);
+        var user1 = FakeUsers.Generate();
+        var user2 = FakeUsers.Generate();
 
         var chatRoom = new ChatRoom("test", "test", [user1, user2], []);
         
@@ -46,7 +47,7 @@ public class ChatRoomTests
     public void RemoveParticipant_Should_RemoveParticipantFromTheParticipantsList()
     {
         // Arrange
-        var user1 = new User("Test", "password", []);
+        var user1 = FakeUsers.Generate();
 
         var chatRoom = new ChatRoom("test", "test", [user1], []);
         
@@ -66,8 +67,8 @@ public class ChatRoomTests
     public void RemoveParticipant_Should_ReturnNotFound_WhenUserIsNotInParticipantsList()
     {
         // Arrange
-        var user1 = new User("Test", "password", []);
-        var user2 = new User("Test 2", "password", [user1]);
+        var user1 = FakeUsers.Generate();
+        var user2 = FakeUsers.Generate(friends: [user1]);
 
         var chatRoom = new ChatRoom("test", "test", [user2], []);   // I just added user2 in there as a participant
         
@@ -83,7 +84,7 @@ public class ChatRoomTests
     public void AddMessage_Should_AddMessageToTheMessagesList()
     {
         // Arrange
-        var user = new User("Test", "password", []);
+        var user = FakeUsers.Generate();
         
         var message = new Message("Test", DateTime.Now, user);
         
@@ -105,7 +106,7 @@ public class ChatRoomTests
     public void AddMessage_Should_ReturnConflict_WhenMessageIsAlreadyInMessagesList()
     {
         // Arrange
-        var user = new User("Test", "password", []);
+        var user = FakeUsers.Generate();
 
         var message = new Message("Test", DateTime.Now, user);
         

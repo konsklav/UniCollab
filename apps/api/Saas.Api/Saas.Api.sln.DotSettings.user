@@ -23,5 +23,8 @@
     &lt;ProjectFile&gt;A2E2BAE2-615D-488C-BAAD-1CFC152370D9/f:UserTests.cs&lt;/ProjectFile&gt;
   &lt;/Or&gt;
 &lt;/SessionState&gt;</s:String>
+	<s:String x:Key="/Default/Environment/UnitTesting/UnitTestSessionStore/Sessions/=ceb61837_002D119c_002D41c7_002Dbcb3_002D538a08ebe36b/@EntryIndexedValue">&lt;SessionState ContinuousTestingMode="0" IsActive="True" Name="All tests from &amp;lt;Saas.Domain.Tests&amp;gt;" xmlns="urn:schemas-jetbrains-com:jetbrains-ut-session"&gt;&#xD;
+  &lt;Project Location="C:\Users\cptgi\Desktop\SaaS\apps\api\Saas.Api\Saas.Domain.Tests" Presentation="&amp;lt;Saas.Domain.Tests&amp;gt;" /&gt;&#xD;
+&lt;/SessionState&gt;</s:String>
 	
 	</wpf:ResourceDictionary>
