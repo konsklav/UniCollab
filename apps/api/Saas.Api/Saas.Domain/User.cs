@@ -8,12 +8,14 @@ namespace Saas.Domain;
 public class User : Entity
 {
     private readonly List<User> _friends;
+    private readonly List<Post> _posts;
 
     private User() {} // It's never used but it's mandatory for EF-Core!
     
-    public User(string username, string password, List<User> friends, Guid? id = null) : base(id)
+    public User(string username, string password, List<User> friends, List<Post> posts, Guid? id = null) : base(id)
     {
         _friends = friends;
+        _posts = posts;
         Username = username;
         Password = password;
     }
@@ -22,6 +24,8 @@ public class User : Entity
     public string Password { get; private set; }
 
     public IReadOnlyList<User> Friends => _friends;
+
+    public IReadOnlyList<Post> Posts => _posts;
 
     public Result AddFriend(User user)
     {
@@ -43,8 +47,7 @@ public class User : Entity
         _friends.Remove(user);
         return Result.Success();
     }
-
-    // !!! From here on I'm not sure about the implementation. Let's discuss them next time. !!!
+    
     public Result JoinGroup(Group group)
     {
         var result = group.AddMember(this);
@@ -55,5 +58,30 @@ public class User : Entity
     {
         var result = group.RemoveMember(this);
         return result;
+    }
+
+    public Result JoinChat(ChatRoom chatRoom)
+    {
+        var result = chatRoom.AddParticipant(this);
+        return result;
+    }
+
+    public Result SendMessage(ChatRoom chatRoom,Message message)
+    {
+        var result = chatRoom.AddMessage(message);
+        return result;
+    }
+    
+    public Result LeaveChat(ChatRoom chatRoom)
+    {
+        var result = chatRoom.RemoveParticipant(this);
+        return result;
+    }
+
+    public Result CreatePost(string title, string content, List<Subject> subjects)
+    {
+        var post = new Post(title, content, subjects, this);
+        _posts.Add(post);
+        return Result.Success();
     }
 }
