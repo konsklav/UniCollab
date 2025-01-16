@@ -1,5 +1,4 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using Saas.Application.Interfaces;
 using Saas.Application.Interfaces.Data;
 using Saas.Domain;
 

@@ -9,7 +9,8 @@ public class User : Entity
 {
     private readonly List<User> _friends;
 
-    private User() {}
+    private User() {} // It's never used but it's mandatory for EF-Core!
+    
     public User(string username, string password, List<User> friends, Guid? id = null) : base(id)
     {
         _friends = friends;
