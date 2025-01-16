@@ -46,14 +46,25 @@ app.MapGet("/users/{userId}", async (Guid userId, [FromServices] GetUserUseCase 
     return Results.Ok(user);
 });
 
+app.MapGet("/users/{userId}/friends/remove/{friendId}", RemoveFriend);
+
 app.MapHubs();
 app.Run();
 
 static async Task<IResult> AddFriend(
-    Guid userId, 
+    Guid userId,
     Guid friendId,
     [FromServices] AddFriendUseCase useCase)
 { 
+    var result = await useCase.Handle(userId, friendId);
+    return result.ToMinimalApiResult();
+}
+
+static async Task<IResult> RemoveFriend(
+    Guid userId,
+    Guid friendId,
+    [FromServices] RemoveFriendUseCase useCase)
+{
     var result = await useCase.Handle(userId, friendId);
     return result.ToMinimalApiResult();
 }

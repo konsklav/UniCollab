@@ -9,5 +9,6 @@ public static class DependencyInjection
     {
         services.AddScoped<AddFriendUseCase>();
         services.AddScoped<GetUserUseCase>();
+        services.AddScoped<RemoveFriendUseCase>();  // Αυτό χρειάζεται να μπει εδώ ή όχι και γιατί;
     }
 }
