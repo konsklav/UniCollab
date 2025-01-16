@@ -10,7 +10,7 @@ export default function PostList({posts}: PostListProps) {
         <div className="row">
             {posts.map(post => (
                 <div className="col">
-                    <PostPreview {...post}/>
+                    <PostPreview key={post.slug} {...post}/>
                 </div>
             ))}
         </div>
