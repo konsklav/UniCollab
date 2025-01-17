@@ -1,3 +1,4 @@
+using Ardalis.Result;
 using Ardalis.Result.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
 using Saas.Api.Configuration;
@@ -7,13 +8,14 @@ using Saas.Application.Interfaces;
 using Saas.Application.UseCases;
 using Saas.Infrastructure;
 using Saas.Websockets;
+using IResult = Microsoft.AspNetCore.Http.IResult;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.ConfigureCors(builder.Configuration);
 builder.Services.AddOpenApi();
 
-builder.Services.AddInfrastructure(builder.Configuration);
+await builder.Services.AddInfrastructure(builder.Configuration);
 builder.Services.AddApplication();
 builder.Services.AddRealtimeCapabilities();
 
@@ -33,6 +35,15 @@ app.MapGet("/users/{userId:guid}/friends", async (Guid userId, [FromServices] Ge
     return Results.Ok(user.Friends);
 });
 
+app.MapGet("/users", async ([FromServices] GetAllUsersUseCase getAllUsers) =>
+{
+    var result = await getAllUsers.Handle();
+    if (!result.IsSuccess)
+        return result.ToMinimalApiResult();
+
+    var users = result.Value;
+    return Results.Ok(users);
+});
 app.MapGet("/users/{userId:guid}", async (Guid userId, [FromServices] GetUserUseCase getUser) =>
 {
     var result = await getUser.Handle(userId);
