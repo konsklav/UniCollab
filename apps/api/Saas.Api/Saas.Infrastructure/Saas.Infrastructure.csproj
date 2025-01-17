@@ -8,6 +8,7 @@
 
     <ItemGroup>
       <ProjectReference Include="..\Saas.Application\Saas.Application.csproj" />
+      <ProjectReference Include="..\Saas.Tests.Fakes\Saas.Tests.Fakes.csproj" />
     </ItemGroup>
 
     <ItemGroup>
