@@ -7,8 +7,8 @@ public class RemoveFriendUseCase(IUserRepository userRepository)
 {
     public async Task<Result> Handle(Guid userId, Guid friendToAddId)
     {
-        var user = await userRepository.GetUserByIdAsync(userId);
-        var friendToRemove = await userRepository.GetUserByIdAsync(friendToAddId);
+        var user = await userRepository.GetByIdAsync(userId);
+        var friendToRemove = await userRepository.GetByIdAsync(friendToAddId);
 
         if (user is null || friendToRemove is null)
             return Result.NotFound();

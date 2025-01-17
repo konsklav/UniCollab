@@ -7,8 +7,8 @@ public class AddFriendUseCase(IUserRepository userRepository)
 {
     public async Task<Result> Handle(Guid userId, Guid friendToAddId)
     {
-        var user = await userRepository.GetUserByIdAsync(userId);
-        var friendToAdd = await userRepository.GetUserByIdAsync(friendToAddId);
+        var user = await userRepository.GetByIdAsync(userId);
+        var friendToAdd = await userRepository.GetByIdAsync(friendToAddId);
 
         if (user is null || friendToAdd is null)
             return Result.NotFound();
