@@ -71,6 +71,12 @@ public class User : Entity
         var result = chatRoom.AddMessage(message);
         return result;
     }
+
+    public Result DeleteMessage(ChatRoom chatRoom, Message message)
+    {
+        var result = chatRoom.DeleteMessage(message);
+        return result;
+    }
     
     public Result LeaveChat(ChatRoom chatRoom)
     {

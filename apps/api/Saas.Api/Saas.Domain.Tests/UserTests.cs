@@ -90,6 +90,7 @@ public class UserTests
         // Arrange
         var user1 = FakeUsers.Generate();
         var user2 = FakeUsers.Generate();
+        
         var group = new Group("Test", [user1], user1);
         
         // Act
@@ -107,6 +108,7 @@ public class UserTests
         // Arrange
         var user1 = FakeUsers.Generate();
         var user2 = FakeUsers.Generate();
+        
         var group = new Group("Test", [user1, user2], user1);
         
         // Act
@@ -124,6 +126,7 @@ public class UserTests
         // Arrange
         var user1 = FakeUsers.Generate();
         var user2 = FakeUsers.Generate();
+        
         var chatroom = new ChatRoom("test", "test", [user1], []);
         
         // Act
@@ -138,7 +141,35 @@ public class UserTests
     [Fact]
     public void SendMessage_Should_SuccessfullyAddMessageToChat()
     {
-        // To be implemented tomorrow!
+        // Arrange
+        var user = FakeUsers.Generate();
+        var message = new Message("Test", DateTime.Now, user);
+        var chatroom = new ChatRoom("test", "test", [user], []);
+        
+        // Act
+        var result = user.SendMessage(chatroom, message);
+        
+        // Assert
+        chatroom.Messages.Should().Contain(message);
+        
+        result.IsSuccess.Should().BeTrue();
+    }
+
+    [Fact]
+    public void DeleteMessage_Should_SuccessfullyRemoveMessageFromChat()
+    {
+        // Arrange 
+        var user = FakeUsers.Generate();
+        var message = new Message("Test", DateTime.Now, user);
+        var chatroom = new ChatRoom("test", "test", [user], [message]);
+        
+        // Act
+        var result = user.DeleteMessage(chatroom, message);
+        
+        // Assert
+        chatroom.Messages.Should().NotContain(message);
+        
+        result.IsSuccess.Should().BeTrue();
     }
     
     [Fact]
@@ -155,5 +186,31 @@ public class UserTests
         chatroom.Participants.Should().NotContain(user);
         
         result.IsSuccess.Should().BeTrue();
+    }
+
+    [Fact]
+    public void CreatePost_Should_SuccessfullyCreatePost()
+    {
+        // Arrange
+        var user = FakeUsers.Generate();
+        
+        // Act
+        var result = user.CreatePost("Test", "Test", []);
+        
+        // Assert
+        result.IsSuccess.Should().BeTrue();
+    }
+
+    [Fact]
+    public void CreateGroup_Should_SuccessfullyCreateGroup()
+    {
+        // Arrange
+        var user = FakeUsers.Generate();
+        
+        // Act
+        var result = user.CreateGroup("test");
+        
+        // Assert
+        // Idk what to do!
     }
 }
