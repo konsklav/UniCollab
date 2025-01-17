@@ -41,4 +41,13 @@ public class ChatRoom(string name, string type, List<User> participants, List<Me
         _messages.Add(message);
         return Result.Success();
     }
+
+    public Result DeleteMessage(Message message)
+    {
+        if (!Messages.Contains(message))
+            return Result.NotFound();
+        
+        _messages.Remove(message);
+        return Result.Success();
+    }
 }
