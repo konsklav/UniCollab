@@ -119,4 +119,44 @@ public class ChatRoomTests
         result.IsSuccess.Should().BeFalse();
         result.IsConflict().Should().BeTrue();
     }
+
+    [Fact]
+    public void DeleteMessage_Should_RemoveMessageFromTheMessagesList()
+    {
+        // Arrange
+        var user = FakeUsers.Generate();
+        
+        var message = new Message("Test", DateTime.Now, user);
+
+        var chatRoom = new ChatRoom("test", "test", [user], [message]);
+        
+        var initialMessagesCount = chatRoom.Messages.Count;
+        
+        // Act
+        var result = chatRoom.DeleteMessage(message);
+
+        // Assert
+        result.IsSuccess.Should().BeTrue();
+        
+        chatRoom.Messages.Should().NotContain(message);
+        chatRoom.Messages.Count.Should().Be(initialMessagesCount - 1);
+    }
+
+    [Fact]
+    public void DeleteMessage_Should_ReturnNotFound_WhenMessageIsNotInTheMessagesList()
+    {
+        // Arrange
+        var user = FakeUsers.Generate();
+
+        var message = new Message("Test", DateTime.Now, user);
+        
+        var chatRoom = new ChatRoom("test", "test", [user], []);
+        
+        // Act
+        var result = chatRoom.DeleteMessage(message);
+
+        // Assert
+        result.IsSuccess.Should().BeFalse();
+        result.IsNotFound().Should().BeTrue();
+    }
 }
