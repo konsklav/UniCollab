@@ -1,6 +1,15 @@
+import axios from "axios";
 import { commonUrls } from "../common/common.urls";
+import { User } from "../common/common.types";
 
-export const uniFetch = (route: string, init?: RequestInit) => {
-    const fixedRoute = route.endsWith('/') ? route : route + '/'
-    return fetch(`${commonUrls.api}${fixedRoute}`, init);
-} 
+const api = axios.create({
+    baseURL: commonUrls.api,
+    headers: {
+        'Content-Type': 'application/json'
+    }
+})
+
+export const getAllUsers = async (): Promise<User[]> => {
+    const response = await api.get('/users')
+    return response.data
+}
