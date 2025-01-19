@@ -4,10 +4,18 @@ using Saas.Application.UseCases;
 
 namespace Saas.Api.Endpoints;
 
+/// <summary>
+/// Actions for retrieving/modifying a specific users friends.
+/// </summary>
 [ApiController]
 [Route("/users/{userId:guid}/friends")]
 public class FriendsController : ControllerBase
 {
+    /// <summary>
+    /// Retrieve all the friends of the user if the user exists.
+    /// </summary>
+    /// <param name="userId">The ID of the user to search.</param>
+    /// <returns></returns>
     [HttpGet]
     public async Task<IResult> GetAll(Guid userId, [FromServices] GetUserUseCase getUser)
     {
@@ -19,6 +27,13 @@ public class FriendsController : ControllerBase
         return Results.Ok(user.Friends);
     }
 
+    /// <summary>
+    /// Adds the user specified with <paramref name="friendId"/> to the friend list of the user specified with
+    /// <paramref name="userId"/>
+    /// </summary>
+    /// <param name="userId">The user who will get the friend</param>
+    /// <param name="friendId">The target</param>
+    /// <returns></returns>
     [HttpPut("{friendId:guid}")]
     public async Task<IResult> AddFriend(Guid userId, Guid friendId, [FromServices] AddFriendUseCase addFriend)
     {
@@ -26,6 +41,13 @@ public class FriendsController : ControllerBase
         return result.ToMinimalApiResult();
     }
 
+    /// <summary>
+    /// Removes the user specified with <paramref name="friendId"/> from the friend list of the user specified with
+    /// <paramref name="userId"/>
+    /// </summary>
+    /// <param name="userId">The user who will lose a friend</param>
+    /// <param name="friendId">The target</param>
+    /// <returns></returns>
     [HttpDelete("{friendId:guid}")]
     public async Task<IResult> RemoveFriend(Guid userId, Guid friendId, [FromServices] RemoveFriendUseCase removeFriend)
     {

@@ -1,3 +1,4 @@
+using System.Reflection;
 using Saas.Api.Configuration;
 using Saas.Application;
 using Saas.Infrastructure;
@@ -7,7 +8,11 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
 builder.Services.ConfigureCors(builder.Configuration);
-builder.Services.AddOpenApi();
+builder.Services.AddSwaggerGen(options =>
+{
+    var xml = $"{Assembly.GetExecutingAssembly().GetName().Name}.xml";
+    options.IncludeXmlComments(Path.Combine(AppContext.BaseDirectory, xml));
+});
 
 builder.Services.AddApplication();
 builder.Services.AddRealtimeCapabilities();
@@ -15,7 +20,7 @@ await builder.Services.AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 
-app.MapOpenApi();
+app.UseSwagger();
 app.UseConfiguredCors();
 
 app.MapControllers();

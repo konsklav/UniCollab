@@ -4,10 +4,17 @@ using Saas.Application.UseCases;
 
 namespace Saas.Api.Endpoints;
 
+/// <summary>
+/// Actions for retrieving/modifying users.
+/// </summary>
 [ApiController]
 [Route("/users")]
 public class UsersController : ControllerBase
 {
+    /// <summary>
+    /// Retrieve all the users in the system.
+    /// </summary>
+    /// <returns>A list of users</returns>
     [HttpGet]
     public async Task<IResult> GetAll([FromServices] GetAllUsersUseCase getAllUsers)
     {
@@ -19,6 +26,10 @@ public class UsersController : ControllerBase
         return Results.Ok(users);
     }
 
+    /// <summary>
+    /// Retrieve a user by their ID, if found.
+    /// </summary>
+    /// <param name="userId">The ID to search.</param>
     [HttpGet("{userId:guid}")]
     public async Task<IResult> Get(Guid userId, [FromServices] GetUserUseCase getUser)
     {
