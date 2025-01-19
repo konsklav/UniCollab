@@ -9,5 +9,8 @@ public static class DependencyInjection
     {
         services.AddScoped<AddFriendUseCase>();
         services.AddScoped<GetUserUseCase>();
+        services.AddScoped<RemoveFriendUseCase>();
+        services.AddScoped<GetChatRoomUseCase>();
+        services.AddScoped<GetAllUsersUseCase>();
     }
 }

@@ -2,10 +2,19 @@ using Saas.Domain.Common;
 
 namespace Saas.Domain;
 
-public class Post(string title, string content, List<Subject> subjects, User author, Guid? id = null) : Entity(id)
+public class Post : Entity
 {
-    public string Title { get; } = title;
-    public string Content { get; } = content;
-    public List<Subject> Subjects { get; } = subjects;
-    public User Author { get; } = author;
+    private Post() {}
+    public Post(string title, string content, List<Subject> subjects, User author, Guid? id = null) : base(id)
+    {
+        Title = title;
+        Content = content;
+        Subjects = subjects;
+        Author = author;
+    }
+
+    public string Title { get; private set; }
+    public string Content { get; private set; }
+    public IReadOnlyList<Subject> Subjects { get; private set; }
+    public User Author { get; private set; }
 }

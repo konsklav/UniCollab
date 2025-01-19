@@ -1,5 +1,6 @@
 using Ardalis.Result;
 using FluentAssertions;
+using Saas.Tests.Fakes;
 
 namespace Saas.Domain.Tests;
 
@@ -9,10 +10,10 @@ public class GroupTests
     public void AddMember_Should_AddUserToMembersList()
     {
         // Arrange
-        var user1 = new User("Test", "password", []);
-        var user2 = new User("Test 2", "password", [user1]);
+        var user1 = FakeUsers.Generate();
+        var user2 = FakeUsers.Generate();
         
-        var group = new Group("test", [user2], user2); // I supposed user2 is already a member since he's the creator (?)
+        var group = new Group("test", [user2], user2); 
 
         var initialMembersCount = group.Members.Count;
         
@@ -30,8 +31,8 @@ public class GroupTests
     public void AddMember_Should_ReturnConflict_WhenUserIsAlreadyAMember()
     {
         // Arrange
-        var user1 = new User("Test", "password", []);
-        var user2 = new User("Test 2", "password", [user1]);
+        var user1 = FakeUsers.Generate();
+        var user2 = FakeUsers.Generate();
         var group = new Group("test", [user1, user2], user2);
         
         // Act
@@ -46,8 +47,8 @@ public class GroupTests
     public void RemoveMember_Should_RemoveUserFromMembersList()
     {
         // Arrange
-        var user1 = new User("Test", "password", []);
-        var user2 = new User("Test 2", "password", [user1]);
+        var user1 = FakeUsers.Generate();
+        var user2 = FakeUsers.Generate();
         
         var group = new Group("test", [user1, user2], user2);
 
@@ -67,8 +68,8 @@ public class GroupTests
     public void RemoveMember_Should_ReturnNotFound_WhenUserIsNotInMembersList()
     {
         // Arrange
-        var user1 = new User("Test", "password", []);
-        var user2 = new User("Test 2", "password", [user1]);
+        var user1 = FakeUsers.Generate();
+        var user2 = FakeUsers.Generate(friends: [user1]);
         var group = new Group("test", [user2], user2);
         
         // Act

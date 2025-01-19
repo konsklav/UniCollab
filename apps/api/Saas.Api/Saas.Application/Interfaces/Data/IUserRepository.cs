@@ -4,5 +4,6 @@ namespace Saas.Application.Interfaces.Data;
 
 public interface IUserRepository : IUnitOfWork
 {
-    Task<User?> GetUserByIdAsync(Guid id);
+    Task<List<User>> GetAllAsync();
+    Task<User?> GetByIdAsync(Guid id);
 }
