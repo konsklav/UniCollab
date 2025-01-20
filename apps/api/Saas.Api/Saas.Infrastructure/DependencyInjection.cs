@@ -27,30 +27,30 @@ public static class DependencyInjection
             options.LogTo(Console.WriteLine, LogLevel.Information);
         });
 
-        await MigrateAndAddFakeData(services);
+        // await MigrateAndAddFakeData(services);
     }
 
-    private static async Task MigrateAndAddFakeData(IServiceCollection services)
-    {
-        // Automatic migration when launching.
-        using var scope = services.BuildServiceProvider().CreateScope();
-        var dbContext = scope.ServiceProvider.GetRequiredService<UniCollabContext>();
-
-        var connected = false;
-        while (!connected)
-        {
-            try
-            {
-                await dbContext.Database.MigrateAsync();
-                connected = true;
-            }
-            catch (SqlException)
-            {
-                await Task.Delay(400);
-            }
-        }
-        
-        dbContext.Users.AddRange(FakeUsers.Generate(5));
-        await dbContext.SaveChangesAsync();
-    }
+    // private static async Task MigrateAndAddFakeData(IServiceCollection services)
+    // {
+    //     // Automatic migration when launching.
+    //     using var scope = services.BuildServiceProvider().CreateScope();
+    //     var dbContext = scope.ServiceProvider.GetRequiredService<UniCollabContext>();
+    //
+    //     var connected = false;
+    //     while (!connected)
+    //     {
+    //         try
+    //         {
+    //             await dbContext.Database.MigrateAsync();
+    //             connected = true;
+    //         }
+    //         catch (SqlException)
+    //         {
+    //             await Task.Delay(400);
+    //         }
+    //     }
+    //     
+    //     dbContext.Users.AddRange(FakeUsers.Generate(5));
+    //     await dbContext.SaveChangesAsync();
+    // }
 }
