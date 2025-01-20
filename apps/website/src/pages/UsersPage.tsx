@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getAllUsers } from "../utils/api";
+import { getAllUsers } from "../services/apiService";
 import { User } from "../common/common.types";
 
 export default function UsersPage() {
