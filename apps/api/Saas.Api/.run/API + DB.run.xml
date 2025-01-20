@@ -3,7 +3,7 @@
     <deployment type="docker-compose.yml">
       <settings>
         <option name="envFilePath" value="" />
-        <option name="sourceFilePath" value="apps/api/Saas.Api/compose.yaml" />
+        <option name="sourceFilePath" value="compose.yaml" />
         <option name="upAbortOnContainerExit" value="true" />
         <option name="upAttachDependencies" value="true" />
         <option name="upDetach" value="false" />
