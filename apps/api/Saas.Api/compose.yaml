@@ -1,15 +1,4 @@
 ﻿services:
-  
-  website:
-    container_name: unicollab-website
-    build:
-      context: ../../website
-      dockerfile: Dockerfile
-    ports:
-      - "3000:80"
-    depends_on:
-      - web-api
-  
   web-api:
     container_name: unicollab-api
     build:
