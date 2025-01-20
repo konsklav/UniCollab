@@ -16,7 +16,7 @@ builder.Services.AddSwaggerGen(options =>
 
 builder.Services.AddApplication();
 builder.Services.AddRealtimeCapabilities();
-await builder.Services.AddInfrastructure(builder.Configuration);
+await builder.Services.AddInfrastructure(builder.Configuration, isDevelopment: builder.Environment.IsDevelopment());
 
 var app = builder.Build();
 

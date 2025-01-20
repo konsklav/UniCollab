@@ -1,11 +1,10 @@
-﻿using Microsoft.Data.SqlClient;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
-using Microsoft.IdentityModel.Protocols.OpenIdConnect;
 using Saas.Application.Interfaces;
 using Saas.Application.Interfaces.Data;
+using Saas.Domain;
 using Saas.Infrastructure.Events;
 using Saas.Infrastructure.Repositories;
 using Saas.Tests.Fakes;
@@ -16,7 +15,8 @@ public static class DependencyInjection
 {
     public static async Task AddInfrastructure(
         this IServiceCollection services,
-        IConfiguration configuration)
+        IConfiguration configuration,
+        bool isDevelopment)
     {
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IEventService, EventService>();
@@ -25,32 +25,46 @@ public static class DependencyInjection
         {
             options.UseSqlServer(configuration.GetConnectionString("Database"));
             options.LogTo(Console.WriteLine, LogLevel.Information);
-        });
+            options.UseSeeding((context, _) =>
+            {
+                if (!isDevelopment)
+                    return;
+                
+                var user = context.Set<User>().FirstOrDefault();
+                if (user is not null)
+                    return;
 
-        // await MigrateAndAddFakeData(services);
+                SeedDatabase(context);
+                context.SaveChanges();
+            });
+            options.UseAsyncSeeding(async (context, _, ct) =>
+            {
+                if (!isDevelopment)
+                    return;
+                
+                var user = await context.Set<User>().FirstOrDefaultAsync(cancellationToken: ct);
+                if (user is not null)
+                    return;
+                
+                SeedDatabase(context);
+                await context.SaveChangesAsync(ct);
+            });
+        });
+        
+        if (!isDevelopment) 
+            return;
+
+        using var scope = services.BuildServiceProvider().CreateScope();
+        var context = scope.ServiceProvider.GetRequiredService<UniCollabContext>();
+
+        await context.Database.EnsureCreatedAsync();
     }
 
-    // private static async Task MigrateAndAddFakeData(IServiceCollection services)
-    // {
-    //     // Automatic migration when launching.
-    //     using var scope = services.BuildServiceProvider().CreateScope();
-    //     var dbContext = scope.ServiceProvider.GetRequiredService<UniCollabContext>();
-    //
-    //     var connected = false;
-    //     while (!connected)
-    //     {
-    //         try
-    //         {
-    //             await dbContext.Database.MigrateAsync();
-    //             connected = true;
-    //         }
-    //         catch (SqlException)
-    //         {
-    //             await Task.Delay(400);
-    //         }
-    //     }
-    //     
-    //     dbContext.Users.AddRange(FakeUsers.Generate(5));
-    //     await dbContext.SaveChangesAsync();
-    // }
+    private static void SeedDatabase(DbContext context)
+    {
+        if (context is not UniCollabContext uniContext)
+            throw new InvalidOperationException("Expected to seed UniCollabContext.");
+        
+        uniContext.Users.AddRange(FakeUsers.Generate(5));
+    }
 }
