@@ -19,12 +19,20 @@ public static class DependencyInjection
         IConfiguration configuration)
     {
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IEventService, EventService>();
+        
         services.AddDbContext<UniCollabContext>(options =>
         {
             options.UseSqlServer(configuration.GetConnectionString("Database"));
             options.LogTo(Console.WriteLine, LogLevel.Information);
         });
 
+        await MigrateAndAddFakeData(services);
+    }
+
+    private static async Task MigrateAndAddFakeData(IServiceCollection services)
+    {
+        // Automatic migration when launching.
         using var scope = services.BuildServiceProvider().CreateScope();
         var dbContext = scope.ServiceProvider.GetRequiredService<UniCollabContext>();
 
@@ -44,7 +52,5 @@ public static class DependencyInjection
         
         dbContext.Users.AddRange(FakeUsers.Generate(5));
         await dbContext.SaveChangesAsync();
-        
-        services.AddScoped<IEventService, EventService>();
     }
 }
