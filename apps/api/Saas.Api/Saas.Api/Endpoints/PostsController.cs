@@ -28,10 +28,10 @@ public class PostsController : ControllerBase
         return Results.Ok(PostDto.From(post));
     }
 
-    [HttpGet("/{N:required}")]
-    public async Task<IResult> GetNMostRecentPosts(int N, [FromServices] GetPosts getPosts)
+    [HttpGet("{count:int}")]
+    public async Task<IResult> GetMostRecentPosts(int count, [FromServices] GetPosts getPosts)
     {
-        var result = await getPosts.ByNMostRecent(N);
+        var result = await getPosts.ByNMostRecent(count);
         if (!result.IsSuccess)
             return result.ToMinimalApiResult();
         
