@@ -3,7 +3,7 @@ import { useAuth } from "../../state/authentication/authenticationStore";
 
 
 export default function AuthenticatedRoute() {
-    const { authentication } = useAuth();
+    const { authentication, user } = useAuth();
 
-    return authentication !== 'None' ? <Outlet/> : <Navigate to='/login'/>
+    return authentication !== 'None' && user ? <Outlet/> : <Navigate to='/login'/>
 }

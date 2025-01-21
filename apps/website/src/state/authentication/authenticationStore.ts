@@ -8,11 +8,12 @@ interface AuthenticationStore {
     user: UserCredentials | undefined
     authentication: UniCollabAuthenticationMethod | 'None'
     login: (credentials: UserCredentials, method: UniCollabAuthenticationMethod) => void
-    logout: () => void
+    logout: () => void,
+    isAuthenticated: () => boolean
 }
 export const useAuth = create<AuthenticationStore>()(
     persist(
-        (set) => ({
+        (set, get) => ({
             user: undefined,
             authentication: 'None',
             login: (credentials: UserCredentials, method: UniCollabAuthenticationMethod) => set({ 
@@ -22,7 +23,8 @@ export const useAuth = create<AuthenticationStore>()(
             logout: () => set({
                 user: undefined,
                 authentication: 'None'
-            })}),
+            }),
+            isAuthenticated: () => get().authentication !== 'None' && get().user !== undefined}),
         {
             name: 'auth-storage'
         }

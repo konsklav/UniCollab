@@ -7,12 +7,11 @@ import { ToastType } from "../Toasts/Toast.types";
 import { useAuth } from "../../state/authentication/authenticationStore";
 
 export default function NotificationsManager() {
-    const { user, authentication } = useAuth()
+    const { user, isAuthenticated } = useAuth()
     const publish = useNotificationStore(state => state.publish)
 
     useEffect(() => {
-        if (authentication === 'None' || !user)
-        {
+        if (!isAuthenticated() || !user){
             console.log('Aborting SignalR connection attempt. Not authenticated.')
             return;
         }
