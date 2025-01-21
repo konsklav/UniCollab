@@ -8,10 +8,11 @@ namespace Saas.Websockets.Hubs;
 
 public interface IChatClient
 {
-    Task ReceiveMessage(string username, string message);
+    Task ReceiveMessage(ClientMessage message);
 }
 
 public record ServerMessage(string ChatId, string UserId, string Content);
+public record ClientMessage(string Username, string Content);
 
 public class ChatHub(
     IHubContext<NotificationHub, INotificationClient> notificationHub,
@@ -44,7 +45,7 @@ public class ChatHub(
 
         // await eventService.PublishAsync(messageSentEvent);
         
-        await Clients.Group(message.ChatId).ReceiveMessage(username, message.Content);
+        await Clients.Group(message.ChatId).ReceiveMessage(new ClientMessage(username, message.Content));
 
         var notification = new Notification(NotificationType.ChatMessage, message.Content);
         

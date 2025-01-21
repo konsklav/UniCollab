@@ -6,7 +6,8 @@ using Saas.Websockets.Hubs;
 
 namespace Saas.Websockets;
 
-internal sealed class NotificationService(IHubContext<NotificationHub, INotificationClient> notificationHub) 
+internal sealed class NotificationService(
+    IHubContext<NotificationHub, INotificationClient> notificationHub) 
     : INotificationService
 {
     public async Task SendAsync(Notification notification)
