@@ -1,25 +1,31 @@
 import { HubConnection, HubConnectionBuilder, HubConnectionState } from "@microsoft/signalr";
 import { commonUrls } from "../common/common.urls";
+import { createBasicAuthToken } from "../utils/basicAuthentication";
+import { UserCredentials } from "../features/Users/Users.types";
 
 export default class SignalRService {
     private connection: HubConnection
 
-    constructor(hubName: string) {
+    constructor(hubName: string, user: UserCredentials) {
         this.connection = new HubConnectionBuilder()
-            .withUrl(`${commonUrls.api}/hubs/${hubName}`)
+            .withUrl(`${commonUrls.api}/hubs/${hubName}`, {
+                headers: {
+                    'Authorization': createBasicAuthToken(user)
+                }
+            })
             .withAutomaticReconnect()
             .build()
     }
 
     async startConnection() {
-        await this.startConnectionCore(5000)
+        await this.startConnectionCore()
     }
 
     stopConnection() {
         this.connection.stop()
     }
 
-    private async startConnectionCore(timeout: number) {
+    private async startConnectionCore() {
         if (this.connection.state === HubConnectionState.Connected || 
             this.connection.state === HubConnectionState.Connecting) {
             return;

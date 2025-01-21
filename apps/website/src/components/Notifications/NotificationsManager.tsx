@@ -11,14 +11,14 @@ export default function NotificationsManager() {
     const publish = useNotificationStore(state => state.publish)
 
     useEffect(() => {
-        if (authentication === 'None')
+        if (authentication === 'None' || !user)
         {
             console.log('Aborting SignalR connection attempt. Not authenticated.')
             return;
         }
 
         console.log('Beginning SignalR connection.')
-        const signalR = new SignalRService('notifications')
+        const signalR = new SignalRService('notifications', user)
         
         signalR.startConnection()
         
