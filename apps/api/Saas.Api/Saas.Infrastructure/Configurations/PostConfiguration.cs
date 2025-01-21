@@ -20,6 +20,12 @@ public class PostConfiguration : IEntityTypeConfiguration<Post>
             .HasColumnType("text");
 
         builder.Property(x => x.Title)
-            .HasColumnType("nvarchar(30)");
+            .HasColumnType($"nvarchar({Title.MaxLength})");
+
+        builder.Property(x => x.Slug)
+            .HasColumnType($"nvarchar({Title.MaxLength})");
+        
+        // Configure an index on the Slug property since we search by slug
+        builder.HasIndex(x => x.Slug).IsUnique();
     }
 }
