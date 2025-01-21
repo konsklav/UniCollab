@@ -10,7 +10,7 @@ namespace Saas.Api.Endpoints;
 /// </summary>
 [ApiController]
 [Route("/posts")]
-public class PostsController
+public class PostsController : ControllerBase
 {
     /// <summary>
     /// Retrieve a post by its slug. Slugs are unique so it is guaranteed that you will get back a single post.  
