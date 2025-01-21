@@ -16,7 +16,7 @@ public static class DependencyInjection
     
     public static void MapHubs(this IEndpointRouteBuilder app)
     {
-        app.MapHub<ChatHub>("/hubs/chat");
-        app.MapHub<NotificationHub>("/hubs/notifications");
+        app.MapHub<ChatHub>("/hubs/chat").RequireAuthorization();
+        app.MapHub<NotificationHub>("/hubs/notifications").RequireAuthorization();
     }
 }
