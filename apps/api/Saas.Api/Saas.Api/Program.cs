@@ -6,6 +6,8 @@ using Saas.Websockets;
 
 var builder = WebApplication.CreateBuilder(args);
 
+builder.Configuration.AddEnvironmentVariables("UNICOLLAB_");
+
 builder.Services.AddControllers();
 builder.Services.ConfigureCors(builder.Configuration);
 builder.Services.AddSwaggerGen(options =>

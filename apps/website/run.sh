@@ -10,6 +10,7 @@ docker run --rm -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=$DB_PASS" -p 5433:1433 -d $DB
 echo "🛠️ Building .NET API"
 dotnet build "$API_PATH/$PROJ.sln"
 
+export UNICOLLAB_ConnectionStrings__Database="Data Source=localhost,5433; Initial Catalog=UniCollab; User Id=sa; Password=YourStrong(!)Password; TrustServerCertificate=True; Encrypt=False; Connection Timeout=30;"
 echo "🚀 Launching .NET API"
 dotnet run --launch-profile "http" --project "$API_PATH/$PROJ/$PROJ.csproj" --no-build -v n &
 
