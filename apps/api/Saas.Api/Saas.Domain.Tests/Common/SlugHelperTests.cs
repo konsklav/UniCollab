@@ -1,4 +1,5 @@
-﻿using Saas.Domain.Common;
+﻿using FluentAssertions;
+using Saas.Domain.Common;
 
 namespace Saas.Domain.Tests.Common;
 
@@ -14,6 +15,6 @@ public class SlugHelperTests
         var result = SlugHelper.Get(title);
 
         // Assert
-        Assert.Equal(expected, result);
+        result.Should().Be(expected);
     }
 }
