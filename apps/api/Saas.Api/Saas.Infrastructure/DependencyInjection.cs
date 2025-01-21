@@ -19,6 +19,7 @@ public static class DependencyInjection
         bool isDevelopment)
     {
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IPostRepository, PostRepository>();
         services.AddScoped<IEventService, EventService>();
         
         services.AddDbContext<UniCollabContext>(options =>
@@ -64,7 +65,14 @@ public static class DependencyInjection
     {
         if (context is not UniCollabContext uniContext)
             throw new InvalidOperationException("Expected to seed UniCollabContext.");
-        
-        uniContext.Users.AddRange(FakeUsers.Generate(5));
+
+        var users = FakeUsers.Generate(5);
+        uniContext.Users.AddRange(users);
+                
+        users.ForEach(u =>
+        {
+            var posts = FakePosts.GetForUser(u, 3);
+            uniContext.Posts.AddRange(posts);
+        });
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Saas.Domain;
+using Saas.Domain.Posts;
 using Saas.Infrastructure.Configurations;
 
 namespace Saas.Infrastructure;

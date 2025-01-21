@@ -1,5 +1,6 @@
 ﻿using Bogus;
 using Saas.Domain;
+using Saas.Domain.Posts;
 
 namespace Saas.Tests.Fakes;
 

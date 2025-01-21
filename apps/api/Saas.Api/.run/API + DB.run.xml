@@ -4,10 +4,6 @@
       <settings>
         <option name="envFilePath" value="" />
         <option name="sourceFilePath" value="compose.yaml" />
-        <option name="upAbortOnContainerExit" value="true" />
-        <option name="upAttachDependencies" value="true" />
-        <option name="upDetach" value="false" />
-        <option name="upForceRecreate" value="true" />
       </settings>
     </deployment>
     <EXTENSION ID="com.jetbrains.rider.docker.debug" isFastModeEnabled="true" isSslEnabled="false" />
