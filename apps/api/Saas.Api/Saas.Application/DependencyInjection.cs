@@ -13,6 +13,6 @@ public static class DependencyInjection
         services.AddScoped<RemoveFriendUseCase>();
         services.AddScoped<GetChatRoomUseCase>();
         services.AddScoped<GetAllUsersUseCase>();
-        services.AddScoped<GetPost>();
+        services.AddScoped<GetPosts>();
     }
 }

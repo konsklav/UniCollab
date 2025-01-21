@@ -16,9 +16,9 @@ public class PostsController : ControllerBase
     /// Retrieve a post by its slug. Slugs are unique so it is guaranteed that you will get back a single post.  
     /// </summary>
     /// <param name="slug">The slug to search for.</param>
-    /// <param name="getPost"></param>
+    /// <param name="getPosts"></param>
     [HttpGet("{slug:required}")]
-    public async Task<IResult> GetPostBySlug(string slug, [FromServices] GetPost getPost)
+    public async Task<IResult> GetPostBySlug(string slug, [FromServices] GetPosts getPost)
     {
         var result = await getPost.BySlug(slug);
         if (!result.IsSuccess)
@@ -26,5 +26,17 @@ public class PostsController : ControllerBase
 
         var post = result.Value;
         return Results.Ok(PostDto.From(post));
+    }
+
+    [HttpGet("/{N:required}")]
+    public async Task<IResult> GetNMostRecentPosts(int N, [FromServices] GetPosts getPosts)
+    {
+        var result = await getPosts.ByNMostRecent(N);
+        if (!result.IsSuccess)
+            return result.ToMinimalApiResult();
+        
+        var posts = result.Value;
+        var postDtos = posts.Select(post => PostDto.From(post));
+        return Results.Ok(postDtos);
     }
 }

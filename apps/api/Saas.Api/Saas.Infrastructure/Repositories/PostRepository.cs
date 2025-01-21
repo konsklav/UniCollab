@@ -16,6 +16,16 @@ internal sealed class PostRepository(UniCollabContext context) : IPostRepository
         
         return post;
     }
+
+    public async Task<List<Post>> GetMostRecentAsync(int count)
+    {
+        var posts = await context.Posts
+            .OrderBy(post => post.CreatedAt)
+            .Take(count)
+            .ToListAsync();
+
+        return posts;
+    }
     
     public async Task SaveChangesAsync() => await context.SaveChangesAsync();
 }
