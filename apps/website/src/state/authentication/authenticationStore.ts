@@ -2,6 +2,7 @@ import { create } from "zustand";
 import { UserCredentials } from "../../features/Users/Users.types";
 import { persist } from "zustand/middleware";
 
+export type UniCollabAuthenticationMethod = 'Basic' | 'Google'
 
 interface AuthenticationStore {
     user: UserCredentials | undefined
@@ -9,7 +10,6 @@ interface AuthenticationStore {
     login: (credentials: UserCredentials, method: UniCollabAuthenticationMethod) => void
     logout: () => void
 }
-export type UniCollabAuthenticationMethod = 'Basic' | 'Google'
 export const useAuth = create<AuthenticationStore>()(
     persist(
         (set) => ({
