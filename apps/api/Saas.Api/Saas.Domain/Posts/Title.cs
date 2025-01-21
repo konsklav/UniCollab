@@ -26,9 +26,4 @@ public sealed record Title
 
         return new Title(value);
     }
-
-    public void Deconstruct(out string Value)
-    {
-        Value = this.Value;
-    }
 }
