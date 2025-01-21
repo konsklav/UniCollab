@@ -9,6 +9,7 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
     public void Configure(EntityTypeBuilder<User> builder)
     {
         builder.HasKey(c => c.Id);
+        builder.Property(x => x.Id).ValueGeneratedNever();
 
         builder
             .HasMany(u => u.Friends)
