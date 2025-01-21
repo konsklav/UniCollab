@@ -11,7 +11,5 @@ export default function WaitForQuery<T>({children, query}: WaitForApiProps<T>) {
     if (query.isPending) return <Loading/>
     if (query.isError) return <DisplayError error={query.error}/>
 
-    return (
-        <>{children}</>
-    )
+    return <>{children}</>
 }
