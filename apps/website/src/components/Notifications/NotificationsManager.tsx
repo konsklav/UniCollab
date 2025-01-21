@@ -1,6 +1,6 @@
 import { useEffect } from "react";
 import SignalRService from "../../services/signalRService";
-import { useNotificationStore } from "../../notifications/notificationStore";
+import { useNotificationStore } from "../../state/notifications/notificationStore";
 import { NotificationContract } from "./Notifications.types";
 import NotificationDisplay from "./Notification";
 import { ToastType } from "../Toasts/Toast.types";

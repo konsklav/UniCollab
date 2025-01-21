@@ -3,7 +3,7 @@ import { ToastType } from "./Toast.types"
 
 import './toasts.css'
 import Toast from "./Toast"
-import { useNotificationStore } from "../../notifications/notificationStore"
+import { useNotificationStore } from "../../state/notifications/notificationStore"
 import { generateUniqueId } from "../../utils/uniqueId"
 
 interface ToastInternal {

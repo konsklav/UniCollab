@@ -15,11 +15,8 @@ import NotificationsManager from "./components/Notifications/NotificationsManage
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import UsersPage from "./pages/UsersPage";
 
-const queryClient = new QueryClient()
-
 export default function App() {
   return (
-    <QueryClientProvider client={queryClient}>
     <AuthenticationProvider>
     <BrowserRouter>
       <Routes>
@@ -43,6 +40,5 @@ export default function App() {
     <NotificationsManager/>
     <ToastContainer/>
     </AuthenticationProvider>
-    </QueryClientProvider>
   )
 }
