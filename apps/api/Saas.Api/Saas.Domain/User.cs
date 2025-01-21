@@ -86,7 +86,7 @@ public class User : Entity
 
     public Result CreatePost(string title, string content, List<Subject> subjects)
     {
-        var post = new Post(title, content, subjects, this);
+        var post = Post.Create(title, content, subjects, this);
         _posts.Add(post);
         return Result.Success();
     }
