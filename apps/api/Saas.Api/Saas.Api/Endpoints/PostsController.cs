@@ -17,7 +17,7 @@ public class PostsController : ControllerBase
     /// </summary>
     /// <param name="slug">The slug to search for.</param>
     /// <param name="getPost"></param>
-    [HttpGet("{slug:alpha}")]
+    [HttpGet("{slug:required}")]
     public async Task<IResult> GetPostBySlug(string slug, [FromServices] GetPost getPost)
     {
         var result = await getPost.BySlug(slug);
