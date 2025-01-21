@@ -69,6 +69,10 @@ public static class DependencyInjection
         var users = FakeUsers.Generate(5);
         uniContext.Users.AddRange(users);
                 
-        users.ForEach(u => uniContext.Posts.AddRange(FakePosts.GetForUser(u, 3)));
+        users.ForEach(u =>
+        {
+            var posts = FakePosts.GetForUser(u, 3);
+            uniContext.Posts.AddRange(posts);
+        });
     }
 }
