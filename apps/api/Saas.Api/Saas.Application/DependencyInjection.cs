@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Saas.Application.UseCases;
+using Saas.Application.UseCases.Posts;
 
 namespace Saas.Application;
 
@@ -12,5 +13,6 @@ public static class DependencyInjection
         services.AddScoped<RemoveFriendUseCase>();
         services.AddScoped<GetChatRoomUseCase>();
         services.AddScoped<GetAllUsersUseCase>();
+        services.AddScoped<GetPost>();
     }
 }

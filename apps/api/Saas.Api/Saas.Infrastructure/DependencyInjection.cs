@@ -19,6 +19,7 @@ public static class DependencyInjection
         bool isDevelopment)
     {
         services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<IPostRepository, PostRepository>();
         services.AddScoped<IEventService, EventService>();
         
         services.AddDbContext<UniCollabContext>(options =>
