@@ -15,9 +15,9 @@ public sealed class GetPosts(IPostRepository repository)
         return post;
     }
 
-    public async Task<Result<List<Post>>> ByNMostRecent(int N)
+    public async Task<Result<List<Post>>> ByMostRecent(int count)
     {
-        var posts = await repository.GetMostRecentAsync(N);
+        var posts = await repository.GetMostRecentAsync(count);
         
         return posts;
     }

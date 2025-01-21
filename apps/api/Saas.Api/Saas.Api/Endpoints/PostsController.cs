@@ -31,7 +31,7 @@ public class PostsController : ControllerBase
     [HttpGet("{count:int}")]
     public async Task<IResult> GetMostRecentPosts(int count, [FromServices] GetPosts getPosts)
     {
-        var result = await getPosts.ByNMostRecent(count);
+        var result = await getPosts.ByMostRecent(count);
         if (!result.IsSuccess)
             return result.ToMinimalApiResult();
         
