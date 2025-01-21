@@ -11,11 +11,12 @@ internal class UserRepository(UniCollabContext db) : IUserRepository
         return await db.Users.ToListAsync();
     }
 
-    public async Task<User?> GetByIdAsync(Guid id)
+    public async Task<User?> GetByIdAsync(Guid userId)
     {
         var user = await db.Users
             .Include(u => u.Friends)
-            .FirstOrDefaultAsync(u => u.Id == id);
+            .Include(u => u.Posts)
+            .FirstOrDefaultAsync(u => u.Id == userId);
             
         return user;
     }

@@ -33,6 +33,7 @@ public class UsersController : ControllerBase
     /// </summary>
     /// <param name="userId">The ID to search.</param>
     /// <param name="getUser"></param>
+    /// <returns>A user</returns>
     [HttpGet("{userId:guid}")]
     public async Task<IResult> Get(Guid userId, [FromServices] GetUserUseCase getUser)
     {
@@ -42,5 +43,22 @@ public class UsersController : ControllerBase
     
         var user = result.Value;
         return Results.Ok(user);
+    }
+
+    /// <summary>
+    /// Retrieve all users posts, if found.
+    /// </summary>
+    /// <param name="userId"></param>
+    /// <param name="getUsersPosts"></param>
+    /// <returns>A list of posts</returns>
+    [HttpGet("{userId:guid}/posts")]
+    public async Task<IResult> GetUsersPosts(Guid userId, [FromServices] GetUsersPostsUseCase getUsersPosts)
+    {
+        var result = await getUsersPosts.Handle(userId);
+        if(!result.IsSuccess)
+            return result.ToMinimalApiResult();
+        
+        var posts = result.Value;
+        return Results.Ok(posts);
     }
 }
