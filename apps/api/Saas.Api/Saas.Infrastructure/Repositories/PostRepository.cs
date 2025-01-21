@@ -8,7 +8,12 @@ internal sealed class PostRepository(UniCollabContext context) : IPostRepository
 {
     public async Task<Post?> GetBySlugAsync(string slug)
     {
-        var post = await context.Posts.FirstOrDefaultAsync(p => p.Slug == slug);
+        var post = await context.Posts
+            .AsSplitQuery()
+            .Include(p => p.Subjects)
+            .Include(p => p.Author)
+            .FirstOrDefaultAsync(p => p.Slug == slug);
+        
         return post;
     }
     
