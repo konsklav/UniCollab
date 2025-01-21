@@ -20,6 +20,9 @@ public class PostConfiguration : IEntityTypeConfiguration<Post>
             .HasColumnType("text");
 
         builder.Property(x => x.Title)
+            .HasConversion(
+                convertToProviderExpression: title => title.Value,
+                convertFromProviderExpression: str => Title.Create(str))
             .HasColumnType($"nvarchar({Title.MaxLength})");
 
         builder.Property(x => x.Slug)
