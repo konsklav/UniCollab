@@ -1,4 +1,5 @@
 import { UserCredentials } from "../features/Users/Users.types"
+import { Buffer } from "buffer"
 
 export const createBasicAuthToken = ({username, password}: UserCredentials) => {
     const tokenBytes = Buffer.from(`${username}:${password}`)
