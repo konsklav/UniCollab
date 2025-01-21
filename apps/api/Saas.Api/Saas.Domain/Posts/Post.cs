@@ -1,12 +1,12 @@
 using Ardalis.Result;
 using Saas.Domain.Common;
 
-namespace Saas.Domain;
+namespace Saas.Domain.Posts;
 
 public class Post : Entity
 {
     private Post() {}
-    private Post(string title, string content, List<Subject> subjects, User author, string slug, Guid? id = null) : base(id)
+    private Post(Title title, string content, List<Subject> subjects, User author, string slug, Guid? id = null) : base(id)
     {
         Title = title;
         Content = content;
@@ -15,7 +15,7 @@ public class Post : Entity
         Slug = slug;
     }
 
-    public string Title { get; private set; }
+    public Title Title { get; private set; }
     public string Content { get; private set; }
     public string Slug { get; private set; }
     public IReadOnlyList<Subject> Subjects { get; private set; }
@@ -23,6 +23,12 @@ public class Post : Entity
 
     public static Result<Post> Create(string title, string content, List<Subject> subjects, User author)
     {
-        return new Post(title, content, subjects, author, SlugHelper.Get(title));
+        var titleResult = Title.Create(title);
+        if (!titleResult.IsSuccess)
+            return titleResult.Map();
+
+        var validTitle = titleResult.Value;
+        
+        return new Post(validTitle, content, subjects, author, SlugHelper.Get(validTitle.Value));
     }
 }
