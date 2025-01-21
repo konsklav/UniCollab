@@ -65,7 +65,10 @@ public static class DependencyInjection
     {
         if (context is not UniCollabContext uniContext)
             throw new InvalidOperationException("Expected to seed UniCollabContext.");
-        
-        uniContext.Users.AddRange(FakeUsers.Generate(5));
+
+        var users = FakeUsers.Generate(5);
+        uniContext.Users.AddRange(users);
+                
+        users.ForEach(u => uniContext.Posts.AddRange(FakePosts.GetForUser(u, 3)));
     }
 }
