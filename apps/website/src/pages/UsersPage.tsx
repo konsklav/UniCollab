@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { getAllUsers } from "../services/apiService";
+import { getAllUsers } from "../services/apiEndpoints";
 import { User } from "../common/common.types";
 import WaitForQuery from "../components/WaitForQuery";
 

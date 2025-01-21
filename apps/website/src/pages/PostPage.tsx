@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { getPostBySlug } from "../services/apiService";
+import { getPostBySlug } from "../services/apiEndpoints";
 import { useQuery } from "@tanstack/react-query";
 import WaitForQuery from "../components/WaitForQuery";
 
