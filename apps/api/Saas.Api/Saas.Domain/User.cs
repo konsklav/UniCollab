@@ -1,5 +1,6 @@
 using Ardalis.Result;
 using Saas.Domain.Common;
+using Saas.Domain.Posts;
 
 // ReSharper disable ReplaceWithPrimaryConstructorParameter
 
