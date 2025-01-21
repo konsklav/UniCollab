@@ -7,7 +7,7 @@ namespace Saas.Domain.Posts;
 /// </summary>
 public sealed record Title(string Value)
 {
-    public const int MaxLength = 30;
+    public const int MaxLength = 55;
 
     public static Result<Title> Create(string value)
     {
