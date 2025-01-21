@@ -30,6 +30,7 @@ public class UsersController : ControllerBase
     /// Retrieve a user by their ID, if found.
     /// </summary>
     /// <param name="userId">The ID to search.</param>
+    /// <param name="getUser"></param>
     [HttpGet("{userId:guid}")]
     public async Task<IResult> Get(Guid userId, [FromServices] GetUserUseCase getUser)
     {

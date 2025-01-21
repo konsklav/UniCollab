@@ -1,6 +1,6 @@
 ﻿namespace Saas.Application.Interfaces.Data;
 
-public interface IChatRepository
+public interface IChatRepository : IUnitOfWork
 {
     
 }
