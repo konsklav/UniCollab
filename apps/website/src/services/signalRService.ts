@@ -1,4 +1,4 @@
-import { HubConnection, HubConnectionBuilder, HubConnectionState } from "@microsoft/signalr";
+import { HubConnection, HubConnectionBuilder, HubConnectionState, LogLevel } from "@microsoft/signalr";
 import { commonUrls } from "../common/common.urls";
 import { createBasicAuthToken } from "../utils/basicAuthentication";
 import { UserCredentials } from "../features/Users/Users.types";
@@ -13,6 +13,7 @@ export default class SignalRService {
                     'Authorization': createBasicAuthToken(user)
                 }
             })
+            .configureLogging(LogLevel.Debug)
             .withAutomaticReconnect()
             .build()
     }
@@ -45,7 +46,7 @@ export default class SignalRService {
 
     async send(methodName: string, ...args: any[]) {
         try { 
-            await this.connection.invoke(methodName, args)
+            await this.connection.invoke(methodName, ...args)
         } catch (err) {
             console.error('SignalR method invocation error: ', err)
         }
