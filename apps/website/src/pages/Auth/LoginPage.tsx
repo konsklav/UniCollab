@@ -1,14 +1,15 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import LoginForm from "../../features/Users/Login/LoginForm";
 
-import { useAuth } from "../../components/Authentication/AuthenticationProvider";
+import { useAuth } from "../../state/authentication/authenticationStore";
+import { UserCredentials } from "../../features/Users/Users.types";
 
 export default function LoginPage() {
     const {login} = useAuth()
     const navigate = useNavigate()
 
-    const handleLogin = () => {
-        login()
+    const handleLogin = (user: UserCredentials) => {
+        login(user)
         navigate('/')
     } 
 

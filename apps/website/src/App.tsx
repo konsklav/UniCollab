@@ -5,19 +5,17 @@ import ChatPage from "./pages/ChatPage";
 import LoginPage from "./pages/Auth/LoginPage";
 import GroupsPage from "./pages/GroupsPage";
 import AuthenticatedRoute from "./components/Routing/AuthenticatedRoute";
-import { AuthenticationProvider } from "./components/Authentication/AuthenticationProvider";
 import GuestLayout from "./layout/GuestLayout";
 import RegisterPage from "./pages/Auth/RegisterPage";
 import PostsPage from "./pages/PostsPage";
 import PostPage from "./pages/PostPage";
 import { ToastContainer } from "./components/Toasts/ToastContainer";
 import NotificationsManager from "./components/Notifications/NotificationsManager";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import UsersPage from "./pages/UsersPage";
 
 export default function App() {
   return (
-    <AuthenticationProvider>
+    <>
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout/>}>
@@ -39,6 +37,6 @@ export default function App() {
     
     <NotificationsManager/>
     <ToastContainer/>
-    </AuthenticationProvider>
+    </>
   )
 }

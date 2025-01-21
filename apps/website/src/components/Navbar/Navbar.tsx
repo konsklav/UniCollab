@@ -2,12 +2,12 @@ import NavItem from "./NavItem";
 
 import './Navbar.module.css'
 import Logo from "../Text/Logo";
-import { useAuth } from "../Authentication/AuthenticationProvider";
 
 import '../../common/common.styles.css'
+import { useAuth } from "../../state/authentication/authenticationStore";
 
 export default function Navbar() {
-    const auth = useAuth()
+    const { logout } = useAuth()
 
     return (
         <div className="bg-prim flex-grow-1 d-flex flex-column">
@@ -22,7 +22,7 @@ export default function Navbar() {
                 </ul>
             </nav>
             <div className="text-center mb-3">
-                <button type="button" className="btn btn-danger" onClick={auth.logout}>Sign Out</button>
+                <button type="button" className="btn btn-danger" onClick={logout}>Sign Out</button>
             </div>
         </div>
     )
