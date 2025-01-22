@@ -20,6 +20,7 @@ public static class DependencyInjection
     {
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IPostRepository, PostRepository>();
+        services.AddScoped<IChatRepository, ChatRepository>();
         services.AddScoped<IEventService, EventService>();
         
         services.AddDbContext<UniCollabContext>(options =>
