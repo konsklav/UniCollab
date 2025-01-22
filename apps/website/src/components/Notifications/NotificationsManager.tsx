@@ -7,7 +7,7 @@ import { ToastType } from "../Toasts/Toast.types";
 import { useAuth } from "../../state/authentication/authenticationStore";
 
 export default function NotificationsManager() {
-    const { user, isAuthenticated } = useAuth()
+    const { credentials: user, isAuthenticated } = useAuth()
     const publish = useNotificationStore(state => state.publish)
 
     useEffect(() => {

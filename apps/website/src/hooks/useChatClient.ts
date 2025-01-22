@@ -22,7 +22,7 @@ export type ClientMessage = {
 }
 
 export const useChatClient = (chatId: string, callbacks: ChatClientCallbacks): ChatClientActions => {
-    const {user, isAuthenticated} = useAuth()
+    const {credentials: user, isAuthenticated} = useAuth()
     const signalRRef = useRef<SignalRService | undefined>(undefined)
 
     useEffect(() => {

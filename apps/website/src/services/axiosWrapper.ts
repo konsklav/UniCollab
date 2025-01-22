@@ -37,7 +37,7 @@ export class AxiosWrapper {
     }
 
     private getConfig(): AxiosRequestConfig<any> | undefined  {
-        const { user, authentication } = useAuth.getState()
+        const { credentials: user, authentication } = useAuth.getState()
         if (!user || authentication === 'None')
             return {}
 

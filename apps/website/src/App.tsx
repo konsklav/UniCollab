@@ -7,7 +7,7 @@ import GroupsPage from "./pages/GroupsPage";
 import AuthenticatedRoute from "./components/Routing/AuthenticatedRoute";
 import GuestLayout from "./layout/GuestLayout";
 import RegisterPage from "./pages/Auth/RegisterPage";
-import PostsPage from "./pages/PostsPage";
+import PostsPage from "./pages/MyPostsPage";
 import PostPage from "./pages/PostPage";
 import { ToastContainer } from "./components/Toasts/ToastContainer";
 import NotificationsManager from "./components/Notifications/NotificationsManager";
