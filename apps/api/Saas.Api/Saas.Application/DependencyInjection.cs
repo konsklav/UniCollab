@@ -8,10 +8,11 @@ public static class DependencyInjection
 {
     public static void AddApplication(this IServiceCollection services)
     {
-        services.AddScoped<AddFriendUseCase>();
-        services.AddScoped<GetUserUseCase>();
-        services.AddScoped<RemoveFriendUseCase>();
         services.AddScoped<GetChatRoomUseCase>();
+        services.AddScoped<GetAllChatRoomsUseCase>();
+        services.AddScoped<AddFriendUseCase>();
+        services.AddScoped<RemoveFriendUseCase>();
+        services.AddScoped<GetUserUseCase>();
         services.AddScoped<GetAllUsersUseCase>();
         services.AddScoped<GetUsersPostsUseCase>();
         services.AddScoped<GetPosts>();
