@@ -1,6 +1,7 @@
 ﻿using Ardalis.Result.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Saas.Api.Contracts;
 using Saas.Application.UseCases;
 
 namespace Saas.Api.Endpoints;
@@ -25,7 +26,7 @@ public class UsersController : ControllerBase
             return result.ToMinimalApiResult();
 
         var users = result.Value;
-        return Results.Ok(users);
+        return Results.Ok(users.Select(UserInformationDto.From));
     }
 
     /// <summary>
@@ -42,7 +43,7 @@ public class UsersController : ControllerBase
             return result.ToMinimalApiResult();
     
         var user = result.Value;
-        return Results.Ok(user);
+        return Results.Ok(UserDto.From(user));
     }
 
     /// <summary>
@@ -59,6 +60,6 @@ public class UsersController : ControllerBase
             return result.ToMinimalApiResult();
         
         var posts = result.Value;
-        return Results.Ok(posts);
+        return Results.Ok(posts.Select(PostDto.From));
     }
 }
