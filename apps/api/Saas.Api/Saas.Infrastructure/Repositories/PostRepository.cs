@@ -10,8 +10,6 @@ internal sealed class PostRepository(UniCollabContext context) : IPostRepository
     {
         var post = await context.Posts
             .AsSplitQuery()
-            .Include(p => p.Subjects)
-            .Include(p => p.Author)
             .FirstOrDefaultAsync(p => p.Slug == slug);
         
         return post;
@@ -20,8 +18,9 @@ internal sealed class PostRepository(UniCollabContext context) : IPostRepository
     public async Task<List<Post>> GetMostRecentAsync(int count)
     {
         var posts = await context.Posts
-            .OrderBy(post => post.CreatedAt)
+            .OrderByDescending(post => post.CreatedAt)
             .Take(count)
+            .AsSplitQuery()
             .ToListAsync();
 
         return posts;

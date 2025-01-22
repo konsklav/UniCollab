@@ -28,7 +28,7 @@ public class PostsController : ControllerBase
         return Results.Ok(PostDto.From(post));
     }
 
-    [HttpGet("{count:int}")]
+    [HttpGet("recent/{count:int}")]
     public async Task<IResult> GetMostRecentPosts(int count, [FromServices] GetPosts getPosts)
     {
         var result = await getPosts.ByMostRecent(count);
