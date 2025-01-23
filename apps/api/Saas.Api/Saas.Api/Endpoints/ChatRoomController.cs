@@ -1,4 +1,5 @@
 using Ardalis.Result.AspNetCore;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Saas.Api.Contracts;
 using Saas.Application.UseCases;
@@ -6,7 +7,8 @@ using Saas.Application.UseCases;
 namespace Saas.Api.Endpoints;
 
 [ApiController]
-[Route("/chatrooms")]
+[Route("/chat")]
+[Authorize]
 public class ChatRoomController : ControllerBase
 {
     /// <summary>

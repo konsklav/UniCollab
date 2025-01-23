@@ -1,4 +1,5 @@
 ﻿using Ardalis.Result.AspNetCore;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Saas.Application.UseCases;
 
@@ -9,6 +10,7 @@ namespace Saas.Api.Endpoints;
 /// </summary>
 [ApiController]
 [Route("/users/{userId:guid}/friends")]
+[Authorize]
 public class FriendsController : ControllerBase
 {
     /// <summary>

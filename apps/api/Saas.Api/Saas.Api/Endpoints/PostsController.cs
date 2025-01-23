@@ -1,4 +1,5 @@
 ﻿using Ardalis.Result.AspNetCore;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Saas.Api.Contracts;
 using Saas.Application.UseCases.Posts;
@@ -10,6 +11,7 @@ namespace Saas.Api.Endpoints;
 /// </summary>
 [ApiController]
 [Route("/posts")]
+[Authorize]
 public class PostsController : ControllerBase
 {
     /// <summary>
