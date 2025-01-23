@@ -4,11 +4,11 @@ using Saas.Domain;
 
 namespace Saas.Application.UseCases;
 
-public class GetChatRoomUseCase(IChatRepository repository)
+public class GetChatRoomUseCase(IChatRoomRepository roomRepository)
 {
     public async Task<Result<ChatRoom>> Handle(Guid chatRoomId)
     {
-        var chatRoom = await repository.GetByIdAsync(chatRoomId);
+        var chatRoom = await roomRepository.GetByIdAsync(chatRoomId);
         if (chatRoom is null) 
             return Result<ChatRoom>.NotFound();
 
