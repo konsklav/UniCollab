@@ -3,7 +3,7 @@ using Saas.Domain;
 
 namespace Saas.Infrastructure.Repositories;
 
-internal class ChatRepository(UniCollabContext context) : IChatRepository
+internal class ChatRoomRepository(UniCollabContext context) : IChatRoomRepository
 {
     public Task<List<ChatRoom>> GetAllAsync()
     {
