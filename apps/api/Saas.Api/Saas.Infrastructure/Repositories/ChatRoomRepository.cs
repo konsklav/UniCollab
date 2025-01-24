@@ -1,3 +1,4 @@
+using Microsoft.EntityFrameworkCore;
 using Saas.Application.Interfaces.Data;
 using Saas.Domain;
 
@@ -5,23 +6,19 @@ namespace Saas.Infrastructure.Repositories;
 
 internal class ChatRoomRepository(UniCollabContext context) : IChatRoomRepository
 {
-    public Task<List<ChatRoom>> GetAllAsync()
+    public async Task<List<ChatRoom>> GetAllAsync()
     {
-        // Θα είναι έτσι αν προσθέσουμε DbSet Chatroom στο context, κλπ
-        //return await context.ChatRooms.ToListAsync();
-        throw new NotImplementedException();
+        return await context.ChatRooms.ToListAsync();
     }  
 
-    public Task<ChatRoom?> GetByIdAsync(Guid chatRoomId)
+    public async Task<ChatRoom?> GetByIdAsync(Guid chatRoomId)
     {
-        // Θα είναι έτσι αν προσθέσουμε DbSet Chatroom στο context, κλπ
-        //var chatRoom = await context.ChatRooms
-        //    .Include(c => c.Participants)
-        //    .Include(c => c.Messages)
-        //    .FirstOrDefaultAsync(u => u.Id == chatRoomId);
+        var chatRoom = await context.ChatRooms
+            .Include(c => c.Participants)
+            .Include(c => c.Messages)
+            .FirstOrDefaultAsync(u => u.Id == chatRoomId);
             
-        //return chatRoom;
-        throw new NotImplementedException();
+        return chatRoom;
     }
     
     public async Task SaveChangesAsync() => await context.SaveChangesAsync();
