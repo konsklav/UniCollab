@@ -1,6 +1,7 @@
 using Ardalis.Result.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Saas.Api.Contracts;
 using Saas.Application.UseCases.ChatRooms;
 
 namespace Saas.Api.Endpoints;
@@ -22,7 +23,7 @@ public class ChatRoomController : ControllerBase
             return result.ToMinimalApiResult();
 
         var chatRooms = result.Value;
-        return Results.Ok(chatRooms);
+        return Results.Ok(chatRooms.Select(ChatRoomDto.From));
     }
     
     /// <summary>
@@ -39,6 +40,6 @@ public class ChatRoomController : ControllerBase
             return result.ToMinimalApiResult();
     
         var chatRoom = result.Value;
-        return Results.Ok(chatRoom);
+        return Results.Ok(ChatRoomDto.From(chatRoom));
     }
 }
