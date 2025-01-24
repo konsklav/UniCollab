@@ -20,6 +20,11 @@ internal class ChatRoomRepository(UniCollabContext context) : IChatRoomRepositor
             
         return chatRoom;
     }
-    
+
+    public Task AddAsync(ChatRoom room)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task SaveChangesAsync() => await context.SaveChangesAsync();
 }
