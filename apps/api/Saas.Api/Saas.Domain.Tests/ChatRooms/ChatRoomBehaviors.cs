@@ -2,9 +2,9 @@ using Ardalis.Result;
 using FluentAssertions;
 using Saas.Tests.Fakes;
 
-namespace Saas.Domain.Tests;
+namespace Saas.Domain.Tests.ChatRooms;
 
-public class ChatRoomTests
+public class ChatRoomBehaviors
 {
     [Fact]
     public void AddParticipant_Should_AddUserToTheParticipantsList()
@@ -13,7 +13,7 @@ public class ChatRoomTests
         var user1 = FakeUsers.Generate();
         var user2 = FakeUsers.Generate();
 
-        var chatRoom = new ChatRoom("test", [user2], []);   
+        var chatRoom = FakeChatRooms.Generate(participants: [user2]); 
         var initialparticipantsCount = chatRoom.Participants.Count;
         
         // Act
@@ -33,7 +33,7 @@ public class ChatRoomTests
         var user1 = FakeUsers.Generate();
         var user2 = FakeUsers.Generate();
 
-        var chatRoom = new ChatRoom("test", [user1, user2], []);
+        var chatRoom = FakeChatRooms.Generate(participants: [user1, user2]);
         
         // Act
         var result = chatRoom.AddParticipant(user1);
@@ -47,19 +47,18 @@ public class ChatRoomTests
     public void RemoveParticipant_Should_RemoveParticipantFromTheParticipantsList()
     {
         // Arrange
-        var user1 = FakeUsers.Generate();
-
-        var chatRoom = new ChatRoom("test", [user1], []);
+        var user = FakeUsers.Generate();
+        var chatRoom = FakeChatRooms.Generate(participants: [user]);
         
         var initialparticipantsCount = chatRoom.Participants.Count;
         
         // Act
-        var result = chatRoom.RemoveParticipant(user1);
+        var result = chatRoom.RemoveParticipant(user);
 
         // Assert
         result.IsSuccess.Should().BeTrue();
         
-        chatRoom.Participants.Should().NotContain(user1);
+        chatRoom.Participants.Should().NotContain(user);
         chatRoom.Participants.Count.Should().Be(initialparticipantsCount - 1);
     }
 
@@ -70,7 +69,7 @@ public class ChatRoomTests
         var user1 = FakeUsers.Generate();
         var user2 = FakeUsers.Generate(friends: [user1]);
 
-        var chatRoom = new ChatRoom("test", [user2], []);   // I just added user2 in there as a participant
+        var chatRoom = FakeChatRooms.Generate(participants: [user2]);
         
         // Act
         var result = chatRoom.RemoveParticipant(user1);
@@ -85,10 +84,8 @@ public class ChatRoomTests
     {
         // Arrange
         var user = FakeUsers.Generate();
-        
         var message = new Message("Test", DateTime.Now, user);
-        
-        var chatRoom = new ChatRoom("test", [user], []);
+        var chatRoom = FakeChatRooms.Generate(participants: [user]);
         
         var initialMessagesCount = chatRoom.Messages.Count;
         
@@ -110,7 +107,7 @@ public class ChatRoomTests
 
         var message = new Message("Test", DateTime.Now, user);
         
-        var chatRoom = new ChatRoom("test", [user], [message]);
+        var chatRoom = FakeChatRooms.Generate(participants: [user], messages: [message]);
         
         // Act
         var result = chatRoom.AddMessage(message);
@@ -125,10 +122,8 @@ public class ChatRoomTests
     {
         // Arrange
         var user = FakeUsers.Generate();
-        
         var message = new Message("Test", DateTime.Now, user);
-
-        var chatRoom = new ChatRoom("test", [user], [message]);
+        var chatRoom = FakeChatRooms.Generate(participants: [user], messages: [message]);
         
         var initialMessagesCount = chatRoom.Messages.Count;
         
@@ -147,10 +142,8 @@ public class ChatRoomTests
     {
         // Arrange
         var user = FakeUsers.Generate();
-
         var message = new Message("Test", DateTime.Now, user);
-        
-        var chatRoom = new ChatRoom("test", [user], []);
+        var chatRoom = FakeChatRooms.Generate(participants: [user], messages: []);
         
         // Act
         var result = chatRoom.DeleteMessage(message);
