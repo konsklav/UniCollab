@@ -1,11 +1,22 @@
-﻿using Saas.Domain;
+﻿using Ardalis.Result;
+using Saas.Application.Interfaces.Data;
+using Saas.Domain;
 
 namespace Saas.Application.UseCases.ChatRooms;
 
-public class AddChatMessageToRoom
+public class AddChatMessageToRoom(IChatRoomRepository repository)
 {
-    public async Task Handle(Guid chatRoomId, Message message)
+    public async Task<Result> Handle(Guid chatRoomId, Message message)
     {
-        throw new NotImplementedException();
+        var chatRoom = await repository.GetByIdAsync(chatRoomId);
+
+        if (chatRoom == null)
+            return Result.NotFound($"Couldn't find chat room with id: {chatRoomId}");
+        
+        var result = chatRoom.AddMessage(message);
+
+        await repository.SaveChangesAsync();
+        
+        return result;
     }
 }
