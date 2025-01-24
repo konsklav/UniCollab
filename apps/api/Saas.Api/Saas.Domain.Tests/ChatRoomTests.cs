@@ -13,7 +13,7 @@ public class ChatRoomTests
         var user1 = FakeUsers.Generate();
         var user2 = FakeUsers.Generate();
 
-        var chatRoom = new ChatRoom("test", "test", [user2], []);   
+        var chatRoom = new ChatRoom("test", [user2], []);   
         var initialparticipantsCount = chatRoom.Participants.Count;
         
         // Act
@@ -33,7 +33,7 @@ public class ChatRoomTests
         var user1 = FakeUsers.Generate();
         var user2 = FakeUsers.Generate();
 
-        var chatRoom = new ChatRoom("test", "test", [user1, user2], []);
+        var chatRoom = new ChatRoom("test", [user1, user2], []);
         
         // Act
         var result = chatRoom.AddParticipant(user1);
@@ -49,7 +49,7 @@ public class ChatRoomTests
         // Arrange
         var user1 = FakeUsers.Generate();
 
-        var chatRoom = new ChatRoom("test", "test", [user1], []);
+        var chatRoom = new ChatRoom("test", [user1], []);
         
         var initialparticipantsCount = chatRoom.Participants.Count;
         
@@ -70,7 +70,7 @@ public class ChatRoomTests
         var user1 = FakeUsers.Generate();
         var user2 = FakeUsers.Generate(friends: [user1]);
 
-        var chatRoom = new ChatRoom("test", "test", [user2], []);   // I just added user2 in there as a participant
+        var chatRoom = new ChatRoom("test", [user2], []);   // I just added user2 in there as a participant
         
         // Act
         var result = chatRoom.RemoveParticipant(user1);
@@ -88,7 +88,7 @@ public class ChatRoomTests
         
         var message = new Message("Test", DateTime.Now, user);
         
-        var chatRoom = new ChatRoom("test", "test", [user], []);
+        var chatRoom = new ChatRoom("test", [user], []);
         
         var initialMessagesCount = chatRoom.Messages.Count;
         
@@ -110,7 +110,7 @@ public class ChatRoomTests
 
         var message = new Message("Test", DateTime.Now, user);
         
-        var chatRoom = new ChatRoom("test", "test", [user], [message]);
+        var chatRoom = new ChatRoom("test", [user], [message]);
         
         // Act
         var result = chatRoom.AddMessage(message);
@@ -128,7 +128,7 @@ public class ChatRoomTests
         
         var message = new Message("Test", DateTime.Now, user);
 
-        var chatRoom = new ChatRoom("test", "test", [user], [message]);
+        var chatRoom = new ChatRoom("test", [user], [message]);
         
         var initialMessagesCount = chatRoom.Messages.Count;
         
@@ -150,7 +150,7 @@ public class ChatRoomTests
 
         var message = new Message("Test", DateTime.Now, user);
         
-        var chatRoom = new ChatRoom("test", "test", [user], []);
+        var chatRoom = new ChatRoom("test", [user], []);
         
         // Act
         var result = chatRoom.DeleteMessage(message);
