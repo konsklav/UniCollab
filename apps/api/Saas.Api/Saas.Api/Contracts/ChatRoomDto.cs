@@ -10,7 +10,7 @@ public sealed record ChatRoomDto(
 {
     internal static ChatRoomDto From(ChatRoom chatRoom) =>
         new(Id: chatRoom.Id,
-            Name: chatRoom.Name,
+            Name: chatRoom.Name.Value,
             Participants: chatRoom.Participants.Select(UserInformationDto.From).ToList(),
             Messages: chatRoom.Messages.Select(MessageDto.From).ToList());
 }

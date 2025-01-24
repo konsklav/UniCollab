@@ -1,8 +1,11 @@
+using Ardalis.Result;
 using Ardalis.Result.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Saas.Api.Contracts;
+using Saas.Api.Contracts.Requests;
 using Saas.Application.UseCases.ChatRooms;
+using IResult = Microsoft.AspNetCore.Http.IResult;
 
 namespace Saas.Api.Endpoints;
 
@@ -41,5 +44,22 @@ public class ChatRoomController : ControllerBase
     
         var chatRoom = result.Value;
         return Results.Ok(ChatRoomDto.From(chatRoom));
+    }
+
+    [HttpPost]
+    public async Task<IResult> Create(CreateChatRoomRequest request, [FromServices] CreateChatRoomUseCase createChatRoom)
+    {
+        var result = await createChatRoom.Handle(
+            name: request.Name,
+            userIds: request.InitialParticipants.Select(p => p.Id).ToList());
+
+        if (!result.IsSuccess)
+            return result.ToMinimalApiResult();
+
+        var chatRoom = result.Value;
+        return Results.CreatedAtRoute(
+            routeName: "/chat",
+            routeValues: chatRoom.Id,
+            value: chatRoom);
     }
 }
