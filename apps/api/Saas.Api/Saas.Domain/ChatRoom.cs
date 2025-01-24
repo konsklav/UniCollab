@@ -5,15 +5,24 @@ using Saas.Domain.Common;
 
 namespace Saas.Domain;
 
-public class ChatRoom(string name, List<User> participants, List<Message> messages, Guid? id = null) : Entity(id)
+public class ChatRoom : Entity
 {
-    private readonly List<User> _participants = participants;
-    private readonly List<Message> _messages = messages;
-    
-    public string Name { get; } = name;
+    private readonly List<User> _participants;
+    private readonly List<Message> _messages;
+
+    private ChatRoom() { }
+
+    public ChatRoom(string name, List<User> participants, List<Message> messages, Guid? id = null) : base(id)
+    {
+        _participants = participants;
+        _messages = messages;
+        Name = name;
+    }
+
+    public string Name { get; private set; }
     public IReadOnlyList<User> Participants => _participants;
     public IReadOnlyList<Message> Messages => _messages;
-
+    
     public Result AddParticipant(User user)
     {
         if (Participants.Contains(user))

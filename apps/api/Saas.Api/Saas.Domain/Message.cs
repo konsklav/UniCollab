@@ -7,9 +7,18 @@ namespace Saas.Domain;
 /// <summary>
 /// Contains information about the message, when it was sent and who sent it. 
 /// </summary>
-public class Message(string content, DateTime sentAt, User sender, Guid? id = null) : Entity(id)
+public class Message : Entity
 {
-    public string Content { get; private set; } = content;
-    public DateTime SentAt { get; private set; } = sentAt;
-    public User Sender { get; private set; } = sender;
+    private Message() { }
+
+    public Message(string content, DateTime sentAt, User sender, Guid? id = null) : base(id)
+    {
+        Content = content;
+        SentAt = sentAt;
+        Sender = sender;
+    }
+
+    public string Content { get; private set; }
+    public DateTime SentAt { get; private set; }
+    public User Sender { get; private set; }
 }
