@@ -12,7 +12,7 @@ public class UserChatTests
         var user1 = FakeUsers.Generate();
         var user2 = FakeUsers.Generate();
         
-        var chatroom = new ChatRoom("test", [user1], []);
+        var chatroom = FakeChatRooms.Generate(participants: [user1]);
         
         // Act
         var result = user2.JoinChat(chatroom);
@@ -29,7 +29,7 @@ public class UserChatTests
         // Arrange
         var user = FakeUsers.Generate();
         var message = new Message("Test", DateTime.Now, user);
-        var chatroom = new ChatRoom("test", [user], []);
+        var chatroom = FakeChatRooms.Generate(participants: [user]);
         
         // Act
         var result = user.SendMessage(chatroom, message);
@@ -46,7 +46,7 @@ public class UserChatTests
         // Arrange 
         var user = FakeUsers.Generate();
         var message = new Message("Test", DateTime.Now, user);
-        var chatroom = new ChatRoom("test", [user], [message]);
+        var chatroom = FakeChatRooms.Generate(participants: [user], messages: [message]);
         
         // Act
         var result = user.DeleteMessage(chatroom, message);
@@ -62,7 +62,7 @@ public class UserChatTests
     {
         // Arrange
         var user = FakeUsers.Generate();
-        var chatroom = new ChatRoom("test", [user], []);
+        var chatroom = FakeChatRooms.Generate(participants: [user]);
         
         // Act
         var result = user.LeaveChat(chatroom);

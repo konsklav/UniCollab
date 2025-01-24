@@ -6,10 +6,7 @@ namespace Saas.Infrastructure.Repositories;
 
 internal class UserRepository(UniCollabContext context) : IUserRepository
 {
-    public async Task<List<User>> GetAllAsync()
-    {
-        return await context.Users.ToListAsync();
-    }
+    public async Task<List<User>> GetAllAsync() => await context.Users.ToListAsync();
 
     public async Task<User?> GetByIdAsync(Guid userId)
     {
@@ -20,6 +17,11 @@ internal class UserRepository(UniCollabContext context) : IUserRepository
             
         return user;
     }
-    
+
+    public Task<List<User>?> GetByIdsAsync(List<Guid> userIds)
+    {
+        throw new NotImplementedException();
+    }
+
     public async Task SaveChangesAsync() => await context.SaveChangesAsync();
 }
