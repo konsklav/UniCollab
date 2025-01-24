@@ -3,7 +3,7 @@
 namespace Saas.Domain.Posts;
 
 /// <summary>
-/// Represents a post's title
+/// Represents a generic title.
 /// </summary>
 public sealed record Title
 {
