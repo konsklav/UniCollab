@@ -1,7 +1,6 @@
 ﻿using Ardalis.Result.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Saas.Application.UseCases;
 using Saas.Application.UseCases.Users;
 
 namespace Saas.Api.Endpoints;

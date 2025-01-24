@@ -1,8 +1,6 @@
 using Ardalis.Result.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using Saas.Api.Contracts;
-using Saas.Application.UseCases;
 using Saas.Application.UseCases.ChatRooms;
 
 namespace Saas.Api.Endpoints;
