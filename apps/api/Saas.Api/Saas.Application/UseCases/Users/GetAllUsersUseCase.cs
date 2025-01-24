@@ -2,7 +2,7 @@
 using Saas.Application.Interfaces.Data;
 using Saas.Domain;
 
-namespace Saas.Application.UseCases;
+namespace Saas.Application.UseCases.Users;
 
 public class GetAllUsersUseCase(IUserRepository repository)
 {

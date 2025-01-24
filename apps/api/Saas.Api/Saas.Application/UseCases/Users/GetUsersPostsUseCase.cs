@@ -1,9 +1,8 @@
 using Ardalis.Result;
 using Saas.Application.Interfaces.Data;
-using Saas.Domain;
 using Saas.Domain.Posts;
 
-namespace Saas.Application.UseCases;
+namespace Saas.Application.UseCases.Users;
 
 public class GetUsersPostsUseCase(IUserRepository repository)
 {

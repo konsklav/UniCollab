@@ -14,10 +14,7 @@ public interface IChatClient
 public record ServerMessage(string ChatId, string UserId, string Content);
 public record ClientMessage(string Username, string Content);
 
-public class ChatHub(
-    IHubContext<NotificationHub, INotificationClient> notificationHub,
-    IEventService eventService) 
-    : Hub<IChatClient>
+public class ChatHub(IEventService eventService) : Hub<IChatClient>
 {
     public async Task JoinChat(string chatId)
     {
@@ -34,23 +31,19 @@ public class ChatHub(
         var username = Context.User?
             .FindFirst(c => c.Type.Equals("Username", StringComparison.OrdinalIgnoreCase))?.Value ?? Context.ConnectionId;
 
-        // var chatGuid = Guid.Parse(message.ChatId);
-        // var userGuid = Guid.Parse(message.UserId);
-        //
-        // var messageSentEvent = new ChatMessageSentEvent(
-        //     UserId: userGuid,
-        //     ChatId: chatGuid,
-        //     Message: message.Content,
-        //     SentAt: DateTime.UtcNow);
-
-        // await eventService.PublishAsync(messageSentEvent);
+        var chatGuid = Guid.Parse(message.ChatId);
+        var userGuid = Guid.Parse(message.UserId);
         
+        var messageSentEvent = new ChatMessageSentEvent(
+            SenderUsername: username,
+            SenderId: userGuid,
+            SenderConnectionId: Context.ConnectionId,
+            ChatId: chatGuid,
+            Message: message.Content,
+            SentAt: DateTime.UtcNow);
+
         await Clients.Group(message.ChatId).ReceiveMessage(new ClientMessage(username, message.Content));
-
-        var notification = new Notification(NotificationType.ChatMessage, message.Content);
         
-        await notificationHub.Clients
-            .GroupExcept(message.ChatId, Context.ConnectionId)
-            .GetNotification(notification.ToDto());
+        await eventService.PublishAsync(messageSentEvent);
     }
 }

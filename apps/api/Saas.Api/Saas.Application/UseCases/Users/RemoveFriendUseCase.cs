@@ -1,7 +1,7 @@
 using Ardalis.Result;
 using Saas.Application.Interfaces.Data;
 
-namespace Saas.Application.UseCases;
+namespace Saas.Application.UseCases.Users;
 
 public class RemoveFriendUseCase(IUserRepository userRepository)
 {

@@ -1,6 +1,6 @@
 ﻿using Saas.Domain;
 
-namespace Saas.Application.UseCases;
+namespace Saas.Application.UseCases.ChatRooms;
 
 public class AddChatMessageToRoom
 {
