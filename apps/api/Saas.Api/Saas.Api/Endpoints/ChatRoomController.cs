@@ -16,18 +16,18 @@ namespace Saas.Api.Endpoints;
 public class ChatRoomController : ControllerBase
 {
     /// <summary>
-    /// Retrieve all the chatrooms in the system.
+    /// Retrieve all the chat rooms that the user can join.
     /// </summary>
     /// <returns>A list of chatrooms</returns>
-    [HttpGet]
-    public async Task<IResult> GetAll([FromServices] GetAllChatRoomsUseCase getAllChatRooms)
+    [HttpGet("joinable/{userId:guid}")]
+    public async Task<IResult> GetJoinable(Guid userId, [FromServices] GetJoinableChatRooms getJoinableChatRooms)
     {
-        var result = await getAllChatRooms.Handle();
+        var result = await getJoinableChatRooms.Handle(userId);
         if (!result.IsSuccess)
             return result.ToMinimalApiResult();
 
         var chatRooms = result.Value;
-        return Results.Ok(chatRooms.Select(ChatRoomDto.From));
+        return Results.Ok(chatRooms.Select(ChatRoomInformationDto.From));
     }
     
     /// <summary>

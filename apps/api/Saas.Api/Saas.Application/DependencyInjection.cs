@@ -11,7 +11,7 @@ public static class DependencyInjection
     public static void AddApplication(this IServiceCollection services)
     {
         services.AddScoped<GetChatRoomUseCase>();
-        services.AddScoped<GetAllChatRoomsUseCase>();
+        services.AddScoped<GetJoinableChatRooms>();
         services.AddScoped<AddFriendUseCase>();
         services.AddScoped<RemoveFriendUseCase>();
         services.AddScoped<GetUserUseCase>();
