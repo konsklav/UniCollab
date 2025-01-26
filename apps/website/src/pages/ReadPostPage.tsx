@@ -2,8 +2,9 @@ import { useParams } from "react-router-dom";
 import { getPostBySlug } from "../services/apiEndpoints";
 import { useQuery } from "@tanstack/react-query";
 import WaitForQuery from "../components/WaitForQuery";
+import Post from "../features/Posts/Post";
 
-export default function PostPage() {
+export default function ReadPostPage() {
     const { slug } = useParams()
 
     if (!slug) {
@@ -16,13 +17,7 @@ export default function PostPage() {
 
     return (
         <WaitForQuery query={query}>
-            <article id="user-post">
-                <h1>{query.data?.title}</h1>
-                <div>Uploaded at {query.data?.uploadDate.toDateString()} by <strong>{query.data?.author}</strong></div>
-                <p>
-                    {query.data?.content}
-                </p>
-            </article>
+            <Post post={query.data!}/>
         </WaitForQuery>
     )
 }

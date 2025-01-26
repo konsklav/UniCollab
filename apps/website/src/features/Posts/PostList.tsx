@@ -6,7 +6,8 @@ interface PostListProps {
 }
 
 export default function PostList({posts}: PostListProps) {
-    return <div className="container">
+    return ( 
+    <div className="container">
         <div className="row">
             {posts.map(post => (
                 <div className="col">
@@ -15,4 +16,5 @@ export default function PostList({posts}: PostListProps) {
             ))}
         </div>
     </div>
+    )
 }
