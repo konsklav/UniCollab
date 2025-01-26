@@ -1,6 +1,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Saas.Domain;
+using Saas.Infrastructure.Configurations.Extensions;
 
 namespace Saas.Infrastructure.Configurations;
 
@@ -10,7 +11,7 @@ public class ChatRoomConfiguration : IEntityTypeConfiguration<ChatRoom>
     {
         builder.HasKey(c => c.Id);
         builder.Property(c => c.Id).ValueGeneratedOnAdd();
-
+        
         builder
             .HasMany(c => c.Participants)
             .WithMany();
@@ -19,7 +20,6 @@ public class ChatRoomConfiguration : IEntityTypeConfiguration<ChatRoom>
             .HasMany(c => c.Messages)
             .WithOne();
 
-        builder.Property(c => c.Name)
-            .HasColumnType("nvarchar(50)");
+        builder.HasTitle(x => x.Name);
     }
 }

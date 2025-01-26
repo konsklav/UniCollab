@@ -7,65 +7,26 @@ using Saas.Application.Interfaces.Data;
 using Saas.Domain;
 using Saas.Infrastructure.Events;
 using Saas.Infrastructure.Repositories;
+using Saas.Infrastructure.Seeding;
 using Saas.Tests.Fakes;
 
 namespace Saas.Infrastructure;
 
 public static class DependencyInjection
 {
-    public static async Task AddInfrastructure(
-        this IServiceCollection services,
-        IConfiguration configuration,
-        bool isDevelopment)
+    public static async Task AddInfrastructure(this IServiceCollection services, IConfiguration configuration)
     {
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IPostRepository, PostRepository>();
         services.AddScoped<IChatRoomRepository, ChatRoomRepository>();
         services.AddScoped<IEventService, EventService>();
+
+        services.AddTransient<ISeeder, Seeder>();
         
         services.AddDbContext<UniCollabContext>(options =>
         {
             options.UseSqlServer(configuration.GetConnectionString("Database"));
             options.LogTo(Console.WriteLine, LogLevel.Information);
-            options.UseSeeding((context, _) =>
-            {
-                if (!isDevelopment)
-                    return;
-                
-                var user = context.Set<User>().FirstOrDefault();
-                if (user is not null)
-                    return;
-
-                SeedDatabase(context);
-                context.SaveChanges();
-            });
-            options.UseAsyncSeeding(async (context, _, ct) =>
-            {
-                if (!isDevelopment)
-                    return;
-                
-                var user = await context.Set<User>().FirstOrDefaultAsync(cancellationToken: ct);
-                if (user is not null)
-                    return;
-                
-                SeedDatabase(context);
-                await context.SaveChangesAsync(ct);
-            });
-        });
-    }
-
-    private static void SeedDatabase(DbContext context)
-    {
-        if (context is not UniCollabContext uniContext)
-            throw new InvalidOperationException("Expected to seed UniCollabContext.");
-
-        var users = FakeUsers.Generate(5);
-        uniContext.Users.AddRange(users);
-                
-        users.ForEach(u =>
-        {
-            var posts = FakePosts.GetForUser(u, 3);
-            uniContext.Posts.AddRange(posts);
         });
     }
 }
