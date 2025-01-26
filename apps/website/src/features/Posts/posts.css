@@ -2,9 +2,13 @@
     background-color: hsl(10, 45%, 40%);
     padding: 1.5rem;
     border-radius: .75rem;
-    width: 15rem;
+    width: 22.5rem;
+    
+    aspect-ratio: 1.667 / 1;
 
     transition: 0.2s;
+    display: flex;
+    flex-direction: column;
 }
 
 a:has(> .post-preview) {
@@ -16,7 +20,11 @@ a:has(> .post-preview) {
     background-color: hsl(15, 55%, 30%);
 }
 
-.post-preview-content {
+.post-preview-title {
     font-size: 1.5rem;
     font-weight: 700;
+    flex-grow: 1;
+}
+
+.post-preview-details {
 }

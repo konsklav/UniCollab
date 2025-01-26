@@ -5,7 +5,7 @@ import styles from './Layout.module.css'
 
 export default function Layout() {
     return (
-        <>
+        <div id={styles["app-container"]}>
             <div id={styles.layout}>
                 <div className="navigation d-flex flex-column">
                     <Navbar/>
@@ -14,6 +14,6 @@ export default function Layout() {
                     <Outlet/>
                 </main>
             </div>
-        </>
+        </div>
     )
 }

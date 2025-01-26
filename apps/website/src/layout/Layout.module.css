@@ -4,6 +4,11 @@
 
 #content {
     padding: .5rem;
+    overflow-y: auto;
+}
+
+#app-container {
+    overflow-y: hidden;
 }
 
 @media (min-width: 576px) {

@@ -8,9 +8,9 @@ interface PostListProps {
 export default function PostList({posts}: PostListProps) {
     return ( 
     <div className="container">
-        <div className="row">
+        <div className="row g-2">
             {posts.map(post => (
-                <div className="col">
+                <div className="col-auto" key={post.id}>
                     <PostPreview key={post.slug} {...post}/>
                 </div>
             ))}
