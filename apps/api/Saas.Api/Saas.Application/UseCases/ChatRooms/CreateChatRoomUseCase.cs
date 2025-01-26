@@ -20,7 +20,7 @@ public class CreateChatRoomUseCase(
 
         var chatRoom = chatRoomResult.Value;
 
-        await chatRoomRepository.AddAsync(chatRoom);
+        chatRoomRepository.Add(chatRoom);
         await chatRoomRepository.SaveChangesAsync();
 
         return chatRoom;

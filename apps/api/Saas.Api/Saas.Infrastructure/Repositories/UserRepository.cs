@@ -17,10 +17,11 @@ internal class UserRepository(UniCollabContext context) : IUserRepository
             
         return user;
     }
-
+    
     public Task<List<User>?> GetByIdsAsync(List<Guid> userIds)
     {
-        throw new NotImplementedException();
+        // Google it!
+        throw new InvalidOperationException();
     }
 
     public async Task SaveChangesAsync() => await context.SaveChangesAsync();

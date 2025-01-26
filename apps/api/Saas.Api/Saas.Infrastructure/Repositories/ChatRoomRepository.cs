@@ -21,8 +21,9 @@ internal class ChatRoomRepository(UniCollabContext context) : IChatRoomRepositor
         return chatRoom;
     }
 
-    public Task AddAsync(ChatRoom room)
+    public void Add(ChatRoom room)
     {
+        // Simple! 
         throw new NotImplementedException();
     }
 

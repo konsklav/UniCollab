@@ -1,3 +1,4 @@
+using System.Text.Json;
 using Ardalis.Result;
 using Ardalis.Result.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
@@ -36,7 +37,9 @@ public class ChatRoomController : ControllerBase
     /// <param name="getChatRoom"></param>
     /// <returns>A chat room</returns>
     [HttpGet("{chatRoomId:guid}")]
-    public async Task<IResult> Get(Guid chatRoomId, [FromServices] GetChatRoomUseCase getChatRoom)
+    public async Task<IResult> Get(
+        [FromRoute] Guid chatRoomId, 
+        [FromServices] GetChatRoomUseCase getChatRoom)
     {
         var result = await getChatRoom.Handle(chatRoomId);
         if (!result.IsSuccess)
@@ -47,7 +50,9 @@ public class ChatRoomController : ControllerBase
     }
 
     [HttpPost]
-    public async Task<IResult> Create(CreateChatRoomRequest request, [FromServices] CreateChatRoomUseCase createChatRoom)
+    public async Task<IResult> Create(
+        [FromBody] CreateChatRoomRequest request, 
+        [FromServices] CreateChatRoomUseCase createChatRoom)
     {
         var result = await createChatRoom.Handle(
             name: request.Name,
