@@ -4,16 +4,13 @@ using Saas.Domain;
 
 namespace Saas.Infrastructure.Repositories;
 
-internal class UserRepository(UniCollabContext db) : IUserRepository
+internal class UserRepository(UniCollabContext context) : IUserRepository
 {
-    public async Task<List<User>> GetAllAsync()
-    {
-        return await db.Users.ToListAsync();
-    }
+    public async Task<List<User>> GetAllAsync() => await context.Users.ToListAsync();
 
     public async Task<User?> GetByIdAsync(Guid userId)
     {
-        var user = await db.Users
+        var user = await context.Users
             .Include(u => u.Friends)
             .Include(u => u.Posts)
             .FirstOrDefaultAsync(u => u.Id == userId);
@@ -21,8 +18,11 @@ internal class UserRepository(UniCollabContext db) : IUserRepository
         return user;
     }
     
-    public async Task SaveChangesAsync()
+    public Task<List<User>?> GetByIdsAsync(List<Guid> userIds)
     {
-        await db.SaveChangesAsync();
+        // Google it!
+        throw new InvalidOperationException();
     }
+
+    public async Task SaveChangesAsync() => await context.SaveChangesAsync();
 }

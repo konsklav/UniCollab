@@ -1,8 +1,7 @@
-﻿using Ardalis.Result;
-using FluentAssertions;
+﻿using FluentAssertions;
 using Saas.Tests.Fakes;
 
-namespace Saas.Domain.Tests;
+namespace Saas.Domain.Tests.User;
 
 public class UserPostTests
 {

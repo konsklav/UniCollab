@@ -29,6 +29,11 @@ public class BasicAuthenticationHandler : AuthenticationHandler<BasicAuthenticat
         }
 
         var tokens = token.ToString().Split(" ");
+
+        if (tokens.Length != 2)
+        {
+            return AuthenticateResult.Fail("Invalid Authorization Form");
+        }
         
         var scheme = tokens[0];
 

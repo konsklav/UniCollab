@@ -1,20 +1,48 @@
 using Ardalis.Result;
 using Saas.Domain.Common;
+using Saas.Domain.Posts;
 
 // ReSharper disable ReplaceWithPrimaryConstructorParameter
 
 namespace Saas.Domain;
 
-public class ChatRoom(string name, string type, List<User> participants, List<Message> messages, Guid? id = null) : Entity(id)
+public class ChatRoom : Entity
 {
-    private readonly List<User> _participants = participants;
-    private readonly List<Message> _messages = messages;
-    
-    public string Name { get; } = name;
-    public string Type { get; } = type;
+    private readonly List<User> _participants;
+    private readonly List<Message> _messages;
+
+    private ChatRoom() { }
+    private ChatRoom(Title name, List<User> participants, List<Message> messages, Guid? id = null) : base(id)
+    {
+        _participants = participants;
+        _messages = messages;
+        Name = name;
+    }
+
+    public Title Name { get; private set; }
     public IReadOnlyList<User> Participants => _participants;
     public IReadOnlyList<Message> Messages => _messages;
 
+    public static Result<ChatRoom> Create(string name, List<User> participants)
+    {
+        var errors = new List<ValidationError>();
+        
+        var titleResult = Title.Create(name);
+        if (!titleResult.IsSuccess)
+            errors.AddRange(titleResult.ValidationErrors);
+
+        if (participants.Count == 0)
+            errors.Add(new ValidationError("Cannot create a chat room with no participants."));
+
+        if (errors.Count > 0)
+            return Result.Invalid(errors);
+
+        return new ChatRoom(
+            name: titleResult.Value,
+            participants: participants,
+            messages: []);
+    }
+    
     public Result AddParticipant(User user)
     {
         if (Participants.Contains(user))

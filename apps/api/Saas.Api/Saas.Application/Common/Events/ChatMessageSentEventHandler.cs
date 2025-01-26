@@ -1,5 +1,7 @@
 ﻿using Saas.Application.Interfaces;
 using Saas.Application.UseCases;
+using Saas.Application.UseCases.ChatRooms;
+using Saas.Application.UseCases.Users;
 using Saas.Domain;
 
 namespace Saas.Application.Common.Events;
@@ -22,7 +24,7 @@ internal sealed class ChatMessageSentEventHandler
 
     private async Task HandleMessageSent(ChatMessageSentEvent sentEvent)
     {
-        var getUserResult = await _getUser.Handle(sentEvent.UserId);
+        var getUserResult = await _getUser.Handle(sentEvent.SenderId);
         if (!getUserResult.IsSuccess)
             return;
 
