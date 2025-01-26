@@ -12,6 +12,7 @@ namespace Saas.Api.Contracts;
 /// <param name="Slug">A URL-friendly name created from the title.</param>
 /// <param name="UploadDate">The Date and Time the post was uploaded.</param>
 public sealed record PostDto(
+    Guid Id,
     string Title,
     string Content,
     List<string> Subjects,
@@ -20,7 +21,8 @@ public sealed record PostDto(
     DateTime UploadDate)
 {
     internal static PostDto From(Post post) =>
-        new(Title: post.Title.Value,
+        new(Id: post.Id,
+            Title: post.Title.Value,
             Content: post.Content,
             Subjects: post.Subjects.Select(s => s.Name).ToList(),
             Author: UserInformationDto.From(post.Author),
