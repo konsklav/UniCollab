@@ -13,3 +13,12 @@ export const getPostBySlug = async (slug: string): Promise<PostInformation> => {
     const response = await api.get(`/posts/${slug}`)
     return response.data
 }
+
+export const getRecentPosts = async (count: number): Promise<readonly PostInformation[]> => {
+    if (count <= 0) {
+        throw new Error('Invalid count parameter.')
+    }
+
+    const response = await api.get(`/posts/recent/${count}`)
+    return response.data
+}

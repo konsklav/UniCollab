@@ -18,10 +18,13 @@ export const useAuth = create<AuthenticationStore>()(
             user: undefined,
             credentials: undefined,
             authentication: 'None',
-            login: (credentials: UserCredentials, method: UniCollabAuthenticationMethod) => set({ 
-                credentials: credentials,
-                authentication: method
-            }),
+            login: (credentials: UserCredentials, method: UniCollabAuthenticationMethod) => {
+                console.log(`Logging in as '${credentials.username}' with scheme '${method}'`)
+                return set({
+                    credentials: credentials,
+                    authentication: method
+                });
+            },
             logout: () => set({
                 credentials: undefined,
                 authentication: 'None'

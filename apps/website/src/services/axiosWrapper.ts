@@ -37,13 +37,13 @@ export class AxiosWrapper {
     }
 
     private getConfig(): AxiosRequestConfig<any> | undefined  {
-        const { credentials: user, authentication } = useAuth.getState()
-        if (!user || authentication === 'None')
-            return {}
+        const { credentials, authentication } = useAuth.getState()
+        if (!credentials || authentication === 'None')
+            return { }
 
         switch (authentication) {
             case 'Basic':
-                return { headers: { 'Authorization': createBasicAuthToken(user) } }
+                return { headers: { 'Authorization': createBasicAuthToken(credentials) } }
             case 'Google':
                 return { }
         }
