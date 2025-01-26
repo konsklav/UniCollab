@@ -1,31 +1,40 @@
-import { FormEvent, useState } from "react"
-import InputText from "../components/Form/InputText";
-import { ClientMessage, useChatClient } from "../hooks/useChatClient";
-import ChatMessage from "../features/Chat/ChatMessage";
+import { Link, useNavigate, useParams } from "react-router-dom"
+import Chat from "../features/Chat/ChatRoom"
+import BrowseAllChats from "../features/Chat/BrowseAllChats"
+import CreateChatForm from "../features/Chat/CreateChatForm"
 
+export type ChatPageParams = '' | 'browse' | 'create'
 
 export default function ChatPage() {
-    const [message, setMessage] = useState('')
-    const [messages, setMessages] = useState<ClientMessage[]>([])
-    const chat = useChatClient('abc123', {
-        onMessageReceived: (message) => setMessages(current => [...current, message])
-    })
+    const { state } = useParams()
+    const navigate = useNavigate()
 
-    const handleMessageSubmit = (e: FormEvent<HTMLFormElement>): void => {
-        e.preventDefault()
-        chat.sendMessage(message)
+    const showChildComponent = () => {
+        if (!state || state === '') {
+            return <Chat/>
+        }
+        if (state === 'browse') {
+            return <BrowseAllChats/>
+        }
+        if (state === 'create') {
+            return <CreateChatForm/>
+        }
     }
 
     return (
-        <>
-        <div className="container border p-3" style={{minHeight: '2rem'}}>
-            {messages.map(msg => <ChatMessage message={msg}/>)}
+        <div className="container-fluid">
+            
+            <div className="btn-group">
+                {state && (
+                    <Link className="btn" to={'/chat'}>
+                        <i className="bi bi-arrow-left"></i>
+                    </Link>)}
+                <Link className="btn btn-success" to={'/chat/browse'}>Create New</Link>
+                <Link className="btn btn-primary" to={'/chat/create'}>Browse Chats</Link>
+            </div>
+            <div className="container-fluid">
+                {showChildComponent()}
+            </div>
         </div>
-
-        <form onSubmit={handleMessageSubmit}>
-            <InputText value={message} onChange={(newMsg) => setMessage(newMsg)}/>
-            <button type="submit" className="btn btn-primary">Send</button>
-        </form>
-        </>
     )
 }

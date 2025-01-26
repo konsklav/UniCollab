@@ -1,7 +1,7 @@
 import { useQuery } from "@tanstack/react-query"
-import { getRecentPosts } from "../services/apiEndpoints"
 import WaitForQuery from "../components/WaitForQuery"
 import PostList from "../features/Posts/PostList"
+import { getRecentPosts } from "../endpoints/postEndpoints"
 
 const getCount = 10
 

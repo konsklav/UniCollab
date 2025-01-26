@@ -21,7 +21,7 @@ export default function App() {
         <Route path="/" element={<Layout/>}>
           <Route path="/" element={<AuthenticatedRoute/>}>
             <Route index element={<HomePage/>}/>
-            <Route path="chat" element={<ChatPage/>}/>
+            <Route path="chat/:state?" element={<ChatPage/>}/>
             <Route path="users" element={<UsersPage/>}/>
             <Route path="groups" element={<GroupsPage/>}/>
             <Route path="posts" element={<PostsPage/>}/>

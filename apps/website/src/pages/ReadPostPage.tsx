@@ -1,8 +1,8 @@
 import { useParams } from "react-router-dom";
-import { getPostBySlug } from "../services/apiEndpoints";
 import { useQuery } from "@tanstack/react-query";
 import WaitForQuery from "../components/WaitForQuery";
 import Post from "../features/Posts/Post";
+import { getPostBySlug } from "../endpoints/postEndpoints";
 
 export default function ReadPostPage() {
     const { slug } = useParams()
