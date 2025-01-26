@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Saas.Domain;
 using Saas.Domain.Posts;
+using Saas.Infrastructure.Configurations.Extensions;
 
 namespace Saas.Infrastructure.Configurations;
 
@@ -21,12 +22,8 @@ public class PostConfiguration : IEntityTypeConfiguration<Post>
 
         builder.Property(x => x.Content)
             .HasColumnType("text");
-        
-        builder.Property(x => x.Title)
-            .HasConversion(
-                convertToProviderExpression: title => title.Value,
-                convertFromProviderExpression: str => Title.Create(str))
-            .HasColumnType($"nvarchar({Title.MaxLength})");
+
+        builder.HasTitle(x => x.Title);
 
         builder.Property(x => x.Slug)
             .HasColumnType($"nvarchar({Title.MaxLength})");

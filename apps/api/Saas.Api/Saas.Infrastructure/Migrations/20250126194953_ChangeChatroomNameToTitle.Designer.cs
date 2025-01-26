@@ -3,6 +3,7 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Saas.Infrastructure;
 
@@ -11,9 +12,11 @@ using Saas.Infrastructure;
 namespace Saas.Infrastructure.Migrations
 {
     [DbContext(typeof(UniCollabContext))]
-    partial class UniCollabContextModelSnapshot : ModelSnapshot
+    [Migration("20250126194953_ChangeChatroomNameToTitle")]
+    partial class ChangeChatroomNameToTitle
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -143,7 +146,7 @@ namespace Saas.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Subjects");
+                    b.ToTable("Subject");
                 });
 
             modelBuilder.Entity("Saas.Domain.User", b =>

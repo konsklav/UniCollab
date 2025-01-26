@@ -1,4 +1,6 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using System.Linq.Expressions;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Saas.Domain;
 using Saas.Domain.Posts;
 using Saas.Infrastructure.Configurations;
@@ -8,6 +10,7 @@ namespace Saas.Infrastructure;
 internal class UniCollabContext : DbContext
 {
     public DbSet<User> Users { get; set; }
+    public DbSet<Subject> Subjects { get; set; }
     public DbSet<Post> Posts { get; set; }
     public DbSet<ChatRoom> ChatRooms { get; set; }
     
@@ -21,3 +24,4 @@ internal class UniCollabContext : DbContext
         modelBuilder.ApplyConfiguration(new MessageConfiguration());
     }
 }
+
