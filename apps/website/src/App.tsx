@@ -7,7 +7,7 @@ import GroupsPage from "./pages/GroupsPage";
 import AuthenticatedRoute from "./components/Routing/AuthenticatedRoute";
 import GuestLayout from "./layout/GuestLayout";
 import RegisterPage from "./pages/Auth/RegisterPage";
-import PostsPage from "./pages/MyPostsPage";
+import MyPostsPage from "./pages/MyPostsPage";
 import ReadPostPage from "./pages/ReadPostPage";
 import { ToastContainer } from "./components/Toasts/ToastContainer";
 import NotificationsManager from "./components/Notifications/NotificationsManager";
@@ -24,7 +24,7 @@ export default function App() {
             <Route path="chat/:state?" element={<ChatPage/>}/>
             <Route path="users" element={<UsersPage/>}/>
             <Route path="groups" element={<GroupsPage/>}/>
-            <Route path="posts" element={<PostsPage/>}/>
+            <Route path="posts" element={<MyPostsPage/>}/>
             <Route path="posts/:slug" element={<ReadPostPage/>}/>
           </Route>
         </Route>

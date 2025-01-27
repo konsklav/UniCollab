@@ -43,3 +43,8 @@ export const getRecentPosts = async (count: number): Promise<readonly PostInform
     const response = await api.get(`/posts/recent/${count}`)
     return response.data.map(getPostInformation)
 }
+
+export const getPostsOfUser = async (userId: string): Promise<readonly PostInformation[]> => {
+    const response = await api.get(`/posts/user/${userId}`)
+    return response.data.map(getPostInformation)
+}
