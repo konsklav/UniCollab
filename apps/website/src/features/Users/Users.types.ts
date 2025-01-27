@@ -6,7 +6,7 @@ export interface UserCredentials {
 }
 
 export interface UserInformation {
-    id: UUIDTypes
+    id: string
     username: string
 }
 

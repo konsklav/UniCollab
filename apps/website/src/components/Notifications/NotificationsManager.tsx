@@ -7,7 +7,7 @@ import { ToastType } from "../Toasts/Toast.types";
 import { useAuth } from "../../state/authentication/authenticationStore";
 
 export default function NotificationsManager() {
-    const { credentials: user, isAuthenticated } = useAuth()
+    const { user, isAuthenticated } = useAuth()
     const publish = useNotificationStore(state => state.publish)
 
     useEffect(() => {
@@ -17,7 +17,7 @@ export default function NotificationsManager() {
         }
 
         console.log('Beginning SignalR connection.')
-        const signalR = new SignalRService('notifications', user)
+        const signalR = new SignalRService('notifications')
         
         signalR.startConnection()
         

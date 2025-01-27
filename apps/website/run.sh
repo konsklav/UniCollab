@@ -25,7 +25,7 @@ echo "🛠️ Building .NET API"
 dotnet build "$API_PATH/$PROJ.sln"
 
 echo "🚀 Launching .NET API"
-dotnet run --launch-profile "http" --project "$API_PATH/$PROJ/$PROJ.csproj" --no-build -v n &
+dotnet run --launch-profile "http" --project "$API_PATH/src/$PROJ/$PROJ.csproj" --no-build -v n &
 
 sleep 1
 

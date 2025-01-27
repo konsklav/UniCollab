@@ -1,19 +1,20 @@
 import { HubConnection, HubConnectionBuilder, HubConnectionState, LogLevel } from "@microsoft/signalr";
 import { commonUrls } from "../common/common.urls";
-import { createBasicAuthToken } from "../utils/basicAuthentication";
-import { UserCredentials } from "../features/Users/Users.types";
+import { useAuth } from "../state/authentication/authenticationStore";
 
 export default class SignalRService {
     private connection: HubConnection
 
-    constructor(hubName: string, user: UserCredentials) {
+    constructor(hubName: string) {
+        const authState = useAuth.getState()
+        if (!authState.isAuthenticated() || !authState.token) {
+            throw new Error('Cannot use SignalR service if unauthenticated.')
+        }
+
         this.connection = new HubConnectionBuilder()
             .withUrl(`${commonUrls.api}/hubs/${hubName}`, {
-                headers: {
-                    'Authorization': createBasicAuthToken(user)
-                }
+                headers: { 'Authorization': authState.token }
             })
-            .configureLogging(LogLevel.Debug)
             .withAutomaticReconnect()
             .build()
     }

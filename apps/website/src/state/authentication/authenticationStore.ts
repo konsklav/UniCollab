@@ -1,37 +1,29 @@
 import { create } from "zustand";
-import { UserCredentials, UserInformation } from "../../features/Users/Users.types";
-import { persist } from "zustand/middleware";
+import { UserInformation } from "../../features/Users/Users.types";
+import { AuthenticatedUser } from "../../common/common.types";
 
 export type UniCollabAuthenticationMethod = 'Basic' | 'Google'
 
 interface AuthenticationStore {
     user: UserInformation | undefined
-    credentials: UserCredentials | undefined
-    authentication: UniCollabAuthenticationMethod | 'None'
-    login: (credentials: UserCredentials, method: UniCollabAuthenticationMethod) => void
-    logout: () => void,
+    token: string | undefined
+    authenticate: (user: AuthenticatedUser) => void
+    invalidate: () => void
     isAuthenticated: () => boolean
 }
-export const useAuth = create<AuthenticationStore>()(
-    persist(
+export const useAuth = create<AuthenticationStore>(
         (set, get) => ({
             user: undefined,
-            credentials: undefined,
-            authentication: 'None',
-            login: (credentials: UserCredentials, method: UniCollabAuthenticationMethod) => {
-                console.log(`Logging in as '${credentials.username}' with scheme '${method}'`)
+            token: undefined,
+            authenticate: (authUser: AuthenticatedUser) => {
                 return set({
-                    credentials: credentials,
-                    authentication: method
+                    token: authUser.token,
+                    user: authUser.user
                 });
             },
-            logout: () => set({
-                credentials: undefined,
-                authentication: 'None'
+            invalidate: () => set({
+                token: undefined,
+                user: undefined
             }),
-            isAuthenticated: () => get().authentication !== 'None' && get().credentials !== undefined}),
-        {
-            name: 'auth-storage'
-        }
-    )
+            isAuthenticated: () => get().token !== undefined && get().user !== undefined})
 )

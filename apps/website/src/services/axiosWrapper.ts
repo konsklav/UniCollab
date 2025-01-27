@@ -1,7 +1,6 @@
 import axios, { AxiosInstance, AxiosRequestConfig, AxiosResponse } from "axios"
 import { commonUrls } from "../common/common.urls"
 import { useAuth } from "../state/authentication/authenticationStore"
-import { createBasicAuthToken } from "../utils/basicAuthentication"
 
 export class AxiosWrapper {
     public get: (route: string) => Promise<AxiosResponse<any, any>>
@@ -37,15 +36,10 @@ export class AxiosWrapper {
     }
 
     private getConfig(): AxiosRequestConfig<any> | undefined  {
-        const { credentials, authentication } = useAuth.getState()
-        if (!credentials || authentication === 'None')
+        const { token } = useAuth.getState()
+        if (!token)
             return { }
 
-        switch (authentication) {
-            case 'Basic':
-                return { headers: { 'Authorization': createBasicAuthToken(credentials) } }
-            case 'Google':
-                return { }
-        }
+        return { headers: { 'Authorization': token }}
     }
 }

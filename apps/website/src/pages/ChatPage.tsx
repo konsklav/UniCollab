@@ -1,4 +1,4 @@
-import { Link, useNavigate, useParams } from "react-router-dom"
+import { Link, useParams } from "react-router-dom"
 import Chat from "../features/Chat/ChatRoom"
 import BrowseAllChats from "../features/Chat/BrowseAllChats"
 import CreateChatForm from "../features/Chat/CreateChatForm"
@@ -7,14 +7,13 @@ export type ChatPageParams = '' | 'browse' | 'create'
 
 export default function ChatPage() {
     const { state } = useParams()
-    const navigate = useNavigate()
 
     const showChildComponent = () => {
         if (!state || state === '') {
             return <Chat/>
         }
         if (state === 'browse') {
-            return <BrowseAllChats/>
+            return <BrowseAllChats />
         }
         if (state === 'create') {
             return <CreateChatForm/>

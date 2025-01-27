@@ -1,28 +1,11 @@
 import { useEffect, useRef } from "react"
 import { useAuth } from "../state/authentication/authenticationStore"
 import SignalRService from "../services/signalRService"
+import { ChatClientCallbacks, ChatClientActions, ClientMessage, ServerMessage } from "../features/Chat/Chat.types"
 
-type ChatClientCallbacks = {
-    onMessageReceived: (message: ClientMessage) => void
-}
-
-type ChatClientActions = {
-    sendMessage: (message: string) => void
-}
-
-type ServerMessage = {
-    chatId: string
-    userId: string
-    content: string
-}
-
-export type ClientMessage = {
-    username: string,
-    content: string
-}
 
 export const useChatClient = (chatId: string, callbacks: ChatClientCallbacks): ChatClientActions => {
-    const {credentials: user, isAuthenticated} = useAuth()
+    const {user, isAuthenticated} = useAuth()
     const signalRRef = useRef<SignalRService | undefined>(undefined)
 
     useEffect(() => {
@@ -30,7 +13,7 @@ export const useChatClient = (chatId: string, callbacks: ChatClientCallbacks): C
             return;
         }
 
-        const signalR = new SignalRService('chat', user)
+        const signalR = new SignalRService('chat')
         signalRRef.current = signalR
 
         signalR.startConnection().then(() => {

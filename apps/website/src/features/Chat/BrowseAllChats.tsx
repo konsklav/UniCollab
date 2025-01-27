@@ -4,7 +4,7 @@ import WaitForQuery from "../../components/WaitForQuery";
 import ChatPreview from "./ChatPreview";
 
 interface ChatBrowseProps {
-    onJoinChat: (chatId: string) => void
+    onJoinChat?: (chatId: string) => void
 }
 
 export default function BrowseAllChats({onJoinChat}: ChatBrowseProps) {
@@ -16,7 +16,7 @@ export default function BrowseAllChats({onJoinChat}: ChatBrowseProps) {
     const mutation = useMutation({
         mutationFn: joinChatRoom,
         onSuccess: (_data, variables, _context) => {
-            onJoinChat(variables)    
+            onJoinChat?.(variables)    
         }
     })
 
