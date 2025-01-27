@@ -18,9 +18,9 @@ internal class UserRepository(UniCollabContext context) : IUserRepository
         return user;
     }
     
-    public Task<List<User>?> GetByIdsAsync(List<Guid> userIds)
+    public async Task<List<User>?> GetByIdsAsync(List<Guid> userIds)
     {
-        var users = context.Users
+        var users = await context.Users
             .Where(u => userIds.Contains(u.Id))
             .ToListAsync();
         
