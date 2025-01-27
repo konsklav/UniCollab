@@ -16,7 +16,11 @@ export default function ChatPage() {
             return <BrowseAllChats />
         }
         if (state === 'create') {
-            return <CreateChatForm/>
+            return (
+                <div className="w-100 d-flex align-items-center justify-content-center">
+                    <CreateChatForm/>
+                </div>
+            )
         }
     }
 
@@ -24,14 +28,11 @@ export default function ChatPage() {
         <div className="container-fluid">
             
             <div className="btn-group">
-                {state && (
-                    <Link className="btn" to={'/chat'}>
-                        <i className="bi bi-arrow-left"></i>
-                    </Link>)}
-                <Link className="btn btn-success" to={'/chat/browse'}>Create New</Link>
-                <Link className="btn btn-primary" to={'/chat/create'}>Browse Chats</Link>
+                <Link className="btn btn-primary" to={'/chat'}>Chat</Link>
+                <Link className="btn btn-success" to={'/chat/create'}>Create</Link>
+                <Link className="btn btn-secondary" to={'/chat/browse'}>Browse</Link>
             </div>
-            <div className="container-fluid">
+            <div className="container-fluid p-3">
                 {showChildComponent()}
             </div>
         </div>

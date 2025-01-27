@@ -22,3 +22,8 @@ export type ClientMessage = {
     username: string,
     content: string
 }
+
+export interface CreateChatRoomRequest {
+    name: string
+    initialParticipants: readonly string[]
+}

@@ -1,12 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
 import WaitForQuery from "../components/WaitForQuery";
-import { getAllUsers } from "../endpoints/userEndpoints";
-import { UserInformation } from "../features/Users/Users.types";
+import { useGetAllUsers } from "../hooks/queries/useGetAllUsers";
 
 export default function UsersPage() {
-    const query = useQuery<readonly UserInformation[]>({
-        queryKey: ['users'], 
-        queryFn: getAllUsers})
+    const query = useGetAllUsers()
 
     return (
         <WaitForQuery query={query}>

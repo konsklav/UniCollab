@@ -5,6 +5,8 @@
 #content {
     padding: .5rem;
     overflow-y: auto;
+
+    width: 100%;
 }
 
 #app-container {

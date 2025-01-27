@@ -3,7 +3,6 @@ import { useAuth } from "../state/authentication/authenticationStore"
 import SignalRService from "../services/signalRService"
 import { ChatClientCallbacks, ChatClientActions, ClientMessage, ServerMessage } from "../features/Chat/Chat.types"
 
-
 export const useChatClient = (chatId: string, callbacks: ChatClientCallbacks): ChatClientActions => {
     const {user, isAuthenticated} = useAuth()
     const signalRRef = useRef<SignalRService | undefined>(undefined)

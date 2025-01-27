@@ -1,4 +1,4 @@
-import { ClientMessage } from "../../hooks/useChatClient";
+import { ClientMessage } from "./Chat.types";
 
 export default function ChatMessage({message}: {message: ClientMessage}) {
     return (
