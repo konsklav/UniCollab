@@ -20,8 +20,11 @@ internal class UserRepository(UniCollabContext context) : IUserRepository
     
     public Task<List<User>?> GetByIdsAsync(List<Guid> userIds)
     {
-        // Google it!
-        throw new InvalidOperationException();
+        var users = context.Users
+            .Where(u => userIds.Contains(u.Id))
+            .ToListAsync();
+        
+        return users;
     }
 
     public async Task SaveChangesAsync() => await context.SaveChangesAsync();
