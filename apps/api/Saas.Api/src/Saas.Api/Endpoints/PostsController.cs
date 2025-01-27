@@ -46,4 +46,22 @@ public class PostsController : ControllerBase
         var postDtos = posts.Select(PostDto.From);
         return Results.Ok(postDtos);
     }
+
+    /// <summary>
+    /// Get all posts by a specific user.
+    /// </summary>
+    /// <param name="userId">The user's ID which will be used to search for posts by them.</param>
+    /// <param name="getPosts"></param>
+    [HttpGet("user/{userId:guid}")]
+    public async Task<IResult> GetPostsByUser(
+        [FromRoute] Guid userId,
+        [FromServices] GetPosts getPosts)
+    {
+        var result = await getPosts.ByUser(userId);
+        if (!result.IsSuccess)
+            return result.ToMinimalApiResult();
+
+        var posts = result.Value;
+        return Results.Ok(posts.Select(PostDto.From));
+    }
 }
