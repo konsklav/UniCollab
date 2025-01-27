@@ -12,7 +12,6 @@
 
     <ItemGroup>
       <ProjectReference Include="..\..\src\Saas.Domain\Saas.Domain.csproj" />
-      <ProjectReference Include="..\Saas.Domain\Saas.Domain.csproj" />
     </ItemGroup>
 
 </Project>

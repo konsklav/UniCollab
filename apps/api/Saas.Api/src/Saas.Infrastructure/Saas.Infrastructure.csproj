@@ -9,7 +9,6 @@
     <ItemGroup>
       <ProjectReference Include="..\..\test\Saas.Tests.Fakes\Saas.Tests.Fakes.csproj" />
       <ProjectReference Include="..\Saas.Application\Saas.Application.csproj" />
-      <ProjectReference Include="..\Saas.Tests.Fakes\Saas.Tests.Fakes.csproj" />
     </ItemGroup>
 
     <ItemGroup>
