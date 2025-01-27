@@ -1,10 +1,11 @@
 using Ardalis.Result;
+using Saas.Application.Interfaces;
 using Saas.Application.Interfaces.Data;
 using Saas.Domain;
 
 namespace Saas.Application.UseCases.Users;
 
-public class GetUsersPostsUseCase(IUserRepository repository)
+public class GetUsersPostsUseCase(IUserRepository repository) : IApplicationUseCase
 {
     public async Task<Result<List<Post>>> Handle(Guid userId)
     {

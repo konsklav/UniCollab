@@ -1,9 +1,10 @@
 ﻿using Ardalis.Result;
+using Saas.Application.Interfaces;
 using Saas.Application.Interfaces.Data;
 
 namespace Saas.Application.UseCases.Users;
 
-public class AddFriendUseCase(IUserRepository userRepository)
+public class AddFriendUseCase(IUserRepository userRepository) : IApplicationUseCase
 {
     public async Task<Result> Handle(Guid userId, Guid friendToAddId)
     {

@@ -32,14 +32,6 @@ internal sealed class Seeder(UniCollabContext context) : ISeeder
         epicDeveloperKonsklav.AddFriend(epicDeveloperNove);
 
         var chatRoom = ChatRoom.Create("Developers", [epicDeveloperKonsklav, epicDeveloperNove]);
-        var moreRooms = Enumerable
-            .Range(0, 5)
-            .Select(_ => FakeChatRooms.Generate(
-                participants: faker.PickRandom(
-                        items: users,
-                        amountToPick: faker.Random.Number(min: 0, max: users.Count / 2))
-                    .ToList(),
-                messages: []));
 
         var posts = users.SelectMany(user =>
         {
@@ -50,7 +42,7 @@ internal sealed class Seeder(UniCollabContext context) : ISeeder
         
         context.Subjects.AddRange(subjects);
         context.Users.AddRange([..users, epicDeveloperKonsklav, epicDeveloperNove]);
-        context.ChatRooms.AddRange([chatRoom, ..moreRooms]);
+        context.ChatRooms.Add(chatRoom);
         context.Posts.AddRange(posts);
 
         var changesMade = await context.SaveChangesAsync();

@@ -25,10 +25,7 @@ internal class ChatRoomRepository(UniCollabContext context) : IChatRoomRepositor
         return chatRoom;
     }
 
-    public void Add(ChatRoom room)
-    {
-        context.ChatRooms.Add(room);
-    }
+    public void Add(ChatRoom room) => context.ChatRooms.Add(room);
 
     public async Task SaveChangesAsync() => await context.SaveChangesAsync();
 }

@@ -1,4 +1,5 @@
 ﻿using Ardalis.Result;
+using Saas.Application.Interfaces;
 using Saas.Application.Interfaces.Data;
 using Saas.Domain;
 
@@ -6,7 +7,7 @@ namespace Saas.Application.UseCases.ChatRooms;
 
 public class CreateChatRoomUseCase(
     IUserRepository userRepository,
-    IChatRoomRepository chatRoomRepository)
+    IChatRoomRepository chatRoomRepository) : IApplicationUseCase
 {
     public async Task<Result<ChatRoom>> Handle(string name, List<Guid> userIds)
     {

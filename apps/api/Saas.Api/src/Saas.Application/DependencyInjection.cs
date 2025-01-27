@@ -1,4 +1,6 @@
-﻿using Microsoft.Extensions.DependencyInjection;
+﻿using System.Reflection;
+using Microsoft.Extensions.DependencyInjection;
+using Saas.Application.Interfaces;
 using Saas.Application.UseCases;
 using Saas.Application.UseCases.Auth;
 using Saas.Application.UseCases.ChatRooms;
@@ -11,14 +13,15 @@ public static class DependencyInjection
 {
     public static void AddApplication(this IServiceCollection services)
     {
-        services.AddScoped<BasicLogicUseCase>();
-        services.AddScoped<GetChatRoomUseCase>();
-        services.AddScoped<GetJoinableChatRooms>();
-        services.AddScoped<AddFriendUseCase>();
-        services.AddScoped<RemoveFriendUseCase>();
-        services.AddScoped<GetUserUseCase>();
-        services.AddScoped<GetAllUsersUseCase>();
-        services.AddScoped<GetUsersPostsUseCase>();
-        services.AddScoped<GetPosts>();
+        var useCaseInterface = typeof(IApplicationUseCase);
+        var useCases = Assembly.GetExecutingAssembly()
+            .GetTypes()
+            .Where(t => t is { IsClass: true, IsAbstract: false } &&
+                        useCaseInterface.IsAssignableFrom(t));
+
+        foreach (var useCase in useCases)
+        {
+            services.AddScoped(useCase);
+        }
     }
 }

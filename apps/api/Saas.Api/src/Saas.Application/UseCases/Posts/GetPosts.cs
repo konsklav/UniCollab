@@ -1,10 +1,11 @@
 ﻿using Ardalis.Result;
+using Saas.Application.Interfaces;
 using Saas.Application.Interfaces.Data;
 using Saas.Domain;
 
 namespace Saas.Application.UseCases.Posts;
 
-public sealed class GetPosts(IPostRepository repository)
+public sealed class GetPosts(IPostRepository repository) : IApplicationUseCase
 {
     public async Task<Result<Post>> BySlug(string slug)
     {
