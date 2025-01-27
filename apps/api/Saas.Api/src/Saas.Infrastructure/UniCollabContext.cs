@@ -2,7 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Saas.Domain;
-using Saas.Infrastructure.Configurations;
+using Saas.Infrastructure.Data.Configurations;
 
 namespace Saas.Infrastructure;
 

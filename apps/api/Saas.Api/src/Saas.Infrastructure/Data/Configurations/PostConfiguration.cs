@@ -2,9 +2,9 @@
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Saas.Domain;
 using Saas.Domain.Common;
-using Saas.Infrastructure.Configurations.Extensions;
+using Saas.Infrastructure.Data.Configurations.Extensions;
 
-namespace Saas.Infrastructure.Configurations;
+namespace Saas.Infrastructure.Data.Configurations;
 
 public class PostConfiguration : IEntityTypeConfiguration<Post>
 {

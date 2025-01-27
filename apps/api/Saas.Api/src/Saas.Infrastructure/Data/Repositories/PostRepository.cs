@@ -2,7 +2,7 @@
 using Saas.Application.Interfaces.Data;
 using Saas.Domain;
 
-namespace Saas.Infrastructure.Repositories;
+namespace Saas.Infrastructure.Data.Repositories;
 
 internal sealed class PostRepository(UniCollabContext context) : IPostRepository
 {

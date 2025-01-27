@@ -2,7 +2,7 @@
 using Saas.Application.Interfaces.Data;
 using Saas.Domain;
 
-namespace Saas.Infrastructure.Repositories;
+namespace Saas.Infrastructure.Data.Repositories;
 
 internal class UserRepository(UniCollabContext context) : IUserRepository
 {

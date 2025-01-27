@@ -1,6 +1,6 @@
 ﻿using Ardalis.Result.AspNetCore;
 using Microsoft.AspNetCore.Mvc;
-using Saas.Infrastructure.Seeding;
+using Saas.Infrastructure.Data.Seeding;
 
 namespace Saas.Api.Endpoints;
 

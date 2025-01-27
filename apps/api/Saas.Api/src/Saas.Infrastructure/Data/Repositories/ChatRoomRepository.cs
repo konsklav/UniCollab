@@ -2,7 +2,7 @@ using Microsoft.EntityFrameworkCore;
 using Saas.Application.Interfaces.Data;
 using Saas.Domain;
 
-namespace Saas.Infrastructure.Repositories;
+namespace Saas.Infrastructure.Data.Repositories;
 
 internal class ChatRoomRepository(UniCollabContext context) : IChatRoomRepository
 {

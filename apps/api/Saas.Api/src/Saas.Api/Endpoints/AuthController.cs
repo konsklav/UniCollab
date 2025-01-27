@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Saas.Api.Contracts;
 using Saas.Api.Contracts.Requests;
 using Saas.Application.UseCases.Auth;
 
@@ -29,6 +30,6 @@ public class AuthController : ControllerBase
             return Results.Unauthorized();
 
         var authUser = loginResult.Value;
-        return Results.Ok(authUser);
+        return Results.Ok(AuthenticatedUserDto.From(authUser));
     }
 }

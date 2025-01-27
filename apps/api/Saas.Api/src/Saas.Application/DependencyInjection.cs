@@ -1,5 +1,6 @@
 ﻿using Microsoft.Extensions.DependencyInjection;
 using Saas.Application.UseCases;
+using Saas.Application.UseCases.Auth;
 using Saas.Application.UseCases.ChatRooms;
 using Saas.Application.UseCases.Posts;
 using Saas.Application.UseCases.Users;
@@ -10,6 +11,7 @@ public static class DependencyInjection
 {
     public static void AddApplication(this IServiceCollection services)
     {
+        services.AddScoped<BasicLogicUseCase>();
         services.AddScoped<GetChatRoomUseCase>();
         services.AddScoped<GetAllChatRoomsUseCase>();
         services.AddScoped<AddFriendUseCase>();

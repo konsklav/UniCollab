@@ -1,6 +1,6 @@
 ﻿using Ardalis.Result;
 
-namespace Saas.Infrastructure.Seeding;
+namespace Saas.Infrastructure.Data.Seeding;
 
 public interface ISeeder
 {

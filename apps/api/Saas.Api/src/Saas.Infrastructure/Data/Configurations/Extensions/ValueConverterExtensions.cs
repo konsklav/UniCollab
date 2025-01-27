@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Saas.Domain.Common;
 
-namespace Saas.Infrastructure.Configurations.Extensions;
+namespace Saas.Infrastructure.Data.Configurations.Extensions;
 
 internal static class ValueConverterExtensions
 {

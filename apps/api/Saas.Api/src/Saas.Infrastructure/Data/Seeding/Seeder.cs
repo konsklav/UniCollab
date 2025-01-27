@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore;
 using Saas.Domain;
 using Saas.Tests.Fakes;
 
-namespace Saas.Infrastructure.Seeding;
+namespace Saas.Infrastructure.Data.Seeding;
 
 internal sealed class Seeder(UniCollabContext context) : ISeeder
 {

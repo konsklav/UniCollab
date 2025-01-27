@@ -1,9 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
 using Saas.Domain;
-using Saas.Infrastructure.Configurations.Extensions;
+using Saas.Infrastructure.Data.Configurations.Extensions;
 
-namespace Saas.Infrastructure.Configurations;
+namespace Saas.Infrastructure.Data.Configurations;
 
 public class ChatRoomConfiguration : IEntityTypeConfiguration<ChatRoom>
 {

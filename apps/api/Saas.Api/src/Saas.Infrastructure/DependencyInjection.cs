@@ -3,11 +3,13 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
 using Saas.Application.Interfaces;
+using Saas.Application.Interfaces.Authentication;
 using Saas.Application.Interfaces.Data;
 using Saas.Domain;
+using Saas.Infrastructure.Authentication;
+using Saas.Infrastructure.Data.Repositories;
+using Saas.Infrastructure.Data.Seeding;
 using Saas.Infrastructure.Events;
-using Saas.Infrastructure.Repositories;
-using Saas.Infrastructure.Seeding;
 using Saas.Tests.Fakes;
 
 namespace Saas.Infrastructure;
@@ -19,8 +21,10 @@ public static class DependencyInjection
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IPostRepository, PostRepository>();
         services.AddScoped<IChatRoomRepository, ChatRoomRepository>();
+        
         services.AddScoped<IEventService, EventService>();
-
+        services.AddScoped<IAuthenticationHelper, BasicAuthenticationHelper>();
+        
         services.AddTransient<ISeeder, Seeder>();
         
         services.AddDbContext<UniCollabContext>(options =>
