@@ -18,7 +18,7 @@ public class PostsController : ControllerBase
     /// Retrieve a post by its slug. Slugs are unique so it is guaranteed that you will get back a single post.  
     /// </summary>
     /// <param name="slug">The slug to search for.</param>
-    /// <param name="getPosts"></param>
+    /// <param name="getPost"></param>
     [HttpGet("{slug:required}")]
     public async Task<IResult> GetPostBySlug(string slug, [FromServices] GetPosts getPost)
     {
@@ -30,6 +30,11 @@ public class PostsController : ControllerBase
         return Results.Ok(PostDto.From(post));
     }
 
+    /// <summary>
+    /// Get the most recently uploaded posts, the amount is declared in the <paramref name="count"/> parameter.
+    /// </summary>
+    /// <param name="count">How many posts to retrieve.</param>
+    /// <param name="getPosts"></param>
     [HttpGet("recent/{count:int}")]
     public async Task<IResult> GetMostRecentPosts(int count, [FromServices] GetPosts getPosts)
     {
@@ -38,7 +43,25 @@ public class PostsController : ControllerBase
             return result.ToMinimalApiResult();
         
         var posts = result.Value;
-        var postDtos = posts.Select(post => PostDto.From(post));
+        var postDtos = posts.Select(PostDto.From);
         return Results.Ok(postDtos);
+    }
+
+    /// <summary>
+    /// Get all posts by a specific user.
+    /// </summary>
+    /// <param name="userId">The user's ID which will be used to search for posts by them.</param>
+    /// <param name="getPosts"></param>
+    [HttpGet("user/{userId:guid}")]
+    public async Task<IResult> GetPostsByUser(
+        [FromRoute] Guid userId,
+        [FromServices] GetPosts getPosts)
+    {
+        var result = await getPosts.ByUser(userId);
+        if (!result.IsSuccess)
+            return result.ToMinimalApiResult();
+
+        var posts = result.Value;
+        return Results.Ok(posts.Select(PostDto.From));
     }
 }

@@ -25,6 +25,15 @@ internal sealed class PostRepository(UniCollabContext context) : IPostRepository
 
         return posts;
     }
-    
+
+    public async Task<List<Post>> GetByUserAsync(Guid userId)
+    {
+        var posts = await context.Posts
+            .Where(p => p.Author.Id == userId)
+            .ToListAsync();
+
+        return posts;
+    }
+
     public async Task SaveChangesAsync() => await context.SaveChangesAsync();
 }
