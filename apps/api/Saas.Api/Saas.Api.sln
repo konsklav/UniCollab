@@ -15,7 +15,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Saas.Application", "src\Saa
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Saas.Infrastructure", "src\Saas.Infrastructure\Saas.Infrastructure.csproj", "{BE2165C6-3AE2-42E4-9987-1D88B0CC18B0}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Saas.Websockets", "src\Saas.Websockets\Saas.Websockets.csproj", "{C7815183-56F7-4FF8-B116-ECA180437D75}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Saas.Realtime", "src\Saas.Realtime\Saas.Realtime.csproj", "{C7815183-56F7-4FF8-B116-ECA180437D75}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Saas.Tests.Fakes", "test\Saas.Tests.Fakes\Saas.Tests.Fakes.csproj", "{46F62AD6-C400-411F-AC6E-D7BBC5655B92}"
 EndProject

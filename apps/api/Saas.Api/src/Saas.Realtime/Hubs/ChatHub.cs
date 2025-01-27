@@ -1,18 +1,10 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using Saas.Application.Common.Events;
-using Saas.Application.Common.Notifications;
 using Saas.Application.Interfaces;
-using Saas.Websockets.Contracts;
+using Saas.Realtime.Clients;
+using Saas.Realtime.Contracts;
 
-namespace Saas.Websockets.Hubs;
-
-public interface IChatClient
-{
-    Task ReceiveMessage(ClientMessage message);
-}
-
-public record ServerMessage(string ChatId, string UserId, string Content);
-public record ClientMessage(string Username, string Content);
+namespace Saas.Realtime.Hubs;
 
 public class ChatHub(IEventService eventService) : Hub<IChatClient>
 {

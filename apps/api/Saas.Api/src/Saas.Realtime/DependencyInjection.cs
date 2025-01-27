@@ -2,9 +2,9 @@
 using Microsoft.AspNetCore.Routing;
 using Microsoft.Extensions.DependencyInjection;
 using Saas.Application.Interfaces;
-using Saas.Websockets.Hubs;
+using Saas.Realtime.Hubs;
 
-namespace Saas.Websockets;
+namespace Saas.Realtime;
 
 public static class DependencyInjection
 {

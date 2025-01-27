@@ -28,7 +28,7 @@
       <ProjectReference Include="..\Saas.Application\Saas.Application.csproj" />
       <ProjectReference Include="..\Saas.Domain\Saas.Domain.csproj" />
       <ProjectReference Include="..\Saas.Infrastructure\Saas.Infrastructure.csproj" />
-      <ProjectReference Include="..\Saas.Websockets\Saas.Websockets.csproj" />
+      <ProjectReference Include="..\Saas.Realtime\Saas.Realtime.csproj" />
     </ItemGroup>
 
 

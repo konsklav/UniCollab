@@ -2,9 +2,9 @@
 using Saas.Application.Common.Events;
 using Saas.Application.Common.Notifications;
 using Saas.Application.Interfaces;
-using Saas.Websockets.Contracts;
+using Saas.Realtime.Clients;
 
-namespace Saas.Websockets.Hubs;
+namespace Saas.Realtime.Hubs;
 
 public class NotificationHub : Hub<INotificationClient>
 {
@@ -19,9 +19,4 @@ public class NotificationHub : Hub<INotificationClient>
                 .GetNotification(notification.ToDto());
         });
     }
-}
-
-public interface INotificationClient
-{
-    Task GetNotification(NotificationDto notification);
 }

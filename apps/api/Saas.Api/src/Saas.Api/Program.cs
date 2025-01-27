@@ -3,7 +3,7 @@ using Saas.Api.Authentication;
 using Saas.Api.Configuration;
 using Saas.Application;
 using Saas.Infrastructure;
-using Saas.Websockets;
+using Saas.Realtime;
 
 var builder = WebApplication.CreateBuilder(args);
 

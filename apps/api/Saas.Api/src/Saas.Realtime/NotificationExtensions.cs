@@ -1,6 +1,7 @@
 ﻿using Saas.Application.Common.Notifications;
+using Saas.Realtime.Contracts;
 
-namespace Saas.Websockets.Contracts;
+namespace Saas.Realtime;
 
 public static class NotificationExtensions
 {
