@@ -7,22 +7,7 @@ export type ChatPageParams = '' | 'browse' | 'create'
 
 export default function ChatPage() {
     const { state } = useParams()
-
-    const showChildComponent = () => {
-        if (!state || state === '') {
-            return <Chat/>
-        }
-        if (state === 'browse') {
-            return <BrowseAllChats />
-        }
-        if (state === 'create') {
-            return (
-                <div className="w-100 d-flex align-items-center justify-content-center">
-                    <CreateChatForm/>
-                </div>
-            )
-        }
-    }
+    const page = getPageFromRoute(state)
 
     return (
         <div className="container-fluid">
@@ -33,8 +18,21 @@ export default function ChatPage() {
                 <Link className="btn btn-secondary" to={'/chat/browse'}>Browse</Link>
             </div>
             <div className="container-fluid p-3">
-                {showChildComponent()}
+                {page}
             </div>
         </div>
     )
+}
+
+const getPageFromRoute = (route: string | undefined) => {
+    switch (route) {
+        case 'browse':
+            return <BrowseAllChats/>
+        case 'create':
+            return <CreateChatForm/>
+        case undefined:
+        case '':
+        default:
+            return <Chat/>
+    }
 }

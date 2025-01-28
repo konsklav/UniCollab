@@ -8,7 +8,7 @@ export const getJoinableChats = async (user: UserInformation): Promise<readonly 
 }
 
 export const joinChatRoom = async (chatId: string, user: UserInformation): Promise<void> => {
-    const response = await api.post(`/chat/${chatId}`, user)
+    const response = await api.put(`/chat/${chatId}`, user)
     return response.data
 }
 

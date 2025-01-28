@@ -13,21 +13,6 @@ namespace Saas.Api.Endpoints;
 public class ChatRoomController : ControllerBase
 {
     /// <summary>
-    /// Retrieve all the chat rooms that the user can join.
-    /// </summary>
-    /// <returns>A list of chatrooms</returns>
-    [HttpGet("joinable/{userId:guid}")]
-    public async Task<IResult> GetJoinable(Guid userId, [FromServices] GetJoinableChatRooms getJoinableChatRooms)
-    {
-        var result = await getJoinableChatRooms.Handle(userId);
-        if (!result.IsSuccess)
-            return result.ToMinimalApiResult();
-
-        var chatRooms = result.Value;
-        return Results.Ok(chatRooms.Select(ChatRoomInformationDto.From));
-    }
-    
-    /// <summary>
     /// Retrieve a chatroom by their ID, if found.
     /// </summary>
     /// <param name="chatRoomId">The ID to search.</param>
@@ -63,5 +48,20 @@ public class ChatRoomController : ControllerBase
             routeName: "Get Chat",
             routeValues: new { chatRoomId = chatRoom.Id },
             value: chatRoom);
+    }
+    
+    /// <summary>
+    /// Retrieve all the chat rooms that the user can join.
+    /// </summary>
+    /// <returns>A list of chatrooms</returns>
+    [HttpGet("joinable/{userId:guid}", Name = "Get Joinable Chats")]
+    public async Task<IResult> GetJoinable(Guid userId, [FromServices] GetJoinableChatRooms getJoinableChatRooms)
+    {
+        var result = await getJoinableChatRooms.Handle(userId);
+        if (!result.IsSuccess)
+            return result.ToMinimalApiResult();
+
+        var chatRooms = result.Value;
+        return Results.Ok(chatRooms.Select(ChatRoomInformationDto.From));
     }
 }

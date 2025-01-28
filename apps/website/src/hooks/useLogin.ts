@@ -7,8 +7,8 @@ export const useLogin = (onUnauthorized?: () => void) => {
     const {authenticate} = useAuth()
     const navigate = useNavigate()
 
-    return (user: UserCredentials) => {
-        basicLogin(user)
+    return async (user: UserCredentials) => {
+        await basicLogin(user)
             .then(authUser => {
                 authenticate(authUser)
                 navigate('/')

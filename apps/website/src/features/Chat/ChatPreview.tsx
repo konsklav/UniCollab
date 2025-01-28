@@ -1,3 +1,4 @@
+import { Button } from "../../components/Button";
 import { ChatRoomInformation } from "./Chat.types";
 
 interface ChatPreviewProps {
@@ -17,7 +18,10 @@ export default function ChatPreview({info, onJoin}: ChatPreviewProps) {
                 <h5 className="card-title">{info.name}</h5>
                 <h6 className="card-subtitle mb-3 text-body-secondary">{info.participantCount} participants</h6>
 
-                <button type="button" className="btn btn-success" onClick={handleJoin}>Join</button>
+                <Button 
+                    color={'success'} 
+                    onClick={handleJoin}
+                    loadingText={`Joining ${info.name}...`}>Join</Button>
             </div>
         </div>
     )

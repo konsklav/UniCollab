@@ -1,12 +1,14 @@
-import { FormEvent, useState } from "react";
+import { useState } from "react";
 import InputText from "../../../components/Form/InputText";
 import { UserCredentials } from "../Users.types";
 
 import '../userForms.css'
 import InputPassword from "../../../components/Form/InputPassword";
+import { UniCollabForm } from "../../../components/Form/UniCollabForm";
+import { SubmitButton } from "../../../components/Button";
 
 interface LoginFormProps {
-    onLogin: (credentials: UserCredentials) => void
+    onLogin: (credentials: UserCredentials) => Promise<void>
 }
 
 export default function LoginForm({onLogin}: LoginFormProps) {
@@ -18,16 +20,14 @@ export default function LoginForm({onLogin}: LoginFormProps) {
     const setUsername = (username: string) => setCredentials({...credentials, username: username})
     const setPassword = (password: string) => setCredentials({...credentials, password: password})
 
-    function handleSubmit(e: FormEvent<HTMLFormElement>): void {
-        e.preventDefault()
-        onLogin(credentials)
-    }
+    const handleSubmit = async () => await onLogin(credentials)
 
     return (
-        <form className="user-form" name="login-form" onSubmit={handleSubmit} aria-label="login-form">
+        <UniCollabForm className="user-form" name="login-form" onSubmit={handleSubmit}>
             <InputText value={credentials.username} onChange={setUsername} label="Username" />
             <InputPassword value={credentials.password} onChange={setPassword} label="Password" />
-            <button className="btn btn-primary mt-4" type="submit">Sign In</button>
-        </form>
+            
+            <SubmitButton className="mt-4" loadingText="Signing In...">Sign In</SubmitButton>
+        </UniCollabForm>
     )
 }

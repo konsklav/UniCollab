@@ -1,4 +1,4 @@
-import { useMutation, useQuery } from "@tanstack/react-query";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
 import { getJoinableChats, joinChatRoom } from "../../endpoints/chatEndpoints";
 import WaitForQuery from "../../components/WaitForQuery";
 import ChatPreview from "./ChatPreview";
@@ -10,6 +10,7 @@ interface ChatBrowseProps {
 
 export default function BrowseAllChats({onJoinChat}: ChatBrowseProps) {
     const {user} = useSession()
+    const queryClient = useQueryClient()
     
     const query = useQuery({
         queryKey: ['get-joinable-chats'],
@@ -23,15 +24,25 @@ export default function BrowseAllChats({onJoinChat}: ChatBrowseProps) {
         }
     })
 
-    const handleJoin = (chatId: string): Promise<void> => {
-        return mutation.mutateAsync(chatId)
+    const handleJoin = async (chatId: string) => {
+        await mutation.mutateAsync(chatId)
+        queryClient.invalidateQueries({
+            queryKey: ['get-joinable-chats']
+        })
     }
 
     return (
-        <WaitForQuery query={query}>
-            {query.data?.map(chatInfo => (
-                <ChatPreview info={chatInfo} onJoin={handleJoin}/>
-            ))}
-        </WaitForQuery>
+        <>
+            <h1>Available Chats</h1>
+            <WaitForQuery query={query}>
+                <div className="row g-1">
+                        {query.data?.map(chatInfo => (
+                            <div className="col-auto">
+                                <ChatPreview info={chatInfo} onJoin={handleJoin}/>
+                            </div>
+                        ))}
+                </div>
+            </WaitForQuery>
+        </>
     )
 }
