@@ -4,7 +4,7 @@ import PostList from "../features/Posts/PostList"
 import { getRecentPosts } from "../endpoints/postEndpoints"
 import { useSession } from "../hooks/useSession"
 
-const getCount = 10
+const getCount = 12
 
 export default function HomePage() {
     const {user} = useSession()

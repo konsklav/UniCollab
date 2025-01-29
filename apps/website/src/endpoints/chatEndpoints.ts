@@ -3,7 +3,7 @@ import { UserInformation } from "../features/Users/Users.types";
 import { api } from "../services/apiService";
 
 export const getJoinableChats = async (user: UserInformation): Promise<readonly ChatRoomInformation[]> => {
-    const response = await api.get(`/chat/joinable/${user.id}`)
+    const response = await api.get(`/chat/join/${user.id}`)
     return response.data
 }
 

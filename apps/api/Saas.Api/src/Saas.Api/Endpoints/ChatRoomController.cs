@@ -54,7 +54,7 @@ public class ChatRoomController : ControllerBase
     /// Retrieve all the chat rooms that the user can join.
     /// </summary>
     /// <returns>A list of chatrooms</returns>
-    [HttpGet("joinable/{userId:guid}", Name = "Get Joinable Chats")]
+    [HttpGet("join/{userId:guid}", Name = "Get Joinable Chats")]
     public async Task<IResult> GetJoinable(Guid userId, [FromServices] GetJoinableChatRooms getJoinableChatRooms)
     {
         var result = await getJoinableChatRooms.Handle(userId);
@@ -63,5 +63,11 @@ public class ChatRoomController : ControllerBase
 
         var chatRooms = result.Value;
         return Results.Ok(chatRooms.Select(ChatRoomInformationDto.From));
+    }
+
+    [HttpPost("/join/{userId:guid}", Name = "Join Chat")]
+    public async Task<IResult> JoinChat(Guid userId)
+    {
+        
     }
 }
