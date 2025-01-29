@@ -5,7 +5,7 @@ using Saas.Domain;
 
 namespace Saas.Application.UseCases.ChatRooms;
 
-public class CreateChatRoomUseCase(
+public class CreateChatRoom(
     IUserRepository userRepository,
     IChatRoomRepository chatRoomRepository) : IApplicationUseCase
 {

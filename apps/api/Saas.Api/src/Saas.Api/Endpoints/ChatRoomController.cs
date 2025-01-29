@@ -21,7 +21,7 @@ public class ChatRoomController : ControllerBase
     [HttpGet("{chatRoomId:guid}", Name = "Get Chat")]
     public async Task<IResult> Get(
         [FromRoute] Guid chatRoomId, 
-        [FromServices] GetChatRoomUseCase getChatRoom)
+        [FromServices] GetChatRoom getChatRoom)
     {
         var result = await getChatRoom.Handle(chatRoomId);
         if (!result.IsSuccess)
@@ -34,7 +34,7 @@ public class ChatRoomController : ControllerBase
     [HttpPost(Name = "Create Chat")]
     public async Task<IResult> Create(
         [FromBody] CreateChatRoomRequest request, 
-        [FromServices] CreateChatRoomUseCase createChatRoom)
+        [FromServices] CreateChatRoom createChatRoom)
     {
         var result = await createChatRoom.Handle(
             name: request.Name,
@@ -65,9 +65,9 @@ public class ChatRoomController : ControllerBase
         return Results.Ok(chatRooms.Select(ChatRoomInformationDto.From));
     }
 
-    [HttpPost("/join/{userId:guid}", Name = "Join Chat")]
-    public async Task<IResult> JoinChat(Guid userId)
+    [HttpPost("{chatId:guid}/join/{userId:guid}", Name = "Join Chat")]
+    public async Task<IResult> JoinChat(Guid chatId, Guid userId)
     {
-        
+        throw new NotImplementedException();
     }
 }

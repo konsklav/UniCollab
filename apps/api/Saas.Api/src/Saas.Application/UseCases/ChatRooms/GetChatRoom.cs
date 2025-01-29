@@ -5,7 +5,7 @@ using Saas.Domain;
 
 namespace Saas.Application.UseCases.ChatRooms;
 
-public class GetChatRoomUseCase(IChatRoomRepository roomRepository) : IApplicationUseCase
+public class GetChatRoom(IChatRoomRepository roomRepository) : IApplicationUseCase
 {
     public async Task<Result<ChatRoom>> Handle(Guid chatRoomId)
     {
