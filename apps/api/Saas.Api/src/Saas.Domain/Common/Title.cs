@@ -19,10 +19,10 @@ public sealed record Title
     public static Result<Title> Create(string value)
     {
         if (string.IsNullOrWhiteSpace(value))
-            return Result.Invalid(new ValidationError("A title must not be empty."));
+            return Result.Invalid(new ValidationError("A title/name must not be empty."));
 
         if (value.Length > MaxLength)
-            return Result.Invalid(new ValidationError($"A title must not exceed {MaxLength} characters in length."));
+            return Result.Invalid(new ValidationError($"A title/name must not exceed {MaxLength} characters in length."));
 
         return new Title(value);
     }

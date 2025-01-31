@@ -13,7 +13,7 @@ public class GroupTests
         var user1 = FakeUsers.Generate();
         var user2 = FakeUsers.Generate();
         
-        var group = new Group("test", [user2], user2); 
+        var group = new Group(FakeTitles.TitleFaker, [user2], user2); 
 
         var initialMembersCount = group.Members.Count;
         
@@ -33,7 +33,7 @@ public class GroupTests
         // Arrange
         var user1 = FakeUsers.Generate();
         var user2 = FakeUsers.Generate();
-        var group = new Group("test", [user1, user2], user2);
+        var group = new Group(FakeTitles.TitleFaker, [user1, user2], user2);
         
         // Act
         var result = group.AddMember(user1);
@@ -50,7 +50,7 @@ public class GroupTests
         var user1 = FakeUsers.Generate();
         var user2 = FakeUsers.Generate();
         
-        var group = new Group("test", [user1, user2], user2);
+        var group = new Group(FakeTitles.TitleFaker, [user1, user2], user2);
 
         var initialMembersCount = group.Members.Count;
         
@@ -70,7 +70,7 @@ public class GroupTests
         // Arrange
         var user1 = FakeUsers.Generate();
         var user2 = FakeUsers.Generate(friends: [user1]);
-        var group = new Group("test", [user2], user2);
+        var group = new Group(FakeTitles.TitleFaker, [user2], user2);
         
         // Act
         var result = group.RemoveMember(user1);

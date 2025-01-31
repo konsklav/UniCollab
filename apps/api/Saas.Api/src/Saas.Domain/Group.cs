@@ -5,11 +5,11 @@ using Saas.Domain.Common;
 
 namespace Saas.Domain;
 
-public class Group(string name, List<User> members, User creator, Guid? id = null) : Entity(id)
+public class Group(Title name, List<User> members, User creator, Guid? id = null) : Entity(id)
 {
     private readonly List<User> _members = members;
-    
-    public string Name { get; } = name;
+
+    public Title Name { get; private set; } = name;
     public IReadOnlyList<User> Members => _members;
     public User Creator { get; } = creator;
 
