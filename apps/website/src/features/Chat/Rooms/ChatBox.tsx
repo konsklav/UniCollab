@@ -5,6 +5,8 @@ import { useSession } from '../../../hooks/useSession'
 import { getParticipatingChats } from '../../../endpoints/chatEndpoints'
 import WaitForQuery from '../../../components/WaitForQuery'
 import RecentChat from './RecentChat'
+import ChatArea from './ChatArea'
+import { useState } from 'react'
 
 export default function ChatBox() {
     const {user} = useSession()
@@ -13,7 +15,7 @@ export default function ChatBox() {
         queryFn: () => getParticipatingChats(user)
     })
 
-    const selectChat = (chat: ChatRoomInformation) => { } 
+    const [selectedChat, setSelectedChat] = useState<ChatRoomInformation | undefined>()
 
     return (
         <div id={styles['chat-box']}>
@@ -22,7 +24,7 @@ export default function ChatBox() {
                     {query.data?.map(chat => (
                         <div 
                           key={chat.id} 
-                          onClick={() => selectChat(chat)}
+                          onClick={() => setSelectedChat(chat)}
                           className={`px-3 py-1 ${styles['recent-chat']}`}>
                             <RecentChat {...chat}/>
                         </div>
@@ -31,7 +33,7 @@ export default function ChatBox() {
                 </WaitForQuery>
             </div>
             <div id={styles['chat-area']}>
-                
+                <ChatArea selectedChat={selectedChat}/>
             </div>
         </div>
     )
