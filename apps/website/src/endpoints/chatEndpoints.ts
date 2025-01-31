@@ -2,8 +2,15 @@ import { ChatRoomInformation, CreateChatRoomRequest } from "../features/Chat/Cha
 import { UserInformation } from "../features/Users/Users.types";
 import { api } from "../services/apiService";
 
+export const userChats = (userId: string) => `/users/${userId}/chats`
+
 export const getJoinableChats = async (user: UserInformation): Promise<readonly ChatRoomInformation[]> => {
-    const response = await api.get(`/chat/join/${user.id}`)
+    const response = await api.get(`${userChats(user.id)}?type=joinable`)
+    return response.data
+}
+
+export const getParticipatingChats = async (user: UserInformation): Promise<readonly ChatRoomInformation[]> => {
+    const response = await api.get(`${userChats(user.id)}?type=participating`)
     return response.data
 }
 
