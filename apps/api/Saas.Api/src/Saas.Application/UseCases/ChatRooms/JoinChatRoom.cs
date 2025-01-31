@@ -19,6 +19,8 @@ public class JoinChatRoom(
             return Result.NotFound($"Chat with ID '{chatId}' not found.");
 
         var joinResult = user.JoinChat(chat);
+        
+        await chatRepository.SaveChangesAsync();
         return joinResult;
     }
 }
