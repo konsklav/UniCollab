@@ -18,6 +18,7 @@ internal class ChatRoomRepository(UniCollabContext context) : IChatRoomRepositor
     {
         // Retrieves the chat rooms and gets the last message sent.
         var chatRooms = await context.ChatRooms
+            .Include(c => c.Participants)
             .Include(c => c.Messages
                 .OrderByDescending(m => m.SentAt)
                 .Take(1))
