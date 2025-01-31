@@ -20,7 +20,7 @@ public class AuthController : ControllerBase
     /// <param name="request">The login request model that will be used to authenticate you.</param>
     /// <param name="login"></param>
     /// <returns></returns>
-    [HttpPost("/login/basic")]
+    [HttpPost("login/basic")]
     public async Task<IResult> Login(
         [FromBody] LoginRequest request,
         [FromServices] BasicLogicUseCase login)
