@@ -37,21 +37,6 @@ namespace Saas.Infrastructure.Migrations
                     b.ToTable("ChatRoomUser", (string)null);
                 });
 
-            modelBuilder.Entity("GroupUser", b =>
-                {
-                    b.Property<Guid>("GroupId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid>("MembersId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.HasKey("GroupId", "MembersId");
-
-                    b.HasIndex("MembersId");
-
-                    b.ToTable("GroupUser", (string)null);
-                });
-
             modelBuilder.Entity("PostSubject", b =>
                 {
                     b.Property<Guid>("PostId")
@@ -70,6 +55,7 @@ namespace Saas.Infrastructure.Migrations
             modelBuilder.Entity("Saas.Domain.ChatRoom", b =>
                 {
                     b.Property<Guid>("Id")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Name")
@@ -79,25 +65,6 @@ namespace Saas.Infrastructure.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("ChatRooms", (string)null);
-                });
-
-            modelBuilder.Entity("Saas.Domain.Group", b =>
-                {
-                    b.Property<Guid>("Id")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("CreatorId")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<string>("Name")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(55)");
-
-                    b.HasKey("Id");
-
-                    b.HasIndex("CreatorId");
-
-                    b.ToTable("Groups", (string)null);
                 });
 
             modelBuilder.Entity("Saas.Domain.Message", b =>
@@ -129,7 +96,7 @@ namespace Saas.Infrastructure.Migrations
                     b.ToTable("Message", (string)null);
                 });
 
-            modelBuilder.Entity("Saas.Domain.Post", b =>
+            modelBuilder.Entity("Saas.Domain.Posts.Post", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
@@ -227,24 +194,9 @@ namespace Saas.Infrastructure.Migrations
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("GroupUser", b =>
-                {
-                    b.HasOne("Saas.Domain.Group", null)
-                        .WithMany()
-                        .HasForeignKey("GroupId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.HasOne("Saas.Domain.User", null)
-                        .WithMany()
-                        .HasForeignKey("MembersId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-                });
-
             modelBuilder.Entity("PostSubject", b =>
                 {
-                    b.HasOne("Saas.Domain.Post", null)
+                    b.HasOne("Saas.Domain.Posts.Post", null)
                         .WithMany()
                         .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Cascade)
@@ -255,15 +207,6 @@ namespace Saas.Infrastructure.Migrations
                         .HasForeignKey("SubjectsId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-                });
-
-            modelBuilder.Entity("Saas.Domain.Group", b =>
-                {
-                    b.HasOne("Saas.Domain.User", "Creator")
-                        .WithMany()
-                        .HasForeignKey("CreatorId");
-
-                    b.Navigation("Creator");
                 });
 
             modelBuilder.Entity("Saas.Domain.Message", b =>
@@ -281,7 +224,7 @@ namespace Saas.Infrastructure.Migrations
                     b.Navigation("Sender");
                 });
 
-            modelBuilder.Entity("Saas.Domain.Post", b =>
+            modelBuilder.Entity("Saas.Domain.Posts.Post", b =>
                 {
                     b.HasOne("Saas.Domain.User", "Author")
                         .WithMany("Posts")
