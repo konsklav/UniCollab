@@ -37,6 +37,8 @@ public class JoinChatTests
 
         // Assert
         result.IsNotFound().Should().BeTrue();
+        await _userRepository.Received(1).GetByIdAsync(_user.Id);
+        await _chatRepository.Received(0).GetByIdAsync(Arg.Any<Guid>());
     }
 
     [Fact]
@@ -52,6 +54,9 @@ public class JoinChatTests
         // Assert
         result.IsNotFound().Should().BeTrue();
         result.Errors.Should().Contain(err => err.Contains(_chat.Id.ToString()));
+
+        await _userRepository.Received(1).GetByIdAsync(_user.Id);
+        await _chatRepository.Received(1).GetByIdAsync(_chat.Id);
     }
 
     [Fact]

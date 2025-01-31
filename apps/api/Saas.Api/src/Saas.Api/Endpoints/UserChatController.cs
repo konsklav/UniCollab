@@ -42,7 +42,6 @@ public class UserChatController
     /// <summary>
     /// Gets the chat rooms of a user. You can query parameters to specify what types of chats you want returned.
     /// </summary>
-    /// <returns></returns>
     [HttpGet]
     public async Task<IResult> Get(
         [FromRoute] Guid userId,

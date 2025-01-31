@@ -47,21 +47,6 @@ public class ChatRoomController : ControllerBase
         return Results.CreatedAtRoute(
             routeName: "Get Chat",
             routeValues: new { chatRoomId = chatRoom.Id },
-            value: chatRoom);
-    }
-    
-    /// <summary>
-    /// Retrieve all the chat rooms that the user can join.
-    /// </summary>
-    /// <returns>A list of chatrooms</returns>
-    [HttpGet("join/{userId:guid}", Name = "Get Joinable Chats")]
-    public async Task<IResult> GetJoinable(Guid userId, [FromServices] GetChatRooms getChatRooms)
-    {
-        var result = await getChatRooms.Joinable(userId);
-        if (!result.IsSuccess)
-            return result.ToMinimalApiResult();
-
-        var chatRooms = result.Value;
-        return Results.Ok(chatRooms.Select(ChatRoomInformationDto.From));
+            value: ChatRoomDto.From(chatRoom));
     }
 }
