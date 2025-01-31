@@ -34,7 +34,7 @@ namespace Saas.Infrastructure.Migrations
 
                     b.HasIndex("ParticipantsId");
 
-                    b.ToTable("ChatRoomUser");
+                    b.ToTable("ChatRoomUser", (string)null);
                 });
 
             modelBuilder.Entity("GroupUser", b =>
@@ -49,7 +49,7 @@ namespace Saas.Infrastructure.Migrations
 
                     b.HasIndex("MembersId");
 
-                    b.ToTable("GroupUser");
+                    b.ToTable("GroupUser", (string)null);
                 });
 
             modelBuilder.Entity("PostSubject", b =>
@@ -64,7 +64,7 @@ namespace Saas.Infrastructure.Migrations
 
                     b.HasIndex("SubjectsId");
 
-                    b.ToTable("PostSubject");
+                    b.ToTable("PostSubject", (string)null);
                 });
 
             modelBuilder.Entity("Saas.Domain.ChatRoom", b =>
@@ -78,7 +78,7 @@ namespace Saas.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("ChatRooms");
+                    b.ToTable("ChatRooms", (string)null);
                 });
 
             modelBuilder.Entity("Saas.Domain.Group", b =>
@@ -97,7 +97,7 @@ namespace Saas.Infrastructure.Migrations
 
                     b.HasIndex("CreatorId");
 
-                    b.ToTable("Groups");
+                    b.ToTable("Groups", (string)null);
                 });
 
             modelBuilder.Entity("Saas.Domain.Message", b =>
@@ -126,7 +126,7 @@ namespace Saas.Infrastructure.Migrations
 
                     b.HasIndex("SentAt");
 
-                    b.ToTable("Message");
+                    b.ToTable("Message", (string)null);
                 });
 
             modelBuilder.Entity("Saas.Domain.Post", b =>
@@ -161,7 +161,7 @@ namespace Saas.Infrastructure.Migrations
                     b.HasIndex("Slug")
                         .IsUnique();
 
-                    b.ToTable("Posts");
+                    b.ToTable("Posts", (string)null);
                 });
 
             modelBuilder.Entity("Saas.Domain.Subject", b =>
@@ -176,7 +176,7 @@ namespace Saas.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Subjects");
+                    b.ToTable("Subjects", (string)null);
                 });
 
             modelBuilder.Entity("Saas.Domain.User", b =>
@@ -194,7 +194,7 @@ namespace Saas.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Users");
+                    b.ToTable("Users", (string)null);
                 });
 
             modelBuilder.Entity("UserUser", b =>
@@ -209,7 +209,7 @@ namespace Saas.Infrastructure.Migrations
 
                     b.HasIndex("UserId");
 
-                    b.ToTable("UserUser");
+                    b.ToTable("UserUser", (string)null);
                 });
 
             modelBuilder.Entity("ChatRoomUser", b =>

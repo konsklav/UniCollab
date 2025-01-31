@@ -18,15 +18,11 @@ public class GroupConfiguration : IEntityTypeConfiguration<Group>
 
         builder
             .HasOne(g => g.Creator)
-            .WithMany();
+            .WithMany()
+            .OnDelete(DeleteBehavior.SetNull);
 
         builder.HasTitle(g => g.Name);
 
         builder.Navigation(g => g.Creator).IsRequired(false);
-        
-        builder
-            .HasOne(g => g.Creator)
-            .WithMany()
-            .OnDelete(DeleteBehavior.SetNull);
     }
 }
