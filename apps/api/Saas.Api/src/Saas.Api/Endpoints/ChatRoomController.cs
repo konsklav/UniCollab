@@ -8,7 +8,7 @@ using Saas.Application.UseCases.ChatRooms;
 namespace Saas.Api.Endpoints;
 
 [ApiController]
-[Route("/chat")]
+[Route("/chats")]
 [Authorize]
 public class ChatRoomController : ControllerBase
 {
@@ -55,19 +55,13 @@ public class ChatRoomController : ControllerBase
     /// </summary>
     /// <returns>A list of chatrooms</returns>
     [HttpGet("join/{userId:guid}", Name = "Get Joinable Chats")]
-    public async Task<IResult> GetJoinable(Guid userId, [FromServices] GetJoinableChatRooms getJoinableChatRooms)
+    public async Task<IResult> GetJoinable(Guid userId, [FromServices] GetChatRooms getChatRooms)
     {
-        var result = await getJoinableChatRooms.Handle(userId);
+        var result = await getChatRooms.Joinable(userId);
         if (!result.IsSuccess)
             return result.ToMinimalApiResult();
 
         var chatRooms = result.Value;
         return Results.Ok(chatRooms.Select(ChatRoomInformationDto.From));
-    }
-
-    [HttpPost("{chatId:guid}/join/{userId:guid}", Name = "Join Chat")]
-    public async Task<IResult> JoinChat(Guid chatId, Guid userId)
-    {
-        throw new NotImplementedException();
     }
 }
