@@ -11,7 +11,6 @@ export default function ChatPage() {
 
     return (
         <div className="container-fluid">
-            
             <div className="btn-group">
                 <Link className="btn btn-primary" to={'/chat'}>Chat</Link>
                 <Link className="btn btn-success" to={'/chat/create'}>Create</Link>
