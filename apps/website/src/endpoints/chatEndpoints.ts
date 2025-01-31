@@ -15,7 +15,7 @@ export const getParticipatingChats = async (user: UserInformation): Promise<read
 }
 
 export const joinChatRoom = async (chatId: string, user: UserInformation): Promise<void> => {
-    const response = await api.put(`/chat/${chatId}`, user)
+    const response = await api.post(`${userChats(user.id)}/${chatId}`)
     return response.data
 }
 
