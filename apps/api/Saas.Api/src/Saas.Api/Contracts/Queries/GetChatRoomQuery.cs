@@ -6,6 +6,17 @@
 /// <param name="Type">The type of chats to get.</param>
 public sealed record GetChatRoomQuery(string Type)
 {
-    internal bool IsForJoinableChats() => Type.Equals("joinable", StringComparison.OrdinalIgnoreCase);
-    internal bool IsForParticipatingChats() => Type.Equals("participating", StringComparison.OrdinalIgnoreCase);
+    internal ChatQueryType QueryType => Type.Trim().ToLower() switch
+    {
+        "joinable" => ChatQueryType.Joinable,
+        "participating" => ChatQueryType.Participating,
+        _ => ChatQueryType.Unknown
+    };
+}
+
+internal enum ChatQueryType
+{
+    Unknown,
+    Joinable,
+    Participating
 }
