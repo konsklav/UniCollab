@@ -3,17 +3,20 @@ using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Saas.Infrastructure;
 
 #nullable disable
 
-namespace Saas.Infrastructure.Migrations
+namespace Saas.Infrastructure.Data.Migrations
 {
     [DbContext(typeof(UniCollabContext))]
-    partial class UniCollabContextModelSnapshot : ModelSnapshot
+    [Migration("20250131191909_ChangeGroupAndChatRoomConfigurations")]
+    partial class ChangeGroupAndChatRoomConfigurations
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
