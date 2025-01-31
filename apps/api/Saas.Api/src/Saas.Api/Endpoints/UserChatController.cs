@@ -48,11 +48,21 @@ public class UserChatController
         [FromQuery] GetChatRoomQuery query,
         [FromServices] GetChatRooms getChatRooms)
     {
+        var queryType = query.QueryType;
+        if (queryType is ChatQueryType.Unknown)
+            return Results.BadRequest("Incorrect 'Type' query.");
+
+        if (queryType is ChatQueryType.Joinable)
+        {
+            var joinable = await getChatRooms.Joinable(userId);
+        }
+        
         return query.QueryType switch
         {
             ChatQueryType.Joinable => (await getChatRooms.Joinable(userId)).ToMinimalApiResult(),
             ChatQueryType.Participating => (await getChatRooms.Participating(userId)).ToMinimalApiResult(),
-            _ => Results.BadRequest("Incorrect 'Type' query."),
+            _ => ,
+            _ => throw new ArgumentOutOfRangeException()
         };
     }
 }

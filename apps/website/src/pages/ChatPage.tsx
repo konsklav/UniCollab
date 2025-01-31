@@ -1,6 +1,6 @@
 import { Link, useParams } from "react-router-dom"
 import Chat from "../features/Chat/ChatRoom"
-import BrowseAllChats from "../features/Chat/BrowseAllChats"
+import BrowseChats from "../features/Chat/BrowseAllChats"
 import CreateChatForm from "../features/Chat/CreateChatForm"
 
 export type ChatPageParams = '' | 'browse' | 'create'
@@ -27,7 +27,7 @@ export default function ChatPage() {
 const getPageFromRoute = (route: string | undefined) => {
     switch (route) {
         case 'browse':
-            return <BrowseAllChats/>
+            return <BrowseChats/>
         case 'create':
             return <CreateChatForm/>
         case undefined:
