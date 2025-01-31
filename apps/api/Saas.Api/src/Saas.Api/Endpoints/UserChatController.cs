@@ -45,8 +45,8 @@ public class UserChatController
     [HttpGet]
     public async Task<IResult> Get(
         [FromRoute] Guid userId,
-        [FromQuery] GetChatRoomQuery query)
+        [FromQuery] GetChatRoomQuery query,
+        [FromServices] GetChatRooms getChatRooms)
     {
-        throw new NotImplementedException();
     }
 }
