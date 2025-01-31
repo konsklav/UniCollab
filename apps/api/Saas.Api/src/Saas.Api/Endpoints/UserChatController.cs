@@ -1,8 +1,12 @@
-﻿using Ardalis.Result.AspNetCore;
+﻿using Ardalis.Result;
+using Ardalis.Result.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Saas.Api.Contracts;
 using Saas.Api.Contracts.Queries;
+using Saas.Api.Extensions;
 using Saas.Application.UseCases.ChatRooms;
+using IResult = Microsoft.AspNetCore.Http.IResult;
 
 namespace Saas.Api.Endpoints;
 
@@ -48,21 +52,13 @@ public class UserChatController
         [FromQuery] GetChatRoomQuery query,
         [FromServices] GetChatRooms getChatRooms)
     {
-        var queryType = query.QueryType;
-        if (queryType is ChatQueryType.Unknown)
-            return Results.BadRequest("Incorrect 'Type' query.");
-
-        if (queryType is ChatQueryType.Joinable)
-        {
-            var joinable = await getChatRooms.Joinable(userId);
-        }
-        
         return query.QueryType switch
         {
-            ChatQueryType.Joinable => (await getChatRooms.Joinable(userId)).ToMinimalApiResult(),
-            ChatQueryType.Participating => (await getChatRooms.Participating(userId)).ToMinimalApiResult(),
-            _ => ,
-            _ => throw new ArgumentOutOfRangeException()
+            ChatQueryType.Joinable => (await getChatRooms.Joinable(userId)).ToHttp(
+                onSuccess: rooms => rooms.Select(ChatRoomInformationDto.From)),
+            ChatQueryType.Participating => (await getChatRooms.Participating(userId)).ToHttp(
+                onSuccess: rooms => rooms.Select(ChatRoomInformationDto.From)),
+            _ => Results.BadRequest("Unknown 'Type' parameter.")
         };
     }
 }
