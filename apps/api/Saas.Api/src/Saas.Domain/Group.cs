@@ -19,7 +19,7 @@ public class Group : Entity
 
     public Title Name { get; private set; }
     public IReadOnlyList<User> Members => _members;
-    public User Creator { get; }
+    public User? Creator { get; }
 
     public Result AddMember(User user)
     {

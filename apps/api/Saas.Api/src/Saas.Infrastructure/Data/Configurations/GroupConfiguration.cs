@@ -10,7 +10,7 @@ public class GroupConfiguration : IEntityTypeConfiguration<Group>
     public void Configure(EntityTypeBuilder<Group> builder)
     {
         builder.HasKey(g => g.Id);
-        builder.Property(g => g.Id).ValueGeneratedOnAdd();
+        builder.Property(g => g.Id).ValueGeneratedNever();
         
         builder
             .HasMany(g => g.Members)
@@ -21,5 +21,7 @@ public class GroupConfiguration : IEntityTypeConfiguration<Group>
             .WithMany();
 
         builder.HasTitle(g => g.Name);
+
+        builder.Navigation(g => g.Creator).IsRequired(false);
     }
 }
