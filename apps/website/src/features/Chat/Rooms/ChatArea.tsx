@@ -44,7 +44,7 @@ export default function ChatArea({selectedChat}: ChatAreaProps) {
             <WaitForQuery query={query}>
                     <MessageBoard messages={messages}/>
             </WaitForQuery>
-            <ChatInput/>
+            {chatState === 'ready' && <ChatInput onSend={msg => sendMessage(msg)}/>}
         </div>
     )
 }
