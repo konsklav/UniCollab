@@ -16,5 +16,7 @@ internal class GroupRepository(UniCollabContext context) : IGroupRepository
         return group;
     }
     
+    public void Add(Group group) => context.Groups.Add(group);
+    
     public async Task SaveChangesAsync() => await context.SaveChangesAsync();
 }

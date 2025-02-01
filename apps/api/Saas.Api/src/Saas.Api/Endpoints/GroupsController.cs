@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Saas.Api.Contracts;
+using Saas.Api.Contracts.Requests;
 using Saas.Application.UseCases.Groups;
 
 namespace Saas.Api.Endpoints;
@@ -28,5 +29,25 @@ public class GroupsController : ControllerBase
     
         var group = result.Value;
         return Results.Ok(GroupDto.From(group));
+    }
+    
+    [HttpPost(Name = "Create Group")]
+    public async Task<IResult> Create(
+        [FromBody] CreateGroupRequest request, 
+        [FromServices] CreateGroup createGroup)
+    {
+        var result = await createGroup.Handle(
+            name: request.Name,
+            userIds: request.InitialMembers,
+            creatorId: request.CreatorId);
+
+        if (!result.IsSuccess)
+            return result.ToMinimalApiResult();
+
+        var group = result.Value;
+        return Results.CreatedAtRoute(
+            routeName: "Get Group",
+            routeValues: new { chatRoomId = group.Id },
+            value: GroupDto.From(group));
     }
 }

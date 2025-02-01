@@ -19,7 +19,27 @@ public class Group : Entity
 
     public Title Name { get; private set; }
     public IReadOnlyList<User> Members => _members;
-    public User? Creator { get; }
+    public User Creator { get; private set; }
+    
+    public static Result<Group> Create(string name, List<User> members, User creator)
+    {
+        var errors = new List<ValidationError>();
+        
+        var titleResult = Title.Create(name);
+        if (!titleResult.IsSuccess)
+            errors.AddRange(titleResult.ValidationErrors);
+
+        if (members.Count == 0)
+            errors.Add(new ValidationError("Cannot create a chat room with no participants."));
+
+        if (errors.Count > 0)
+            return Result.Invalid(errors);
+
+        return new Group(
+            name: titleResult.Value,
+            members: members,
+            creator: creator);
+    }
 
     public Result AddMember(User user)
     {
