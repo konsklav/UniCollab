@@ -64,7 +64,9 @@ export default function ChatBox() {
                 </WaitForQuery>
             </div>
             <div id={styles['chat-area']}>
-                {selectedChat && <ChatArea selectedChat={selectedChat} messages={messages} onSend={sendMessage}/>}
+                {selectedChat 
+                && chatState === 'ready' 
+                && <ChatArea selectedChat={selectedChat} messages={messages} onSend={sendMessage}/>}
             </div>
         </div>
     )
