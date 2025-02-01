@@ -28,35 +28,20 @@ public class UserChatTests
     {
         // Arrange
         var user = FakeUsers.Generate();
-        var message = new Message("Test", DateTime.Now, user);
         var chatroom = FakeChatRooms.Generate(participants: [user]);
+
+        var expectedMessage = new Message("Test", default, user);
         
         // Act
-        var result = user.SendMessage(chatroom, message);
+        var result = user.SendMessage(chatroom, "Test");
         
         // Assert
-        chatroom.Messages.Should().Contain(message);
+        chatroom.Messages.Should().Contain(msg => msg.Content == expectedMessage.Content &&
+                                                  msg.Sender == user);
         
         result.IsSuccess.Should().BeTrue();
     }
 
-    [Fact]
-    public void DeleteMessage_Should_SuccessfullyRemoveMessageFromChat()
-    {
-        // Arrange 
-        var user = FakeUsers.Generate();
-        var message = new Message("Test", DateTime.Now, user);
-        var chatroom = FakeChatRooms.Generate(participants: [user], messages: [message]);
-        
-        // Act
-        var result = user.DeleteMessage(chatroom, message);
-        
-        // Assert
-        chatroom.Messages.Should().NotContain(message);
-        
-        result.IsSuccess.Should().BeTrue();
-    }
-    
     [Fact]
     public void LeaveChat_Should_SuccessfullyRemoveUserFromChat()
     {

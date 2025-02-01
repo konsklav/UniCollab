@@ -1,3 +1,5 @@
+import ChatBox from "./Rooms/ChatBox";
+
 export default function Chat() {
-    return <>Chat Room</>
+    return <ChatBox/>
 }

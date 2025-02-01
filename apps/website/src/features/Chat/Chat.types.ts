@@ -1,7 +1,17 @@
+import { UserInformation } from "../Users/Users.types"
+
 export interface ChatRoomInformation {
     id: string,
     name: string,
-    participantCount: number
+    participantCount: number,
+    lastMessageSent: MessageDto | undefined
+}
+
+export interface MessageDto {
+    id: string,
+    content: string,
+    sentAt: string,
+    sender: UserInformation
 }
 
 export type ChatClientCallbacks = {
