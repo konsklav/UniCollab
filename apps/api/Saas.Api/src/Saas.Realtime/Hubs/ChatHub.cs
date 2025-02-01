@@ -1,12 +1,14 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using Saas.Application.Common.Events;
+using Saas.Application.Contracts;
 using Saas.Application.Interfaces;
-using Saas.Realtime.Clients;
+using Saas.Application.Interfaces.Realtime;
+using Saas.Application.UseCases.ChatRooms;
 using Saas.Realtime.Contracts;
 
 namespace Saas.Realtime.Hubs;
 
-public class ChatHub(IEventService eventService) : Hub<IChatClient>
+public class ChatHub(IEventService eventService, AddChatMessageToRoom addMessage) : Hub<IChatClient>
 {
     public async Task JoinChat(string chatId)
     {
@@ -18,24 +20,28 @@ public class ChatHub(IEventService eventService) : Hub<IChatClient>
         await Groups.RemoveFromGroupAsync(Context.ConnectionId, chatId);
     }
     
-    public async Task SendMessage(ServerMessage message)
+    public async Task SendMessage(ServerMessage serverMessage)
     {
-        var username = Context.User?
-            .FindFirst(c => c.Type.Equals("Username", StringComparison.OrdinalIgnoreCase))?.Value ?? Context.ConnectionId;
+        var chatGuid = Guid.Parse(serverMessage.ChatId);
+        var userGuid = Guid.Parse(serverMessage.UserId);
 
-        var chatGuid = Guid.Parse(message.ChatId);
-        var userGuid = Guid.Parse(message.UserId);
+        var addResult = await addMessage.Handle(
+            chatRoomId: chatGuid,
+            senderId: userGuid,
+            content: serverMessage.Content);
+
+        if (!addResult.IsSuccess)
+            return;
+
+        var message = addResult.Value;
         
-        var messageSentEvent = new ChatMessageSentEvent(
-            SenderUsername: username,
-            SenderId: userGuid,
+        var @event = new ChatMessageSentEvent(
+            Message: message,
             SenderConnectionId: Context.ConnectionId,
-            ChatId: chatGuid,
-            Message: message.Content,
-            SentAt: DateTime.UtcNow);
+            ChatId: chatGuid);
 
-        await Clients.Group(message.ChatId).ReceiveMessage(new ClientMessage(username, message.Content));
-        
-        await eventService.PublishAsync(messageSentEvent);
+
+        await Clients.Group(serverMessage.ChatId).ReceiveMessage(MessageDto.From(message));
+        await eventService.PublishAsync(@event);
     }
 }

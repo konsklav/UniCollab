@@ -1,5 +1,5 @@
 ﻿using Saas.Application.Common.Notifications;
-using Saas.Realtime.Contracts;
+using Saas.Application.Contracts;
 
 namespace Saas.Realtime;
 

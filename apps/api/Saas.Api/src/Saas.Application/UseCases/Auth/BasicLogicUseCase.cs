@@ -1,7 +1,6 @@
 ﻿using Ardalis.Result;
-using Saas.Application.Common.Authentication;
+using Saas.Application.Authentication;
 using Saas.Application.Interfaces;
-using Saas.Application.Interfaces.Authentication;
 using Saas.Application.Interfaces.Data;
 
 namespace Saas.Application.UseCases.Auth;

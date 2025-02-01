@@ -1,8 +1,7 @@
 ﻿using System.Buffers.Text;
 using System.Diagnostics;
 using System.Text;
-using Saas.Application.Common.Authentication;
-using Saas.Application.Interfaces.Authentication;
+using Saas.Application.Authentication;
 using Saas.Domain;
 
 namespace Saas.Infrastructure.Authentication;

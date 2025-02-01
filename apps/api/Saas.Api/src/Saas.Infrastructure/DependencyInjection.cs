@@ -2,8 +2,8 @@
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Saas.Application.Authentication;
 using Saas.Application.Interfaces;
-using Saas.Application.Interfaces.Authentication;
 using Saas.Application.Interfaces.Data;
 using Saas.Domain;
 using Saas.Infrastructure.Authentication;

@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.SignalR;
 using Saas.Application.Common.Notifications;
 using Saas.Application.Interfaces;
-using Saas.Realtime.Clients;
+using Saas.Application.Interfaces.Realtime;
 using Saas.Realtime.Hubs;
 
 namespace Saas.Realtime;

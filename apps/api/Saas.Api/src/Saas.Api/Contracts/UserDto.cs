@@ -1,4 +1,5 @@
-﻿using Saas.Domain;
+﻿using Saas.Application.Contracts;
+using Saas.Domain;
 
 namespace Saas.Api.Contracts;
 

@@ -1,4 +1,4 @@
-﻿namespace Saas.Application.Common.Authentication;
+﻿namespace Saas.Application.Authentication;
 
 public class AuthenticationToken(string value)
 {
