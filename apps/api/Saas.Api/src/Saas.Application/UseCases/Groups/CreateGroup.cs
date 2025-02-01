@@ -28,6 +28,7 @@ public class CreateGroup(
         var group = groupCreationResult.Value;
 
         groupRepository.Add(group);
+        
         await groupRepository.SaveChangesAsync();
 
         return group;

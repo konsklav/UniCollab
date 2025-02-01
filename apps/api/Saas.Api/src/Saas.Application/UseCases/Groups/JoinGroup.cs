@@ -19,6 +19,9 @@ public class JoinGroup(
             return Result.NotFound($"Group with ID '{groupId}' not found.");
 
         var joinResult = user.JoinGroup(group);
+        
+        await groupRepository.SaveChangesAsync();
+        
         return joinResult;
     }
 }
