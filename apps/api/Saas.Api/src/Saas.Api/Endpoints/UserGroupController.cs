@@ -2,7 +2,9 @@ using Ardalis.Result.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Saas.Api.Contracts;
+using Saas.Api.Contracts.Queries;
 using Saas.Api.Contracts.Requests;
+using Saas.Api.Extensions;
 using Saas.Application.UseCases.Groups;
 
 namespace Saas.Api.Endpoints;
@@ -15,6 +17,25 @@ namespace Saas.Api.Endpoints;
 [Authorize]
 public class UserGroupController : ControllerBase
 {
+    /// <summary>
+    /// Gets the groups of a user. You can query parameters to specify what types of groups you want returned.
+    /// </summary>
+    [HttpGet]
+    public async Task<IResult> Get(
+        [FromRoute] Guid userId,
+        [FromServices] GetGroupQuery query,
+        [FromServices] GetGroups getGroups)
+    {
+        return query.QueryType switch
+        {
+            GroupQueryType.Joinable => (await getGroups.Joinable(userId)).ToHttp(
+                onSuccess: groups => groups.Select(GroupInformationDto.From)),
+            GroupQueryType.Participating => (await getGroups.Participating(userId)).ToHttp(
+                onSuccess: groups => groups.Select(GroupInformationDto.From)),
+            _ => Results.BadRequest("Unknown 'Type' parameter.")
+        };
+    }
+    
     [HttpPost(Name = "Create Group")]
     public async Task<IResult> Create(
         [FromRoute] Guid creatorId,
