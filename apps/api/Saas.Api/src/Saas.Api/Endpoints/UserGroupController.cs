@@ -1,4 +1,4 @@
-﻿using Ardalis.Result.AspNetCore;
+using Ardalis.Result.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Saas.Api.Contracts;
@@ -7,39 +7,24 @@ using Saas.Application.UseCases.Groups;
 
 namespace Saas.Api.Endpoints;
 
+/// <summary>
+/// How a user can interact with the group.
+/// </summary>
 [ApiController]
-[Route("/groups")]
+[Route("/users/{userId:guid}/groups")]
 [Authorize]
-public class GroupsController : ControllerBase
+public class UserGroupController : ControllerBase
 {
-    /// <summary>
-    /// Retrieve a group by their ID, if found.
-    /// </summary>
-    /// <param name="groupId">The ID to search.</param>
-    /// <param name="getGroup"></param>
-    /// <returns>A group</returns>
-    [HttpGet("{groupId:guid}", Name = "Get Group")]
-    public async Task<IResult> Get(
-        [FromRoute] Guid groupId, 
-        [FromServices] GetGroup getGroup)
-    {
-        var result = await getGroup.Handle(groupId);
-        if (!result.IsSuccess)
-            return result.ToMinimalApiResult();
-    
-        var group = result.Value;
-        return Results.Ok(GroupDto.From(group));
-    }
-    
     [HttpPost(Name = "Create Group")]
     public async Task<IResult> Create(
+        [FromRoute] Guid creatorId,
         [FromBody] CreateGroupRequest request, 
         [FromServices] CreateGroup createGroup)
     {
         var result = await createGroup.Handle(
             name: request.Name,
             userIds: request.InitialMembers,
-            creatorId: request.CreatorId);
+            creatorId: creatorId);
 
         if (!result.IsSuccess)
             return result.ToMinimalApiResult();
