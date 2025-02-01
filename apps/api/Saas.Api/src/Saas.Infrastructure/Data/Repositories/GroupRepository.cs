@@ -8,10 +8,12 @@ internal class GroupRepository(UniCollabContext context) : IGroupRepository
 {
     public async Task<Group?> GetByIdAsync(Guid groupId)
     {
-        // var group = await context.Groups
-        //         //Not done yet, needs includes!
-        //     .FirstOrDefaultAsync(g => g.Id == groupId);
-        throw new NotImplementedException();
+        var group = await context.Groups
+            .AsSingleQuery()
+            .Include(g => g.Members)
+            .Include(g => g.Creator)
+            .FirstOrDefaultAsync(g => g.Id == groupId);
+        return group;
     }
     
     public async Task SaveChangesAsync() => await context.SaveChangesAsync();
