@@ -35,4 +35,19 @@ public class UserGroupController : ControllerBase
             routeValues: new { chatRoomId = group.Id },
             value: GroupDto.From(group));
     }
+    
+    /// <summary>
+    /// Attempts to insert the specified user in the specified group.
+    /// </summary>
+    [HttpPost("{groupId:guid}", Name = "Join Group")]
+    public async Task<IResult> JoinGroup(
+        [FromRoute] Guid userId, 
+        [FromRoute] Guid groupId,
+        [FromServices] JoinGroup joinGroup)
+    {
+        var result = await joinGroup.HandleAsync(groupId, userId);
+        return !result.IsSuccess 
+            ? result.ToMinimalApiResult() 
+            : Results.Ok();
+    }
 }
