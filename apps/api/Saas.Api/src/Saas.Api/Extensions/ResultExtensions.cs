@@ -15,4 +15,15 @@ internal static class ResultExtensions
 
         return Results.Ok(onSuccess(result.Value));
     }
+
+    public static async Task<IResult> ToHttp<T, TSuccess>(
+        this Task<Result<T>> resultTask,
+        Func<T, TSuccess>? onSuccess)
+    {
+        var result = await resultTask;
+        if (!result.IsSuccess || onSuccess is null)
+            return result.ToMinimalApiResult();
+
+        return Results.Ok(onSuccess(result.Value));
+    }
 }

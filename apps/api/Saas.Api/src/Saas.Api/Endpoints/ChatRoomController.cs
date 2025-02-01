@@ -3,6 +3,8 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Saas.Api.Contracts;
 using Saas.Api.Contracts.Requests;
+using Saas.Api.Extensions;
+using Saas.Application.Contracts;
 using Saas.Application.UseCases.ChatRooms;
 
 namespace Saas.Api.Endpoints;
@@ -29,6 +31,18 @@ public class ChatRoomController : ControllerBase
     
         var chatRoom = result.Value;
         return Results.Ok(ChatRoomDto.From(chatRoom));
+    }
+
+    /// <summary>
+    /// Retrieve all the messages of a chat room.
+    /// </summary>
+    [HttpGet("{chatId:guid}/messages", Name = "Get Messages of Chat")]
+    public async Task<IResult> GetMessages(
+        [FromRoute] Guid chatId,
+        [FromServices] GetChatMessages getMessages)
+    {
+        return await getMessages.HandleAsync(chatId).ToHttp(
+            onSuccess: messages => messages.Select(MessageDto.From));
     }
 
     [HttpPost(Name = "Create Chat")]

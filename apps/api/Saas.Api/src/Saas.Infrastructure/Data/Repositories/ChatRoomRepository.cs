@@ -28,15 +28,24 @@ internal class ChatRoomRepository(UniCollabContext context) : IChatRoomRepositor
         return chatRooms;
     }
 
-    public async Task<ChatRoom?> GetByIdAsync(Guid chatRoomId)
+    public async Task<ChatRoom?> GetByIdAsync(Guid chatId)
     {
         var chatRoom = await context.ChatRooms
             .AsSplitQuery()
             .Include(c => c.Participants)
             .Include(c => c.Messages)
-            .FirstOrDefaultAsync(u => u.Id == chatRoomId);
+            .FirstOrDefaultAsync(u => u.Id == chatId);
             
         return chatRoom;
+    }
+
+    public async Task<IReadOnlyList<Message>?> GetMessagesAsync(Guid chatId)
+    {
+        var room = await context.ChatRooms
+            .Include(c => c.Messages)
+            .FirstOrDefaultAsync(c => c.Id == chatId);
+
+        return room?.Messages;
     }
 
     public void Add(ChatRoom room) => context.ChatRooms.Add(room);
