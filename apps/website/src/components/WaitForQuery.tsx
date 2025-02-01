@@ -10,6 +10,7 @@ interface WaitForApiProps<TData> {
 export default function WaitForQuery<T>({children, query}: WaitForApiProps<T>) {
     if (query.isPending) return <Loading/>
     if (query.isError) return <DisplayError error={query.error}/>
+    if (query.isSuccess) return <>{children}</>
 
-    return <>{children}</>
+    return <>Invalid State!</>
 }
