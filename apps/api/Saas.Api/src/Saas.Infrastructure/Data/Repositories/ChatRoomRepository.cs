@@ -42,7 +42,7 @@ internal class ChatRoomRepository(UniCollabContext context) : IChatRoomRepositor
     public async Task<IReadOnlyList<Message>?> GetMessagesAsync(Guid chatId)
     {
         var room = await context.ChatRooms
-            .Include(c => c.Messages)
+            .Include(c => c.Messages.OrderByDescending(m => m.SentAt))
             .FirstOrDefaultAsync(c => c.Id == chatId);
 
         return room?.Messages;
