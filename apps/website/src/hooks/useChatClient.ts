@@ -8,24 +8,26 @@ export const useChatClient = (chatId: string, callbacks: ChatClientCallbacks): C
     const signalRRef = useRef<SignalRService | undefined>(undefined)
 
     useEffect(() => {
-        if (!user || !isAuthenticated()) {
+        if (!user || !isAuthenticated()) 
             return;
-        }
 
         const signalR = new SignalRService('chat')
         signalRRef.current = signalR
 
-        signalR.startConnection().then(() => {
+        signalR.startConnection()
+        .then(() => {
             signalR.send('JoinChat', chatId)
+            .then(() => callbacks.onInitialized?.())
+            .catch(() => callbacks.onJoinError?.())
         })
 
         signalR.on('ReceiveMessage', (message: ClientMessage) => {
             console.log(`Received message ${message}`)
-            callbacks.onMessageReceived(message)
+            callbacks.onMessageReceived?.(message)
         })
 
         return () => signalR.stopConnection()
-    }, [user])
+    }, [])
 
     return {
         sendMessage: (message: string) => {

@@ -15,7 +15,9 @@ export interface MessageDto {
 }
 
 export type ChatClientCallbacks = {
-    onMessageReceived: (message: ClientMessage) => void
+    onMessageReceived?: (message: ClientMessage) => void
+    onInitialized?: () => void
+    onJoinError?: () => void
 }
 
 export type ChatClientActions = {
