@@ -12,12 +12,8 @@ public class ChatHub(IEventService eventService, AddChatMessageToRoom addMessage
 {
     public async Task JoinChat(string chatId)
     {
-        await Groups.AddToGroupAsync(Context.ConnectionId, chatId);
-    }
-
-    public async Task LeaveChat(string chatId)
-    {
-        await Groups.RemoveFromGroupAsync(Context.ConnectionId, chatId);
+        var guid = Guid.Parse(chatId);
+        await Groups.AddToGroupAsync(Context.ConnectionId, guid.ToString());
     }
     
     public async Task SendMessage(ServerMessage serverMessage)
@@ -40,8 +36,7 @@ public class ChatHub(IEventService eventService, AddChatMessageToRoom addMessage
             SenderConnectionId: Context.ConnectionId,
             ChatId: chatGuid);
 
-
-        await Clients.Group(serverMessage.ChatId).ReceiveMessage(MessageDto.From(message));
+        await Clients.Group(chatGuid.ToString()).ReceiveMessage(MessageDto.From(message));
         await eventService.PublishAsync(@event);
     }
 }
