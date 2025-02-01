@@ -1,7 +1,7 @@
 import { useEffect, useRef } from "react"
 import { useAuth } from "../state/authentication/authenticationStore"
 import SignalRService from "../services/signalRService"
-import { ChatClientCallbacks, ChatClientActions, ClientMessage, ServerMessage } from "../features/Chat/Chat.types"
+import { ChatClientCallbacks, ChatClientActions, ServerMessage, MessageDto } from "../features/Chat/Chat.types"
 
 export const useChatClient = (chatId: string, callbacks: ChatClientCallbacks): ChatClientActions => {
     const {user, isAuthenticated} = useAuth()
@@ -21,7 +21,7 @@ export const useChatClient = (chatId: string, callbacks: ChatClientCallbacks): C
             .catch(() => callbacks.onJoinError?.())
         })
 
-        signalR.on('ReceiveMessage', (message: ClientMessage) => {
+        signalR.on('ReceiveMessage', (message: MessageDto) => {
             console.log(`Received message ${message}`)
             callbacks.onMessageReceived?.(message)
         })
@@ -41,7 +41,7 @@ export const useChatClient = (chatId: string, callbacks: ChatClientCallbacks): C
 
             const serverMessage: ServerMessage = {
                 chatId: chatId,
-                userId: user.username,
+                userId: user.id,
                 content: cleanMessage
             }
 
