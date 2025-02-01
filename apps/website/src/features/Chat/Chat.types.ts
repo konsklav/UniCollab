@@ -15,7 +15,7 @@ export interface MessageDto {
 }
 
 export type ChatClientCallbacks = {
-    onMessageReceived?: (message: ClientMessage) => void
+    onMessageReceived?: (message: MessageDto) => void
     onInitialized?: () => void
     onJoinError?: () => void
 }
@@ -27,11 +27,6 @@ export type ChatClientActions = {
 export type ServerMessage = {
     chatId: string
     userId: string
-    content: string
-}
-
-export type ClientMessage = {
-    username: string,
     content: string
 }
 
