@@ -22,6 +22,7 @@ export type ChatClientCallbacks = {
 
 export type ChatClientActions = {
     sendMessage: (message: string) => void
+    switchChat: (chatId: string) => void
 }
 
 export type ServerMessage = {

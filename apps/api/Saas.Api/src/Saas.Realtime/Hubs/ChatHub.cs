@@ -16,6 +16,12 @@ public class ChatHub(IEventService eventService, AddChatMessageToRoom addMessage
         await Groups.AddToGroupAsync(Context.ConnectionId, guid.ToString());
     }
     
+    public async Task LeaveChat(string chatId)
+    {
+        var guid = Guid.Parse(chatId);
+        await Groups.RemoveFromGroupAsync(Context.ConnectionId, guid.ToString());
+    }
+    
     public async Task SendMessage(ServerMessage serverMessage)
     {
         var chatGuid = Guid.Parse(serverMessage.ChatId);
