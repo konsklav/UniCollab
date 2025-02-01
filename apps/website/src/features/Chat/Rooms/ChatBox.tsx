@@ -38,10 +38,7 @@ export default function ChatBox() {
     }, [selectedChat])
 
     const {sendMessage, switchChat} = useChatClient({
-        onMessageReceived: (message) => {
-            console.log(message)
-            return setMessages(messages => [...messages, message])
-        },
+        onMessageReceived: (message) => setMessages(messages => [...messages, message]),
         onInitialized: () => setChatState('ready'),
         onJoinError: () => setChatState('error')
     })
