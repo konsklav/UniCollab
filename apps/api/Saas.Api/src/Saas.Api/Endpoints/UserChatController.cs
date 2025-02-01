@@ -1,8 +1,12 @@
-﻿using Ardalis.Result.AspNetCore;
+﻿using Ardalis.Result;
+using Ardalis.Result.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Saas.Api.Contracts;
 using Saas.Api.Contracts.Queries;
+using Saas.Api.Extensions;
 using Saas.Application.UseCases.ChatRooms;
+using IResult = Microsoft.AspNetCore.Http.IResult;
 
 namespace Saas.Api.Endpoints;
 
@@ -45,8 +49,16 @@ public class UserChatController
     [HttpGet]
     public async Task<IResult> Get(
         [FromRoute] Guid userId,
-        [FromQuery] GetChatRoomQuery query)
+        [FromQuery] GetChatRoomQuery query,
+        [FromServices] GetChatRooms getChatRooms)
     {
-        throw new NotImplementedException();
+        return query.QueryType switch
+        {
+            ChatQueryType.Joinable => (await getChatRooms.Joinable(userId)).ToHttp(
+                onSuccess: rooms => rooms.Select(ChatRoomInformationDto.From)),
+            ChatQueryType.Participating => (await getChatRooms.Participating(userId)).ToHttp(
+                onSuccess: rooms => rooms.Select(ChatRoomInformationDto.From)),
+            _ => Results.BadRequest("Unknown 'Type' parameter.")
+        };
     }
 }

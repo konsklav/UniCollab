@@ -8,7 +8,7 @@ interface ChatBrowseProps {
     onJoinChat?: (chatId: string) => void
 }
 
-export default function BrowseAllChats({onJoinChat}: ChatBrowseProps) {
+export default function BrowseChats({onJoinChat}: ChatBrowseProps) {
     const {user} = useSession()
     const queryClient = useQueryClient()
     
