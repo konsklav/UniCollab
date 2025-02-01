@@ -39,13 +39,28 @@ public class UserGroupController : ControllerBase
     /// <summary>
     /// Attempts to insert the specified user in the specified group.
     /// </summary>
-    [HttpPost("{groupId:guid}", Name = "Join Group")]
+    [HttpPost("{groupId:guid}/join", Name = "Join Group")]
     public async Task<IResult> JoinGroup(
         [FromRoute] Guid userId, 
         [FromRoute] Guid groupId,
         [FromServices] JoinGroup joinGroup)
     {
         var result = await joinGroup.HandleAsync(groupId, userId);
+        return !result.IsSuccess 
+            ? result.ToMinimalApiResult() 
+            : Results.Ok();
+    }
+    
+    /// <summary>
+    /// Attempts to remove the specified user from the specified group.
+    /// </summary>
+    [HttpPost("{groupId:guid}/leave", Name = "Leave Group")]
+    public async Task<IResult> LeaveGroup(
+        [FromRoute] Guid userId, 
+        [FromRoute] Guid groupId,
+        [FromServices] LeaveGroup leaveGroup)
+    {
+        var result = await leaveGroup.HandleAsync(groupId, userId);
         return !result.IsSuccess 
             ? result.ToMinimalApiResult() 
             : Results.Ok();
