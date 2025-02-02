@@ -5,7 +5,7 @@ ARG DB_CONN="Data Source=host.docker.internal,5433; Initial Catalog=UniCollab; U
 WORKDIR /src
 
 COPY . .
-RUN dotnet restore -c Release "Saas.Api.csproj"
+RUN dotnet restore "Saas.Api.csproj"
 RUN dotnet publish -c Release -o /app --no-restore "Saas.Api.csproj"
 
 FROM mcr.microsoft.com/dotnet/aspnet:9.0
