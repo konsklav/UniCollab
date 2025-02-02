@@ -20,8 +20,8 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .WithOne(p => p.Author);
 
         builder.Property(u => u.Username)
-            .HasColumnType("nvarchar(32)");
+            .HasColumnType("varchar(32)");
         builder.Property(u => u.Password)
-            .HasColumnType("nvarchar(128)");
+            .HasColumnType("varchar(128)");
     }
 }

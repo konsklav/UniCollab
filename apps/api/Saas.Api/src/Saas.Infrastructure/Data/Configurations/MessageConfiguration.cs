@@ -18,6 +18,6 @@ public class MessageConfiguration : IEntityTypeConfiguration<Message>
             .WithMany();
         
         builder.Property(m => m.Content)
-            .HasColumnType("nvarchar(500)");
+            .HasColumnType("varchar(500)");
     }
 }

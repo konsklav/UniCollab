@@ -26,7 +26,7 @@ public class PostConfiguration : IEntityTypeConfiguration<Post>
         builder.HasTitle(x => x.Title);
 
         builder.Property(x => x.Slug)
-            .HasColumnType($"nvarchar({Title.MaxLength})");
+            .HasColumnType($"varchar({Title.MaxLength})");
         
         // Configure an index on the Slug property since we search by slug
         builder.HasIndex(x => x.Slug).IsUnique();
