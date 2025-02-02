@@ -17,6 +17,7 @@ export const useChatClient = (callbacks: ChatClientCallbacks): ChatClientActions
         signalRRef.current = signalR
 
         signalR.startConnection()
+        .then(() => callbacks.onInitialized?.())
 
         signalR.on('ReceiveMessage', (message: MessageDto) => {
             console.log(`Received message ${message}`)

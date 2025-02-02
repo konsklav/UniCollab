@@ -18,6 +18,7 @@ export default function ChatInput({onSend}: ChatInputProps) {
         <UniCollabForm onSubmit={handleSend} name="message">
             <div className="d-flex gap-2">
                 <InputText 
+                    className="w-100"
                     value={message}
                     onChange={msg => setMessage(msg)}
                     placeholder="Type your message..."/>

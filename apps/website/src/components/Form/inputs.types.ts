@@ -4,6 +4,7 @@ export interface InputProps<T> {
     placeholder?: string
     label?: string    
     id?: string
+    className?: string
 }
 
 export interface PasswordInputProps extends InputProps<string> {

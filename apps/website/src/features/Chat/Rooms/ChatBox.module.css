@@ -4,11 +4,17 @@
     display: flex;
     border: var(--chat-border);
     border-radius: 0.5rem;
+
+    height: 90dvh;
+    overflow: hidden;
 }
 
 #chat-box #chat-area {
     flex: 1;
     border-left: var(--chat-border);
+
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 #chat-box #recent-chats {

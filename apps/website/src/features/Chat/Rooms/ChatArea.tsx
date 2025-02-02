@@ -18,7 +18,7 @@ export default function ChatArea({selectedChat, messages, onSend}: ChatAreaProps
             <div className="flex-grow-1">
                 <MessageBoard messages={messages}/>
             </div>
-            <div className="p-2">
+            <div className="p-2 w-100">
                 <ChatInput onSend={onSend}/>
             </div>
         </div>
