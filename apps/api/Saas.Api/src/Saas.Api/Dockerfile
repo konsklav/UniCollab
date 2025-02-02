@@ -5,8 +5,8 @@ ARG DB_CONN="Data Source=host.docker.internal,5433; Initial Catalog=UniCollab; U
 WORKDIR /src
 
 COPY . .
-RUN dotnet restore
-RUN dotnet publish -c Debug -o /app --no-restore
+RUN dotnet restore -c Release .
+RUN dotnet publish -c Release -o /app --no-restore
 
 FROM mcr.microsoft.com/dotnet/aspnet:9.0
 
