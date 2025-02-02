@@ -5,7 +5,7 @@
       context: ./src
       dockerfile: Dockerfile
     environment: 
-      UNICOLLAB_ConnectionStrings__Database: "Server=host.docker.internal;Port=5433;Database=UniCollab;User Id=uniCollab;Password=abc123!;"
+      UNICOLLAB_ConnectionStrings__Database: "Server=host.docker.internal;Port=5433;Database=UniCollab;User Id=postgres;Password=abc123!;"
     ports:
       - "4000:8080"
     depends_on:
@@ -14,15 +14,14 @@
 
   database:
     container_name: unicollab-db
-    image: mcr.microsoft.com/mssql/server:2019-latest
+    image: postgres
     ports:
-      - "5433:1433"
+      - "5433:5432"
     environment:
-      SA_PASSWORD: "YourStrong(!)Password"
-      ACCEPT_EULA: "Y"
+      POSTGRES_PASSWORD: "abc123!"
     restart: no
     healthcheck:
-      test: /opt/mssql-tools18/bin/sqlcmd -U sa -P $${SA_PASSWORD} -C -Q "SELECT 1" -b -o /dev/null
+      test: ["CMD-SHELL", "pg_isready"]
       start_period: 5s
       timeout: 5s
       interval: 8s
