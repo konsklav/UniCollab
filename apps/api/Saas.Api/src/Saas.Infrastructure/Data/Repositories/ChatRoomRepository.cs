@@ -25,7 +25,10 @@ internal class ChatRoomRepository(UniCollabContext context) : IChatRoomRepositor
             .Where(c => c.Participants.Any(p => p.Id == userId))
             .ToListAsync();
 
-        return chatRooms;
+        return chatRooms.OrderByDescending(m =>
+        {
+            return m.Messages == null || m.Messages.Count == 0 ? DateTime.MinValue : m.Messages.Max(r => r.SentAt);
+        }).ToList();
     }
 
     public async Task<ChatRoom?> GetByIdAsync(Guid chatId)
