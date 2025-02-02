@@ -11,6 +11,7 @@ export default function ChatInput({onSend}: ChatInputProps) {
     const [message, setMessage] = useState('')
 
     const handleSend = (): Promise<void> => {
+        setMessage('')
         return new Promise((resolve) => resolve(onSend(message)))
     }
     

@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.SignalR;
 using Saas.Application.Common.Events;
 using Saas.Application.Contracts;
 using Saas.Application.Interfaces;
@@ -45,4 +46,6 @@ public class ChatHub(IEventService eventService, AddChatMessageToRoom addMessage
         await Clients.Group(chatGuid.ToString()).ReceiveMessage(MessageDto.From(message));
         await eventService.PublishAsync(@event);
     }
+    
+    
 }

@@ -22,7 +22,10 @@ export default function RecentChat(info: ChatRoomInformation) {
                         : 'No Messages!'}
                 </div>
             </div>
-            <div className="d-flex flex-column align-items-end text-black-50">
+            <div className="d-flex flex-column align-items-end text-black-50"
+                style={{
+                    fontSize: '0.9rem'
+                }}>
                 <div>{date}</div>
                 <div>{time}</div>
             </div>

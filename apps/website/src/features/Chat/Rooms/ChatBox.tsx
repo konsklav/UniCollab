@@ -18,8 +18,6 @@ export default function ChatBox() {
     const [messages, setMessages] = useState<readonly MessageDto[]>([])
     const [chatState, setChatState] = useState<ChatState>('loading')
 
-    const chatAreaElement = useRef<HTMLDivElement>(null)
-
     const chatQuery = useQuery({
         queryKey: ['chats', 'participating', user.id],
         queryFn: () => getParticipatingChats(user)
@@ -29,11 +27,6 @@ export default function ChatBox() {
     useEffect(() => {
         if (!selectedChat)
             return
-
-        chatAreaElement.current?.scrollIntoView({
-            behavior: 'instant',
-            block: 'end',
-            inline: 'nearest'})
 
         queryClient.fetchQuery({
             queryKey: ['messages', selectedChat.id],
@@ -70,7 +63,7 @@ export default function ChatBox() {
                     )}
                 </WaitForQuery>
             </div>
-            <div id={styles['chat-area']} ref={chatAreaElement}>
+            <div id={styles['chat-area']}>
                 {selectedChat 
                 && chatState === 'ready' 
                 && <ChatArea selectedChat={selectedChat} messages={messages} onSend={sendMessage}/>}

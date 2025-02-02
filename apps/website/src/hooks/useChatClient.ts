@@ -9,11 +9,30 @@ export const useChatClient = (callbacks: ChatClientCallbacks): ChatClientActions
 
     const [currentChatId, setCurrentChatId] = useState<string>()
 
+    const switchChat = async (chatId: string) => {
+        const signalR = signalRRef.current
+        if (!signalR) 
+            return;
+
+        if (currentChatId)
+            await signalR.send('LeaveChat', currentChatId)
+
+        await signalR.send('JoinChat', chatId)
+        setCurrentChatId(chatId)
+    }
+
+    const handleReconnect = () => {
+        console.log(`Reconnecting to chat '${currentChatId}'`)
+        if (currentChatId) {
+            switchChat(currentChatId)
+        }
+    }
+
     useEffect(() => {
         if (!user || !isAuthenticated()) 
             return;
 
-        const signalR = new SignalRService('chat')
+        const signalR = new SignalRService('chat', handleReconnect)
         signalRRef.current = signalR
 
         signalR.startConnection()
@@ -28,17 +47,7 @@ export const useChatClient = (callbacks: ChatClientCallbacks): ChatClientActions
     }, [])
 
     return {
-        switchChat: async (chatId: string) => {
-            const signalR = signalRRef.current
-            if (!signalR) 
-                return;
-
-            if (currentChatId)
-                await signalR.send('LeaveChat', currentChatId)
-
-            await signalR.send('JoinChat', chatId)
-            setCurrentChatId(chatId)
-        },
+        switchChat,
         sendMessage: (message: string) => {
             const signalR = signalRRef.current
             if (!signalR || !user || !currentChatId)

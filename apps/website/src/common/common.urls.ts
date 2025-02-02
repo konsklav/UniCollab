@@ -3,5 +3,5 @@ type CommonUrls = {
 }
 
 export const commonUrls: CommonUrls = {
-    api: 'http://localhost:4000' 
+    api: 'http://localhost:4000'
 }
