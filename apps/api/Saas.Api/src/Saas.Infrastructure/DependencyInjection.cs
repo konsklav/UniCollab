@@ -28,7 +28,7 @@ public static class DependencyInjection
         
         services.AddDbContext<UniCollabContext>(options =>
         {
-            options.UseSqlServer(configuration.GetConnectionString("Database"));
+            options.UseNpgsql(configuration.GetConnectionString("Database"));
             options.LogTo(Console.WriteLine, LogLevel.Information);
         });
     }
