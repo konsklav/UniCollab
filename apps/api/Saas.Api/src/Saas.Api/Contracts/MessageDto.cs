@@ -8,7 +8,7 @@ public sealed record MessageDto(
     DateTime SentAt,
     UserInformationDto Sender)
 {
-    internal static MessageDto From(Message message) =>
+    internal static MessageDto? From(Message? message) => message is null ? null :
         new(Id: message.Id, 
             Content: message.Content,
             SentAt: message.SentAt, 

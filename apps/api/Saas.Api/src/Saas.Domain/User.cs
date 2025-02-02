@@ -48,40 +48,16 @@ public class User : Entity
         return Result.Success();
     }
     
-    public Result JoinGroup(Group group)
-    {
-        var result = group.AddMember(this);
-        return result;
-    }
+    public Result JoinGroup(Group group) => group.AddMember(this);
+    public Result LeaveGroup(Group group) => group.RemoveMember(this);
 
-    public Result LeaveGroup(Group group)
-    {
-        var result = group.RemoveMember(this);
-        return result;
-    }
+    public Result JoinChat(ChatRoom chatRoom) => chatRoom.AddParticipant(this);
+    public Result LeaveChat(ChatRoom chatRoom) => chatRoom.RemoveParticipant(this);
 
-    public Result JoinChat(ChatRoom chatRoom)
+    public Result SendMessage(ChatRoom chatRoom, string content)
     {
-        var result = chatRoom.AddParticipant(this);
-        return result;
-    }
-
-    public Result SendMessage(ChatRoom chatRoom,Message message)
-    {
-        var result = chatRoom.AddMessage(message);
-        return result;
-    }
-
-    public Result DeleteMessage(ChatRoom chatRoom, Message message)
-    {
-        var result = chatRoom.DeleteMessage(message);
-        return result;
-    }
-    
-    public Result LeaveChat(ChatRoom chatRoom)
-    {
-        var result = chatRoom.RemoveParticipant(this);
-        return result;
+        var message = new Message(content, DateTime.UtcNow, this);
+        return chatRoom.AddMessage(message);
     }
 
     public Result CreatePost(string title, string content, List<Subject> subjects)
@@ -89,15 +65,5 @@ public class User : Entity
         var post = Post.Create(title, content, subjects, this);
         _posts.Add(post);
         return Result.Success();
-    }
-
-    public Result<Group> CreateGroup(string name)
-    {
-        var group = new Group(
-            name: name, 
-            members: [this], 
-            creator: this);
-
-        return group;
     }
 }

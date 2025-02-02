@@ -12,7 +12,7 @@ public class UserGroupTests
         var user1 = FakeUsers.Generate();
         var user2 = FakeUsers.Generate();
         
-        var group = new Group("Test", [user1], user1);
+        var group = FakeGroups.Generate(members: [user1], creator: user1);
         
         // Act
         var result = user2.JoinGroup(group);
@@ -30,7 +30,7 @@ public class UserGroupTests
         var user1 = FakeUsers.Generate();
         var user2 = FakeUsers.Generate();
         
-        var group = new Group("Test", [user1, user2], user1);
+        var group = FakeGroups.Generate(members: [user1, user2], creator: user1);
         
         // Act
         var result = user2.LeaveGroup(group);
@@ -39,18 +39,5 @@ public class UserGroupTests
         group.Members.Should().NotContain(user2);
         
         result.IsSuccess.Should().BeTrue();
-    }
-    
-    [Fact]
-    public void CreateGroup_Should_SuccessfullyCreateGroup()
-    {
-        // Arrange
-        var user = FakeUsers.Generate();
-        
-        // Act
-        var result = user.CreateGroup("test");
-        
-        // Assert
-        // Idk what to do!
     }
 }

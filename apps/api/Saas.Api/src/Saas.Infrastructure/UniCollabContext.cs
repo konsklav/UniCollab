@@ -12,6 +12,7 @@ internal class UniCollabContext : DbContext
     public DbSet<Subject> Subjects { get; set; }
     public DbSet<Post> Posts { get; set; }
     public DbSet<ChatRoom> ChatRooms { get; set; }
+    public DbSet<Group> Groups { get; set; }
     
     public UniCollabContext(DbContextOptions<UniCollabContext> options) : base(options) { }
 
@@ -21,6 +22,7 @@ internal class UniCollabContext : DbContext
         modelBuilder.ApplyConfiguration(new PostConfiguration());
         modelBuilder.ApplyConfiguration(new ChatRoomConfiguration());
         modelBuilder.ApplyConfiguration(new MessageConfiguration());
+        modelBuilder.ApplyConfiguration(new GroupConfiguration());
     }
 }
 
