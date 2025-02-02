@@ -5,12 +5,10 @@ using Microsoft.Extensions.Logging;
 using Saas.Application.Interfaces;
 using Saas.Application.Interfaces.Authentication;
 using Saas.Application.Interfaces.Data;
-using Saas.Domain;
 using Saas.Infrastructure.Authentication;
 using Saas.Infrastructure.Data.Repositories;
 using Saas.Infrastructure.Data.Seeding;
 using Saas.Infrastructure.Events;
-using Saas.Tests.Fakes;
 
 namespace Saas.Infrastructure;
 
