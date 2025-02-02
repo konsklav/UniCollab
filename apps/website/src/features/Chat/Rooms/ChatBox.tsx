@@ -30,7 +30,10 @@ export default function ChatBox() {
         if (!selectedChat)
             return
 
-        chatAreaElement.current?.scrollIntoView({behavior: 'instant'})
+        chatAreaElement.current?.scrollIntoView({
+            behavior: 'instant',
+            block: 'end',
+            inline: 'nearest'})
 
         queryClient.fetchQuery({
             queryKey: ['messages', selectedChat.id],

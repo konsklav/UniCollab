@@ -4,7 +4,7 @@ export interface ChatRoomInformation {
     id: string,
     name: string,
     participantCount: number,
-    lastMessageSent: MessageDto | undefined
+    lastMessage: MessageDto | undefined
 }
 
 export interface MessageDto {
