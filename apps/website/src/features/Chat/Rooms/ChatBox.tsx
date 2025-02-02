@@ -6,7 +6,7 @@ import { getMessages, getParticipatingChats } from '../../../endpoints/chatEndpo
 import WaitForQuery from '../../../components/WaitForQuery'
 import RecentChat from './RecentChat'
 import ChatArea from './ChatArea'
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useState } from 'react'
 import { useChatClient } from '../../../hooks/useChatClient'
 
 type ChatState = 'ready' | 'loading' | 'error'
