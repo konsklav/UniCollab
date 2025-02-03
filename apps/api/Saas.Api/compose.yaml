@@ -5,7 +5,7 @@
       context: ./src
       dockerfile: Dockerfile
     environment: 
-      UNICOLLAB_ConnectionStrings__Database: "Server=host.docker.internal;Port=5433;Database=UniCollab;User Id=postgres;Password=abc123!;"
+      UNICOLLAB_ConnectionStrings__Database: "Host=host.docker.internal;Port=5433;Database=UniCollab;User Id=postgres;Password=abc123!;"
     ports:
       - "4000:8080"
     depends_on:
