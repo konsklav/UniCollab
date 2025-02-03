@@ -1,0 +1,5 @@
+.nav-btn-group {
+    font-size: 1.25rem;
+    max-width: max(6rem, 66.666dvw);
+    min-width: 50dvw;
+}

@@ -15,15 +15,19 @@ type CoreButtonProps = CommonButtonProps & {
     type: 'submit' | 'button'
     state: ButtonState
 }
-type ButtonProps = CommonButtonProps & { onClick: () => Promise<void> }
+type ButtonProps = CommonButtonProps & { onClick: (() => Promise<void>) | (() => void)}
 
 export function Button(props: ButtonProps) {
     const [state, setState] = useState<ButtonState>('idle')
 
     const handleClick = () => {
-        setState('loading')
-        props.onClick()
-            .finally(() => setState('idle'))
+        const onClickResult = props.onClick()
+        if (onClickResult instanceof Promise)
+        {
+            setState('loading')
+            onClickResult
+                .finally(() => setState('idle'))
+        }
     }
 
     return <CoreButton {...props} onClick={handleClick} type={'button'} state={state}/>

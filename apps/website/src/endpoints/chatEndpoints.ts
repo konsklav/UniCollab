@@ -24,6 +24,11 @@ export const joinChatRoom = async (chatId: string, user: UserInformation): Promi
     return response.data
 }
 
+export const leaveChatRoom = async (chatId: string, user: UserInformation): Promise<void> => {
+    const response = await api.delete(`${userChats(user.id)}/${chatId}`)
+    return response.data
+}
+
 export const createChatRoom = async (request: CreateChatRoomRequest) => {
     const response = await api.post('/chats', request)
     return response.data

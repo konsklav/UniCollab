@@ -2,6 +2,7 @@ import { Link, useParams } from "react-router-dom"
 import Chat from "../features/Chat/ChatRoom"
 import BrowseChats from "../features/Chat/BrowseAllChats"
 import CreateChatForm from "../features/Chat/CreateChatForm"
+import NavigationButtons from "../components/NavigationButtons"
 
 export type ChatPageParams = '' | 'browse' | 'create'
 
@@ -11,11 +12,11 @@ export default function ChatPage() {
 
     return (
         <div className="container-fluid">
-            <div className="btn-group">
+            <NavigationButtons>
                 <Link className="btn btn-primary" to={'/chat'}>Chat</Link>
                 <Link className="btn btn-success" to={'/chat/create'}>Create</Link>
                 <Link className="btn btn-secondary" to={'/chat/browse'}>Browse</Link>
-            </div>
+            </NavigationButtons>
             <div className="container-fluid p-3">
                 {page}
             </div>

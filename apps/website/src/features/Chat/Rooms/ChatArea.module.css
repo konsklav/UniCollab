@@ -1,0 +1,26 @@
+.chat-area {
+    padding: var(--chat-area-padding);
+    --chat-area-padding: 1rem;
+}
+
+.message-board {
+    flex: 1;
+}
+
+.chat-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+
+    top: 0;
+    position: sticky;
+
+    padding: 1.5rem;
+    margin: var(--mar) var(--mar) 0 var(--mar);
+    background: var(--bs-secondary);
+    color: var(--bs-secondary-text-emphasis);
+    border: 2px solid var(--bs-secondary);
+
+    --mar: calc(-1 * var(--chat-area-padding));
+}
