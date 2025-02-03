@@ -5,12 +5,10 @@ using Microsoft.Extensions.Logging;
 using Saas.Application.Authentication;
 using Saas.Application.Interfaces;
 using Saas.Application.Interfaces.Data;
-using Saas.Domain;
 using Saas.Infrastructure.Authentication;
 using Saas.Infrastructure.Data.Repositories;
 using Saas.Infrastructure.Data.Seeding;
 using Saas.Infrastructure.Events;
-using Saas.Tests.Fakes;
 
 namespace Saas.Infrastructure;
 
@@ -21,6 +19,7 @@ public static class DependencyInjection
         services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IPostRepository, PostRepository>();
         services.AddScoped<IChatRoomRepository, ChatRoomRepository>();
+        services.AddScoped<IGroupRepository, GroupRepository>();
         
         services.AddScoped<IEventService, EventService>();
         services.AddScoped<IAuthenticationHelper, BasicAuthenticationHelper>();
@@ -29,7 +28,7 @@ public static class DependencyInjection
         
         services.AddDbContext<UniCollabContext>(options =>
         {
-            options.UseSqlServer(configuration.GetConnectionString("Database"));
+            options.UseNpgsql(configuration.GetConnectionString("Database"));
             options.LogTo(Console.WriteLine, LogLevel.Information);
         });
     }

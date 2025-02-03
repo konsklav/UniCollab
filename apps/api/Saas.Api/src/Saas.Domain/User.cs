@@ -66,14 +66,4 @@ public class User : Entity
         _posts.Add(post);
         return Result.Success();
     }
-
-    public Result<Group> CreateGroup(string name)
-    {
-        var group = new Group(
-            name: name, 
-            members: [this], 
-            creator: this);
-
-        return group;
-    }
 }

@@ -22,6 +22,6 @@ public class MessageConfiguration : IEntityTypeConfiguration<Message>
             .AutoInclude();
         
         builder.Property(m => m.Content)
-            .HasColumnType("nvarchar(500)");
+            .HasColumnType("varchar(500)");
     }
 }

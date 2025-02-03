@@ -10,7 +10,7 @@ public class ChatRoomConfiguration : IEntityTypeConfiguration<ChatRoom>
     public void Configure(EntityTypeBuilder<ChatRoom> builder)
     {
         builder.HasKey(c => c.Id);
-        builder.Property(c => c.Id).ValueGeneratedOnAdd();
+        builder.Property(c => c.Id).ValueGeneratedNever();
         
         builder
             .HasMany(c => c.Participants)

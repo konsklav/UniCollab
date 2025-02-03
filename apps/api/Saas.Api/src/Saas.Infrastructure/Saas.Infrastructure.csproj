@@ -7,7 +7,6 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <ProjectReference Include="..\..\test\Saas.Tests.Fakes\Saas.Tests.Fakes.csproj" />
       <ProjectReference Include="..\Saas.Application\Saas.Application.csproj" />
     </ItemGroup>
 
@@ -15,10 +14,13 @@
       <PackageReference Include="Microsoft.EntityFrameworkCore" Version="9.0.1" />
       <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="9.0.1" />
       <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="9.0.1" />
+      <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="9.0.3" />
     </ItemGroup>
 
     <ItemGroup>
       <Folder Include="Data\" />
+      <Folder Include="Data\Migrations\" />
+      <Folder Include="Infrastructure\Migrations\" />
     </ItemGroup>
 
 </Project>
