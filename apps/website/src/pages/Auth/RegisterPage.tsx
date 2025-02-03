@@ -1,10 +1,20 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import RegisterForm from "../../features/Users/Register/RegisterForm";
+import { useMutation } from "@tanstack/react-query";
+import { RegisterRequest } from "../../features/Users/Register/Register.types";
+import { basicRegister } from "../../endpoints/authEndpoints";
 
 export default function RegisterPage() {
+    const mutation = useMutation({
+        mutationFn: (request: RegisterRequest) => basicRegister(request) 
+    })
 
-    const handleRegister = () => {
-        
+    const navigate = useNavigate()
+
+    const handleRegister = async (request: RegisterRequest) => {
+        await mutation.mutateAsync(request, {
+            onSuccess: () => navigate('/login')
+        })
     }
 
     return (

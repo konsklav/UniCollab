@@ -1,20 +1,22 @@
-import { FormEvent, useState } from 'react'
+import { useState } from 'react'
 import { UserCredentials } from '../Users.types'
 import InputText from '../../../components/Form/InputText'
 import InputPassword from '../../../components/Form/InputPassword'
 
 import '../userForms.css'
 import ValidationError from '../../../components/Form/ValidationError'
+import { SubmitButton } from '../../../components/Button'
+import { UniCollabForm } from '../../../components/Form/UniCollabForm'
 
 interface RegisterFormProps {
-    onValidRegister: (registerData: UserCredentials) => void
+    onValidRegister: (registerData: UserCredentials) => Promise<void>
 }
 
 interface RegisterData extends UserCredentials {
     verifyPassword: string
 }
 
-export default function RegisterForm({onValidRegister: onRegister}: RegisterFormProps) {
+export default function RegisterForm({onValidRegister}: RegisterFormProps) {
     const [registerData, setRegisterData] = useState<RegisterData>({
         username: '',
         password: '',
@@ -26,26 +28,24 @@ export default function RegisterForm({onValidRegister: onRegister}: RegisterForm
     const setPassword = (password: string) => setRegisterData({...registerData, password: password})
     const setVerifyPassword = (password: string) => setRegisterData({...registerData, verifyPassword: password})
 
-    const handleRegister = (e: FormEvent<HTMLFormElement>) => {
-        e.preventDefault()
-
+    const handleRegister = async () => {
         if (registerData.password !== registerData.verifyPassword)
         {
             setValidationError('Passwords do not match.')
             return;
         }
 
-        onRegister(registerData)
+        onValidRegister(registerData)
     }
 
     return (
         <div>
-            <form className='user-form' onSubmit={handleRegister}>
+            <UniCollabForm className='user-form' onSubmit={handleRegister}>
                 <InputText value={registerData.username} onChange={setUsername} label='Username'/>
                 <InputPassword value={registerData.password} onChange={setPassword} label='Password'/>
                 <InputPassword value={registerData.verifyPassword} onChange={setVerifyPassword} label='Verify Password'/>
-                <button type='submit' className='btn btn-primary'>Sign Up</button>
-            </form>
+                <SubmitButton color={'primary'}>Sign Up</SubmitButton>
+            </UniCollabForm>
             {validationError && <ValidationError message={validationError}/>}
         </div>
     )
