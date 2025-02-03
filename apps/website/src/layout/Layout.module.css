@@ -13,7 +13,7 @@
     overflow-y: hidden;
 }
 
-@media (min-width: 576px) {
+@media only screen and (min-width: 800px) {
     #layout {
         height: 100dvh;
         flex-direction: row;
@@ -22,8 +22,7 @@
 
 @media only screen and (max-width: 800px) {
     #layout {
-        width: 100dvh;
-        height: 12.5rem;
+        height: 100%;
         flex-direction: column;
     }
 }
