@@ -1,6 +1,6 @@
-import { NotificationContract } from "./Notifications.types";
+import { NotificationDto } from "./Notifications.types";
 
-export default function NotificationDisplay({notification}: {notification: NotificationContract}) {
+export default function NotificationDisplay({notification}: {notification: NotificationDto}) {
     return (
         <div className="p-2">
             {notification.message}
