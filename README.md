@@ -8,19 +8,16 @@
 - [Node.js](https://nodejs.org/en)
 
 ## Setup
-### 1. Running the Web API
-Τα modules του back-end (Web API, Database, WebSockets) είναι ρυθμισμένα να τρέχουν ως containers. Το **compose.yaml** που βρίσκεται στο api/Saas.Api folder φροντίζει να τρέχουν όλα τα containers μαζί.  
-``` bash
-cd ./apps/api/Saas.Api
-docker-compose up --build
+Μπορείτε να τρέξετε όλο το stack (Web API, Website, DB) με τους παρακάτω τρόπους
+### Run with NPM
+- Πηγαίντε στο /apps/website
+- Τρέξτε την εντολή
+```bash
+npm start
 ```
 
-### 2. Running the website
-Το React site το τρέχουμε ξεχωριστά από το back-end stack. Αυτό επειδή θέλουμε στο React development να έχουμε hot reload (HMR), κάτι που δεν είναι εφικτό αν κάνουμε containerize το React app.  
+### Run with Docker Compose
+- Στο root, ανοίξτε το τερματικό και τρέξτε την εντολή
 ```bash
-cd ./apps/website
-npm install vite
-npm install
-npm run dev
+docker compose up
 ```
-Για να τρέξουμε όλο το stack (front και back-end) εκτελούμε τα παραπάνω βήματα.
