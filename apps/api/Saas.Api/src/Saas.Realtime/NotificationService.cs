@@ -11,6 +11,9 @@ internal sealed class NotificationService(IHubContext<NotificationHub, INotifica
 {
     public async Task SendAsync(Notification notification)
     {
-        await notificationHub.Clients.All.GetNotification(notification.ToDto());
+        if (notification.Type is NotificationType.PostUploaded)
+        {
+            await notificationHub.Clients.All.GetNotification(notification.ToDto());
+        }
     }
 }
