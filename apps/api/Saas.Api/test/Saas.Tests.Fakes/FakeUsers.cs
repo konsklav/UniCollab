@@ -1,5 +1,6 @@
 ﻿using Bogus;
 using Saas.Domain;
+using Saas.Tests.Fakes.Common;
 
 namespace Saas.Tests.Fakes;
 
@@ -28,14 +29,11 @@ public static class FakeUsers
         List<User>? friends = null,
         List<Post>? posts = null)
     {
-        return new Faker<User>().CustomInstantiator(f =>
-        {
-            var username = f.Internet.UserName();
-            var password = f.Internet.Password();
-            var friendList = friends ?? [];
-            var postList = posts ?? [];
-
-            return new User(username, password, friendList, postList);
-        });
+        return new PrivateFaker<User>(new PrivateBinder())
+            .UsePrivateConstructor()
+            .RuleFor(u => u.Username, f => f.Internet.UserName())
+            .RuleFor(u => u.Password, f => f.Internet.Password())
+            .RuleFor("_friends", _ => friends ?? [])
+            .RuleFor("_posts", _ => posts ?? []);
     }
 }

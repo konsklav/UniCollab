@@ -59,7 +59,7 @@ public class LeaveGroupTests
     }
 
     [Fact]
-    public async Task Conflict_WhenUserNotInGroup()
+    public async Task NotFound_WhenUserNotInGroup()
     {
         // Arrange
         _userRepository.GetByIdAsync(_user.Id).Returns(_user);
@@ -69,7 +69,7 @@ public class LeaveGroupTests
         var result = await _sut.HandleAsync(_group.Id, _user.Id);
 
         // Assert
-        result.IsConflict().Should().BeTrue();
+        result.IsNotFound().Should().BeTrue();
     }
 
     [Fact]

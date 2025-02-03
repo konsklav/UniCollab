@@ -20,8 +20,8 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .WithOne(p => p.Author);
 
         builder.Property(u => u.Username)
-            .HasColumnType("varchar(32)");
+            .HasColumnType($"varchar({User.MaxUsernameLength})");
         builder.Property(u => u.Password)
-            .HasColumnType("varchar(128)");
+            .HasColumnType($"varchar({User.MaxPasswordLength})");
     }
 }

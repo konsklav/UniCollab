@@ -53,7 +53,7 @@ public class Group : Entity
     public Result RemoveMember(User user)
     {
         if (!Members.Contains(user))
-            return Result.Conflict();
+            return Result.NotFound();
         
         _members.Remove(user);
         return Result.Success();

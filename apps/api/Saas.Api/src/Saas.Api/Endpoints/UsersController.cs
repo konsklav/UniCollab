@@ -36,7 +36,7 @@ public class UsersController : ControllerBase
     /// <param name="userId">The ID to search.</param>
     /// <param name="getUser"></param>
     /// <returns>A user</returns>
-    [HttpGet("{userId:guid}")]
+    [HttpGet("{userId:guid}", Name = "Get User by ID")]
     public async Task<IResult> Get(Guid userId, [FromServices] GetUserUseCase getUser)
     {
         var result = await getUser.Handle(userId);

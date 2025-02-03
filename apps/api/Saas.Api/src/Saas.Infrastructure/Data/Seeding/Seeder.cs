@@ -24,9 +24,10 @@ internal sealed class Seeder(UniCollabContext context) : ISeeder
             new("Game Development")
         };
 
-        var epicDeveloperKonsklav = new User("konsklav", "123", [], []);
-        var epicDeveloperNove = new User("nove", "123", [epicDeveloperKonsklav], []);
+        var epicDeveloperKonsklav = User.Create("konsklav", "123").Value;
+        var epicDeveloperNove = User.Create("nove", "123").Value;
 
+        epicDeveloperNove.AddFriend(epicDeveloperKonsklav);
         epicDeveloperKonsklav.AddFriend(epicDeveloperNove);
 
         var chatRoom = ChatRoom.Create("Developers", [epicDeveloperKonsklav, epicDeveloperNove]);
