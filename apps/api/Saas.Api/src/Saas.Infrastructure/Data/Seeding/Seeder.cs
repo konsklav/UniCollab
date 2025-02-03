@@ -8,6 +8,8 @@ internal sealed class Seeder(UniCollabContext context) : ISeeder
 {
     public async Task<Result> SeedDatabase()
     {
+        await context.Database.MigrateAsync();
+        
         if (await context.Users.AnyAsync())
             return Result.Conflict("The database needs to be empty before seeding.");
         
