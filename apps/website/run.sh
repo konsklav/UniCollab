@@ -1,7 +1,7 @@
 PROJ="Saas.Api"
 API_PATH="../api/$PROJ/"
 
-DB_PASS="YourStrong(!)Password"
+DB_PASS="abc123!"
 DB_IMG="postgres"
 
 WEB_PORT=5173
@@ -18,7 +18,7 @@ if docker ps --filter "ancestor=$DB_IMG" --format "{{.ID}}" | grep -q .; then
     echo "✅ Found running database container!"
 else 
     echo "🐳 No running container found, firing up a new database container."
-    docker run --rm -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=$DB_PASS" -p 5433:1433 -d $DB_IMG
+    docker run --rm -e "POSTGRES_PASSWORD=$DB_PASS" -p 5433:5432 -d $DB_IMG
 fi
 
 echo "🛠️ Building .NET API"
