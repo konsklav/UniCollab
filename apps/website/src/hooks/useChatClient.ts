@@ -48,6 +48,16 @@ export const useChatClient = (callbacks: ChatClientCallbacks): ChatClientActions
 
     return {
         switchChat,
+        leaveChat: async () => {
+            const signalR = signalRRef.current
+            if (!signalR || !user) 
+                return;
+
+            if (currentChatId) {                
+                await signalR.send('LeaveChat', currentChatId, user.id)
+                setCurrentChatId(undefined)
+            }
+        },
         sendMessage: (message: string) => {
             const signalR = signalRRef.current
             if (!signalR || !user || !currentChatId)

@@ -23,6 +23,7 @@ export type ChatClientCallbacks = {
 export type ChatClientActions = {
     sendMessage: (message: string) => void
     switchChat: (chatId: string) => void
+    leaveChat: () => Promise<void>
 }
 
 export type ServerMessage = {

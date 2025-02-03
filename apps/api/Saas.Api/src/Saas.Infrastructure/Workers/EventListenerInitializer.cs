@@ -7,16 +7,15 @@ using Saas.Infrastructure.Common;
 
 namespace Saas.Infrastructure.Workers;
 
+/// <summary>
+/// This background worker service uses reflection to initialize all implementations of <see cref="IEventListener"/>
+/// of a specified <see cref="Assembly"/>.
+/// </summary>
 internal sealed class EventListenerInitializer : IHostedService
 {
     public EventListenerInitializer(Assembly assembly, IServiceProvider serviceProvider)
     {
         var logger = serviceProvider.GetRequiredService<ILogger<EventListenerInitializer>>();
-        
-        logger.LogInformation("Initializing {listenerInterface} implementations of assembly {assemblyName}",
-            nameof(IEventListener),
-            assembly.Location);
-        
         ReflectionHelpers.ForEachImplementationOf<IEventListener>(
             assembly, 
             type =>

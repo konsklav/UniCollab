@@ -26,10 +26,7 @@ public class UserChatController
         [FromRoute] Guid userId,
         [FromServices] JoinChatRoom joinChatRoom)
     {
-        var result = await joinChatRoom.HandleAsync(chatId: chatId, userId: userId);
-        return !result.IsSuccess 
-            ? result.ToMinimalApiResult() 
-            : Results.Ok();
+        return await joinChatRoom.HandleAsync(chatId: chatId, userId: userId).ToHttp();
     }
 
     /// <summary>
@@ -38,9 +35,10 @@ public class UserChatController
     [HttpDelete("{chatId:guid}", Name = "Leave Chat")]
     public async Task<IResult> LeaveChat(
         [FromRoute] Guid chatId,
-        [FromRoute] Guid userId)
+        [FromRoute] Guid userId,
+        [FromServices] LeaveChatRoom leaveChatRoom)
     {
-        throw new NotImplementedException();
+        return await leaveChatRoom.HandleAsync(chatId, userId).ToHttp();
     }
 
     /// <summary>

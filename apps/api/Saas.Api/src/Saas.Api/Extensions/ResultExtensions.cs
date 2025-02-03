@@ -26,4 +26,10 @@ internal static class ResultExtensions
 
         return Results.Ok(onSuccess(result.Value));
     }
+
+    public static async Task<IResult> ToHttp(this Task<Result> resultTask)
+    {
+        var result = await resultTask;
+        return result.ToMinimalApiResult();
+    }
 }
