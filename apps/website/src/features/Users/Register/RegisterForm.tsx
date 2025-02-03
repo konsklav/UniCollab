@@ -10,19 +10,20 @@ import { UniCollabForm } from '../../../components/Form/UniCollabForm'
 
 interface RegisterFormProps {
     onValidRegister: (registerData: UserCredentials) => Promise<void>
+    error?: string | undefined
 }
 
 interface RegisterData extends UserCredentials {
     verifyPassword: string
 }
 
-export default function RegisterForm({onValidRegister}: RegisterFormProps) {
+export default function RegisterForm({onValidRegister, error}: RegisterFormProps) {
     const [registerData, setRegisterData] = useState<RegisterData>({
         username: '',
         password: '',
         verifyPassword: ''
     })
-    const [validationError, setValidationError] = useState<string | undefined>(undefined)
+    const [validationError, setValidationError] = useState<string | undefined>(error)
 
     const setUsername = (username: string) => setRegisterData({...registerData, username: username})
     const setPassword = (password: string) => setRegisterData({...registerData, password: password})
