@@ -28,6 +28,10 @@ builder.Services.AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 
+var logger = app.Services.GetRequiredService<ILogger<Program>>();
+var corsOrigin = builder.Configuration.GetSection("Cors:Origin").Get<string>();
+logger.LogInformation("Using CORS: {cors}", corsOrigin);
+
 app.UseSwagger();
 app.UseConfiguredCors();
 app.UseAuthorization();
