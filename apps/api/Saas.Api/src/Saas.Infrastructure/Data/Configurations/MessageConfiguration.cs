@@ -16,8 +16,12 @@ public class MessageConfiguration : IEntityTypeConfiguration<Message>
         builder
             .HasOne(m => m.Sender)
             .WithMany();
+
+        builder.Navigation(m => m.Sender)
+            .IsRequired()
+            .AutoInclude();
         
         builder.Property(m => m.Content)
-            .HasColumnType("nvarchar(500)");
+            .HasColumnType("varchar(500)");
     }
 }

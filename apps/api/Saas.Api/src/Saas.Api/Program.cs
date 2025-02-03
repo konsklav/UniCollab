@@ -1,4 +1,5 @@
 using System.Reflection;
+using Microsoft.AspNetCore.Mvc.Authorization;
 using Saas.Api.Authentication;
 using Saas.Api.Configuration;
 using Saas.Application;
@@ -9,7 +10,7 @@ var builder = WebApplication.CreateBuilder(args);
 
 builder.Configuration.AddEnvironmentVariables("UNICOLLAB_");
 
-builder.Services.AddControllers();
+builder.Services.AddControllers(op => op.Filters.Add(new AuthorizeFilter()));
 builder.Services.ConfigureCors(builder.Configuration);
 
 builder.Services.AddAuthentication("Basic")
@@ -23,7 +24,7 @@ builder.Services.AddSwaggerGen(options =>
 
 builder.Services.AddApplication();
 builder.Services.AddRealtimeCapabilities();
-await builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddInfrastructure(builder.Configuration);
 
 var app = builder.Build();
 

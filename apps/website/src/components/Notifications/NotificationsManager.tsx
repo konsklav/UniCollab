@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import SignalRService from "../../services/signalRService";
 import { useNotificationStore } from "../../state/notifications/notificationStore";
-import { NotificationContract } from "./Notifications.types";
+import { NotificationDto } from "./Notifications.types";
 import NotificationDisplay from "./Notification";
 import { ToastType } from "../Toasts/Toast.types";
 import { useAuth } from "../../state/authentication/authenticationStore";
@@ -17,11 +17,16 @@ export default function NotificationsManager() {
         }
 
         console.log('Beginning SignalR connection.')
-        const signalR = new SignalRService('notifications')
+        const signalR = new SignalRService('notifications', () => {
+            console.log('Reconnected to Notification Hub!')
+        })
         
         signalR.startConnection()
+        .then(() => {
+            signalR.send('Register', user.id)
+        })
         
-        signalR.on('GetNotification', (notification: NotificationContract) => {
+        signalR.on('GetNotification', (notification: NotificationDto) => {
             const toast: ToastType = {content: <NotificationDisplay notification={notification}/>} 
             publish('toast', toast)
         })

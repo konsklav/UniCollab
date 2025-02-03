@@ -5,18 +5,18 @@ import { useAuth } from "../state/authentication/authenticationStore";
 export default class SignalRService {
     private connection: HubConnection
 
-    constructor(hubName: string) {
+    constructor(hubName: string, onReconnected: () => void) {
         const authState = useAuth.getState()
         if (!authState.isAuthenticated() || !authState.token) {
             throw new Error('Cannot use SignalR service if unauthenticated.')
         }
 
         this.connection = new HubConnectionBuilder()
-            .withUrl(`${commonUrls.api}/hubs/${hubName}`, {
-                headers: { 'Authorization': authState.token }
-            })
+            .withUrl(`${commonUrls.api}/hubs/${hubName}`)
             .withAutomaticReconnect()
             .build()
+
+        this.connection.onreconnected(onReconnected)
     }
 
     async startConnection() {

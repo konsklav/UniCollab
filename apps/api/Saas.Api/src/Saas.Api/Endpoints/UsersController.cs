@@ -2,6 +2,7 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Saas.Api.Contracts;
+using Saas.Application.Contracts;
 using Saas.Application.UseCases.Users;
 
 namespace Saas.Api.Endpoints;

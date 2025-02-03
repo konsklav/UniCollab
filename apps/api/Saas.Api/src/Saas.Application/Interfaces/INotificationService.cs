@@ -2,7 +2,10 @@
 
 namespace Saas.Application.Interfaces;
 
-public interface INotificationService
+/// <summary>
+/// Allows other application services and use cases to send notifications using the Realtime API.
+/// </summary>
+public interface INotificationService : IEventListener
 {
     Task SendAsync(Notification notification);
 }

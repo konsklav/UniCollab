@@ -15,6 +15,6 @@ internal static class ValueConverterExtensions
             .HasConversion(
                 convertToProviderExpression: title => title.Value,
                 convertFromProviderExpression: str => Title.Create(str))
-            .HasColumnType($"nvarchar({Title.MaxLength})");
+            .HasColumnType($"varchar({Title.MaxLength})");
     }
 }

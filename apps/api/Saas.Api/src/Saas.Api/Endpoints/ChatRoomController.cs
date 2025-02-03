@@ -3,30 +3,17 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Saas.Api.Contracts;
 using Saas.Api.Contracts.Requests;
+using Saas.Api.Extensions;
+using Saas.Application.Contracts;
 using Saas.Application.UseCases.ChatRooms;
 
 namespace Saas.Api.Endpoints;
 
 [ApiController]
-[Route("/chat")]
+[Route("/chats")]
 [Authorize]
 public class ChatRoomController : ControllerBase
 {
-    /// <summary>
-    /// Retrieve all the chat rooms that the user can join.
-    /// </summary>
-    /// <returns>A list of chatrooms</returns>
-    [HttpGet("joinable/{userId:guid}")]
-    public async Task<IResult> GetJoinable(Guid userId, [FromServices] GetJoinableChatRooms getJoinableChatRooms)
-    {
-        var result = await getJoinableChatRooms.Handle(userId);
-        if (!result.IsSuccess)
-            return result.ToMinimalApiResult();
-
-        var chatRooms = result.Value;
-        return Results.Ok(chatRooms.Select(ChatRoomInformationDto.From));
-    }
-    
     /// <summary>
     /// Retrieve a chatroom by their ID, if found.
     /// </summary>
@@ -36,7 +23,7 @@ public class ChatRoomController : ControllerBase
     [HttpGet("{chatRoomId:guid}", Name = "Get Chat")]
     public async Task<IResult> Get(
         [FromRoute] Guid chatRoomId, 
-        [FromServices] GetChatRoomUseCase getChatRoom)
+        [FromServices] GetChatRoom getChatRoom)
     {
         var result = await getChatRoom.Handle(chatRoomId);
         if (!result.IsSuccess)
@@ -46,10 +33,22 @@ public class ChatRoomController : ControllerBase
         return Results.Ok(ChatRoomDto.From(chatRoom));
     }
 
+    /// <summary>
+    /// Retrieve all the messages of a chat room.
+    /// </summary>
+    [HttpGet("{chatId:guid}/messages", Name = "Get Messages of Chat")]
+    public async Task<IResult> GetMessages(
+        [FromRoute] Guid chatId,
+        [FromServices] GetChatMessages getMessages)
+    {
+        return await getMessages.HandleAsync(chatId).ToHttp(
+            onSuccess: messages => messages.Select(MessageDto.From));
+    }
+
     [HttpPost(Name = "Create Chat")]
     public async Task<IResult> Create(
         [FromBody] CreateChatRoomRequest request, 
-        [FromServices] CreateChatRoomUseCase createChatRoom)
+        [FromServices] CreateChatRoom createChatRoom)
     {
         var result = await createChatRoom.Handle(
             name: request.Name,
@@ -62,6 +61,6 @@ public class ChatRoomController : ControllerBase
         return Results.CreatedAtRoute(
             routeName: "Get Chat",
             routeValues: new { chatRoomId = chatRoom.Id },
-            value: chatRoom);
+            value: ChatRoomDto.From(chatRoom));
     }
 }

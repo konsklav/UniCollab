@@ -2,7 +2,7 @@ PROJ="Saas.Api"
 API_PATH="../api/$PROJ/"
 
 DB_PASS="YourStrong(!)Password"
-DB_IMG="mcr.microsoft.com/mssql/server:2019-latest"
+DB_IMG="postgres"
 
 WEB_PORT=5173
 API_PORT=4000
@@ -13,11 +13,11 @@ if netstat -anp | grep -q ":$WEB_PORT"; then
     exit 1
 fi
 
-echo "🤔 Checking if SQL Server container is running"
+echo "🤔 Checking if database container is running"
 if docker ps --filter "ancestor=$DB_IMG" --format "{{.ID}}" | grep -q .; then
-    echo "✅ Found running SQL Server container!"
+    echo "✅ Found running database container!"
 else 
-    echo "🐳 No running container found, firing up a new SQL Server container."
+    echo "🐳 No running container found, firing up a new database container."
     docker run --rm -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=$DB_PASS" -p 5433:1433 -d $DB_IMG
 fi
 

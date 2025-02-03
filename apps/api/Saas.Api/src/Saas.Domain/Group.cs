@@ -5,13 +5,41 @@ using Saas.Domain.Common;
 
 namespace Saas.Domain;
 
-public class Group(string name, List<User> members, User creator, Guid? id = null) : Entity(id)
+public class Group : Entity
 {
-    private readonly List<User> _members = members;
-    
-    public string Name { get; } = name;
+    private readonly List<User> _members;
+
+    private Group() { }
+    private Group(Title name, List<User> members, User creator, Guid? id = null) : base(id)
+    {
+        _members = members;
+        Name = name;
+        Creator = creator;
+    }
+
+    public Title Name { get; private set; }
     public IReadOnlyList<User> Members => _members;
-    public User Creator { get; } = creator;
+    public User Creator { get; private set; }
+    
+    public static Result<Group> Create(string name, List<User> members, User creator)
+    {
+        var errors = new List<ValidationError>();
+        
+        var titleResult = Title.Create(name);
+        if (!titleResult.IsSuccess)
+            errors.AddRange(titleResult.ValidationErrors);
+
+        if (members.Count == 0)
+            errors.Add(new ValidationError("Cannot create a chat room with no participants."));
+
+        if (errors.Count > 0)
+            return Result.Invalid(errors);
+
+        return new Group(
+            name: titleResult.Value,
+            members: members,
+            creator: creator);
+    }
 
     public Result AddMember(User user)
     {
@@ -25,7 +53,7 @@ public class Group(string name, List<User> members, User creator, Guid? id = nul
     public Result RemoveMember(User user)
     {
         if (!Members.Contains(user))
-            return Result.NotFound();
+            return Result.Conflict();
         
         _members.Remove(user);
         return Result.Success();

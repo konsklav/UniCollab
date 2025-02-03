@@ -18,5 +18,4 @@
     <ItemGroup>
       <ProjectReference Include="..\Saas.Infrastructure\Saas.Infrastructure.csproj" />
     </ItemGroup>
-
 </Project>

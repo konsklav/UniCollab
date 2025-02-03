@@ -1,4 +1,4 @@
-import { FormEvent, useState } from "react"
+import { useState } from "react"
 import InputText from "../../components/Form/InputText"
 import { ChatRoomInformation, CreateChatRoomRequest } from "./Chat.types"
 import { UserInformation } from "../Users/Users.types"
@@ -8,6 +8,8 @@ import WaitForQuery from "../../components/WaitForQuery"
 import { useMutation } from "@tanstack/react-query"
 import { createChatRoom } from "../../endpoints/chatEndpoints"
 import { useSession } from "../../hooks/useSession"
+import { UniCollabForm } from "../../components/Form/UniCollabForm"
+import { SubmitButton } from "../../components/Button"
 
 const initialState: CreateChatRoomRequest = {
     name: '',
@@ -31,32 +33,27 @@ export default function CreateChatForm() {
         }
     })
 
-    const handleSubmit = (e: FormEvent) => {
-        e.preventDefault()
+    const handleSubmit = async () => {
         const finalRequest: CreateChatRoomRequest = {
             ...request, 
             initialParticipants: [...request.initialParticipants, user.id]
         }
 
-        mutation.mutate(finalRequest)
+        await mutation.mutateAsync(finalRequest)
 
         setRequest(initialState)
     }
 
     const setName = (value: string) => setRequest(req => ({...req, name: value}))
-    const setParticipants = (participants: MultiValue<UserInformation>) => {
-        setRequest(req => (
-            {
-                ...req, 
-                initialParticipants: participants.map(p => p.id)
-            }))
-    }
+    const setParticipants = (participants: MultiValue<UserInformation>) => setRequest(req => (
+        {
+            ...req, 
+            initialParticipants: participants.map(p => p.id)
+        }))
 
     return (
         <WaitForQuery query={query}>
-            <form name="create-chat" 
-                className="p-3 border rounded-2 d-flex flex-column gap-2" 
-                onSubmit={handleSubmit}>
+            <UniCollabForm name="create-chat" className="p-3 border rounded-2 d-flex flex-column gap-2" onSubmit={handleSubmit}>
                 <h2>Create Chat Room</h2>
 
                 <label className="form-label">Name</label>
@@ -71,10 +68,12 @@ export default function CreateChatForm() {
                     onChange={setParticipants}
                     options={query.data?.filter(u => u.id !== user.id)}/>
 
-                <button type="submit" className="btn btn-primary align-self-center mt-3">Submit</button>
+                <SubmitButton 
+                    className="btn btn-primary align-self-center mt-3"
+                    loadingText={`Creating ${request.name}...`}>Create</SubmitButton>
 
                 <div>{status}</div>
-            </form>
+            </UniCollabForm>
 
         </WaitForQuery>
     )

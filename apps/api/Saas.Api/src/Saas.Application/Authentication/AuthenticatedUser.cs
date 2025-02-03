@@ -1,6 +1,6 @@
 ﻿using Saas.Domain;
 
-namespace Saas.Application.Common.Authentication;
+namespace Saas.Application.Authentication;
 
 public class AuthenticatedUser(User user, AuthenticationToken token)
 {

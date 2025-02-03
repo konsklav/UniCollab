@@ -1,41 +1,93 @@
-﻿using Microsoft.AspNetCore.SignalR;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.SignalR;
 using Saas.Application.Common.Events;
+using Saas.Application.Contracts;
 using Saas.Application.Interfaces;
-using Saas.Realtime.Clients;
+using Saas.Application.Interfaces.Realtime;
+using Saas.Application.UseCases.ChatRooms;
 using Saas.Realtime.Contracts;
 
 namespace Saas.Realtime.Hubs;
 
-public class ChatHub(IEventService eventService) : Hub<IChatClient>
-{
-    public async Task JoinChat(string chatId)
-    {
-        await Groups.AddToGroupAsync(Context.ConnectionId, chatId);
-    }
+public record ChatClientInformation(Guid UserId, string ConnectionId);
 
-    public async Task LeaveChat(string chatId)
+public class ChatHub(IEventService eventService, AddChatMessageToRoom addMessage) : Hub<IChatClient>
+{
+    private static readonly Dictionary<Guid, List<ChatClientInformation>> _userConnections = [];
+    internal static IReadOnlyDictionary<Guid, List<ChatClientInformation>> UserConnections => _userConnections;
+    
+    public async Task JoinChat(Guid chatId, Guid userId)
     {
-        await Groups.RemoveFromGroupAsync(Context.ConnectionId, chatId);
+        var userInfo = new ChatClientInformation(userId, Context.ConnectionId);
+        if (!_userConnections.TryGetValue(chatId, out var users))
+        {
+            _userConnections[chatId] = [userInfo];
+        }
+        else
+        {
+            users.Add(userInfo);
+        }
+        
+        await Groups.AddToGroupAsync(Context.ConnectionId, chatId.ToString());
     }
     
-    public async Task SendMessage(ServerMessage message)
+    public async Task LeaveChat(Guid chatId)
     {
-        var username = Context.User?
-            .FindFirst(c => c.Type.Equals("Username", StringComparison.OrdinalIgnoreCase))?.Value ?? Context.ConnectionId;
-
-        var chatGuid = Guid.Parse(message.ChatId);
-        var userGuid = Guid.Parse(message.UserId);
-        
-        var messageSentEvent = new ChatMessageSentEvent(
-            SenderUsername: username,
-            SenderId: userGuid,
-            SenderConnectionId: Context.ConnectionId,
-            ChatId: chatGuid,
-            Message: message.Content,
-            SentAt: DateTime.UtcNow);
-
-        await Clients.Group(message.ChatId).ReceiveMessage(new ClientMessage(username, message.Content));
-        
-        await eventService.PublishAsync(messageSentEvent);
+        CleanConnection();
+        await Groups.RemoveFromGroupAsync(Context.ConnectionId, chatId.ToString());
     }
+    
+    public async Task SendMessage(ServerMessage serverMessage)
+    {
+        var chatGuid = Guid.Parse(serverMessage.ChatId);
+        var userGuid = Guid.Parse(serverMessage.UserId);
+
+        var addResult = await addMessage.Handle(
+            chatRoomId: chatGuid,
+            senderId: userGuid,
+            content: serverMessage.Content);
+
+        if (!addResult.IsSuccess)
+            return;
+
+        var message = addResult.Value;
+        
+        var @event = new ChatMessageSentEvent(
+            Message: message,
+            SenderId: message.Sender.Id,
+            ChatId: chatGuid);
+
+        await Clients.Group(chatGuid.ToString()).ReceiveMessage(MessageDto.From(message));
+        await eventService.PublishAsync(@event);
+    }
+    
+    public override Task OnDisconnectedAsync(Exception? exception)
+    {
+        CleanConnection();
+        return Task.CompletedTask;
+    }
+    
+    private void CleanConnection()
+    {
+        ChatClientInformation? found = null;
+        foreach (var (_, users) in _userConnections)
+        {
+            foreach (var userInformation in users)
+            {
+                if (userInformation.ConnectionId == Context.ConnectionId)
+                {
+                    found = userInformation;
+                    break;
+                }
+            }
+
+            if (found != null)
+            {
+                users.Remove(found);
+                break;
+            }
+        }
+
+    }
+
 }

@@ -11,7 +11,7 @@ export default function LoginPage() {
         setValidationMessages(['Incorrect username or password.'])
     })
 
-    const handleLogin = (user: UserCredentials) => {
+    const handleLogin = async (user: UserCredentials) => {
         let isValid = true
         setValidationMessages([])
 
@@ -25,7 +25,7 @@ export default function LoginPage() {
         }
 
         if (isValid) {
-            login(user)
+            await login(user)
         }
     }
     

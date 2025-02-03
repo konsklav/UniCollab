@@ -14,7 +14,8 @@ public static class DependencyInjection
     public static void AddApplication(this IServiceCollection services)
     {
         var useCaseInterface = typeof(IApplicationUseCase);
-        var useCases = Assembly.GetExecutingAssembly()
+        var useCases = Assembly
+            .GetExecutingAssembly()
             .GetTypes()
             .Where(t => t is { IsClass: true, IsAbstract: false } &&
                         useCaseInterface.IsAssignableFrom(t));

@@ -1,8 +1,6 @@
-﻿using System.Security.Claims;
-using Saas.Application.Common.Authentication;
-using Saas.Domain;
+﻿using Saas.Domain;
 
-namespace Saas.Application.Interfaces.Authentication;
+namespace Saas.Application.Authentication;
 
 public interface IAuthenticationHelper
 {

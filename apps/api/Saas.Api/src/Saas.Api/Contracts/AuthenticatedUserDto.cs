@@ -1,4 +1,5 @@
-﻿using Saas.Application.Common.Authentication;
+﻿using Saas.Application.Authentication;
+using Saas.Application.Contracts;
 
 namespace Saas.Api.Contracts;
 

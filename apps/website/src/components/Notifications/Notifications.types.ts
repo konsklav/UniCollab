@@ -1,4 +1,6 @@
-export interface NotificationContract {
+export interface NotificationDto {
     type: string,
-    message: string
+    header: string,
+    message: string,
+    metadata: readonly any[]
 }
