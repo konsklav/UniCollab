@@ -7,5 +7,6 @@ public static class NotificationExtensions
 {
     public static NotificationDto ToDto(this Notification notification) => 
         new(Type: notification.Type.ToString(), 
+            Header: notification.Header,
             Message: notification.Message);
 }

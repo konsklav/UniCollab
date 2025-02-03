@@ -9,18 +9,32 @@ using Saas.Realtime.Contracts;
 
 namespace Saas.Realtime.Hubs;
 
+public record ChatClientInformation(Guid UserId, string ConnectionId);
+
 public class ChatHub(IEventService eventService, AddChatMessageToRoom addMessage) : Hub<IChatClient>
 {
-    public async Task JoinChat(string chatId)
+    private static readonly Dictionary<Guid, List<ChatClientInformation>> _userConnections = [];
+    internal static IReadOnlyDictionary<Guid, List<ChatClientInformation>> UserConnections => _userConnections;
+    
+    public async Task JoinChat(Guid chatId, Guid userId)
     {
-        var guid = Guid.Parse(chatId);
-        await Groups.AddToGroupAsync(Context.ConnectionId, guid.ToString());
+        var userInfo = new ChatClientInformation(userId, Context.ConnectionId);
+        if (!_userConnections.TryGetValue(chatId, out var users))
+        {
+            _userConnections[chatId] = [userInfo];
+        }
+        else
+        {
+            users.Add(userInfo);
+        }
+        
+        await Groups.AddToGroupAsync(Context.ConnectionId, chatId.ToString());
     }
     
-    public async Task LeaveChat(string chatId)
+    public async Task LeaveChat(Guid chatId)
     {
-        var guid = Guid.Parse(chatId);
-        await Groups.RemoveFromGroupAsync(Context.ConnectionId, guid.ToString());
+        CleanConnection();
+        await Groups.RemoveFromGroupAsync(Context.ConnectionId, chatId.ToString());
     }
     
     public async Task SendMessage(ServerMessage serverMessage)
@@ -40,12 +54,40 @@ public class ChatHub(IEventService eventService, AddChatMessageToRoom addMessage
         
         var @event = new ChatMessageSentEvent(
             Message: message,
-            SenderConnectionId: Context.ConnectionId,
+            SenderId: message.Sender.Id,
             ChatId: chatGuid);
 
         await Clients.Group(chatGuid.ToString()).ReceiveMessage(MessageDto.From(message));
         await eventService.PublishAsync(@event);
     }
     
+    public override Task OnDisconnectedAsync(Exception? exception)
+    {
+        CleanConnection();
+        return Task.CompletedTask;
+    }
     
+    private void CleanConnection()
+    {
+        ChatClientInformation? found = null;
+        foreach (var (_, users) in _userConnections)
+        {
+            foreach (var userInformation in users)
+            {
+                if (userInformation.ConnectionId == Context.ConnectionId)
+                {
+                    found = userInformation;
+                    break;
+                }
+            }
+
+            if (found != null)
+            {
+                users.Remove(found);
+                break;
+            }
+        }
+
+    }
+
 }

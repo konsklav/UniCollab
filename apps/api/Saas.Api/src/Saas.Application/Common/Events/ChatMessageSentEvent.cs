@@ -3,6 +3,6 @@
 namespace Saas.Application.Common.Events;
 
 public sealed record ChatMessageSentEvent(
-    string SenderConnectionId,
+    Guid SenderId,
     Guid ChatId,
     Message Message);

@@ -13,7 +13,7 @@ export default function ChatArea({selectedChat, messages, onSend}: ChatAreaProps
     const chatDiv = useRef<HTMLDivElement>(null)
 
     useEffect(() => {
-        chatDiv.current?.scrollIntoView({behavior: 'smooth'})
+        chatDiv.current?.scrollIntoView({behavior: 'instant', block: 'end'})
     }, [selectedChat, messages])
 
     return (

@@ -11,13 +11,13 @@ export const useChatClient = (callbacks: ChatClientCallbacks): ChatClientActions
 
     const switchChat = async (chatId: string) => {
         const signalR = signalRRef.current
-        if (!signalR) 
+        if (!signalR || !user) 
             return;
 
         if (currentChatId)
-            await signalR.send('LeaveChat', currentChatId)
+            await signalR.send('LeaveChat', currentChatId, user.id)
 
-        await signalR.send('JoinChat', chatId)
+        await signalR.send('JoinChat', chatId, user.id)
         setCurrentChatId(chatId)
     }
 
