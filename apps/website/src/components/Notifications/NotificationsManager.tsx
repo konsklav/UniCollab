@@ -17,7 +17,9 @@ export default function NotificationsManager() {
         }
 
         console.log('Beginning SignalR connection.')
-        const signalR = new SignalRService('notifications')
+        const signalR = new SignalRService('notifications', () => {
+            console.log('Reconnected to Notification Hub!')
+        })
         
         signalR.startConnection()
         
