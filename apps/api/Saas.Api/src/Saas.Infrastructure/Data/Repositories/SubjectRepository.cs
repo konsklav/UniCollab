@@ -9,7 +9,7 @@ internal sealed class SubjectRepository(UniCollabContext context) : ISubjectRepo
     public async Task<List<Subject>> GetAllAsync() =>
         await context.Subjects.ToListAsync();
 
-    public async Task<List<Subject>> GetByNamesAsync(List<Guid> subjectIds) =>
+    public async Task<List<Subject>> GetByIdsAsync(List<Guid> subjectIds) =>
         await context.Subjects
             .Where(s => subjectIds.Contains(s.Id))
             .ToListAsync();

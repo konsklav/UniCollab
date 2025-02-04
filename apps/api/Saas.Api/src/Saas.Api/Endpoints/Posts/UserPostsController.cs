@@ -27,7 +27,7 @@ public class UserPostsController : ControllerBase
         var posts = result.Value;
         return Results.Ok(posts.Select(PostDto.From));
     }
-    
+
     [HttpPost(Name = "Create Post")]
     public async Task<IResult> CreatePost(
         [FromRoute] Guid userId,

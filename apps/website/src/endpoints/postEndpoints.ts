@@ -1,4 +1,4 @@
-import { PostInformation } from "../features/Posts/Posts.types"
+import { CreatePostRequest, PostInformation } from "../features/Posts/Posts.types"
 import { UserInformation } from "../features/Users/Users.types"
 import { api } from "../services/apiService"
 
@@ -45,6 +45,9 @@ export const getRecentPosts = async (count: number): Promise<readonly PostInform
 }
 
 export const getPostsOfUser = async (userId: string): Promise<readonly PostInformation[]> => {
-    const response = await api.get(`/posts/user/${userId}`)
+    const response = await api.get(`/users/${userId}/posts`)
     return response.data.map(getPostInformation)
 }
+
+export const createPost = async (userId: string, request: CreatePostRequest) =>
+    await api.post(`/users/${userId}/posts`, request)

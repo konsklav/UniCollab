@@ -40,7 +40,7 @@ export default function Navbar() {
                     <NavItem to={'/chat'}>Chat</NavItem>
                     <NavItem to={'/users'}>Users</NavItem>
                     <NavItem to={'/groups'}>Groups</NavItem>
-                    <NavItem to={'/posts'}>My Posts</NavItem>
+                    <NavItem to={'/user/posts'}>My Posts</NavItem>
                 </ul>
 
                 <div className="text-center mb-3">

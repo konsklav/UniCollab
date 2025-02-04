@@ -9,3 +9,9 @@ export interface PostInformation {
     uploadDate: Date
     slug: string
 }
+
+export interface CreatePostRequest {
+    title: string
+    content: string
+    subjects: readonly string[]
+}

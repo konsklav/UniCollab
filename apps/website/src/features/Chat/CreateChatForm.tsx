@@ -56,8 +56,7 @@ export default function CreateChatForm() {
             <UniCollabForm name="create-chat" className="p-3 border rounded-2 d-flex flex-column gap-2" onSubmit={handleSubmit}>
                 <h2>Create Chat Room</h2>
 
-                <label className="form-label">Name</label>
-                <InputText value={request.name} onChange={setName}/>
+                <InputText label="Name" value={request.name} onChange={setName}/>
 
                 <label className="form-label">Participants</label>
                 <Select 
@@ -69,12 +68,12 @@ export default function CreateChatForm() {
                     options={query.data?.filter(u => u.id !== user.id)}/>
 
                 <SubmitButton 
-                    className="btn btn-primary align-self-center mt-3"
+                    color={'primary'}
+                    className="align-self-center mt-3"
                     loadingText={`Creating ${request.name}...`}>Create</SubmitButton>
 
                 <div>{status}</div>
             </UniCollabForm>
-
         </WaitForQuery>
     )
 }

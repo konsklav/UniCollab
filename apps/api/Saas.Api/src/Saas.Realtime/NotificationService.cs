@@ -15,7 +15,15 @@ internal sealed class NotificationService(
     {
         if (notification.Type is NotificationType.PostUploaded)
         {
-            await notificationHub.Clients.All.GetNotification(notification.ToDto());
+            var senderId = notification.SenderId;
+            var notificationDto = notification.ToDto();
+            if (!senderId.HasValue)
+                await notificationHub.Clients.All.GetNotification(notificationDto);
+            else
+            {
+                var senderConnectionId = NotificationHub.UserConnections.GetValueOrDefault(senderId.Value, string.Empty);
+                await notificationHub.Clients.AllExcept(senderConnectionId).GetNotification(notificationDto);
+            }
         }
     }
 

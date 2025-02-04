@@ -24,7 +24,7 @@ export default function App() {
             <Route path="chat/:state?" element={<ChatPage/>}/>
             <Route path="users" element={<UsersPage/>}/>
             <Route path="groups" element={<GroupsPage/>}/>
-            <Route path="posts" element={<MyPostsPage/>}/>
+            <Route path="user/posts/:state?" element={<MyPostsPage/>}/>
             <Route path="posts/:slug" element={<ReadPostPage/>}/>
           </Route>
         </Route>

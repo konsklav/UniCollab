@@ -13,10 +13,8 @@
     justify-content: end;
     align-items: end;
 
+    pointer-events: none;
     gap: 0.5rem;
-
-    z-index: -1;
-
 }
 
 .my-toast {
@@ -25,6 +23,7 @@
     z-index: 1337;
 
     --toast-br: 0.5rem;
+    background-color: #eee;
 }
 
 .my-toast-container:has(:nth-child(2)) .my-toast:last-child {

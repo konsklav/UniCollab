@@ -13,6 +13,7 @@ public static class DependencyInjection
     public static void AddRealtimeCapabilities(this IServiceCollection services)
     {
         services.AddSignalR();
+        services.AddSingleton<INotificationService, NotificationService>();
         services.AddEvents(Assembly.GetAssembly(typeof(NotificationService))!);
     }
     
