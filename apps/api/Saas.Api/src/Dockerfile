@@ -2,12 +2,10 @@
 
 WORKDIR /src
 
-ARG DIR="Saas.Api"
-ARG PROJ="$DIR/Saas.Api.csproj"
+ARG PROJ="Saas.Api/Saas.Api.csproj"
 
-COPY $PROJ "./$DIR/"
-RUN dotnet restore $PROJ
 COPY . .
+RUN dotnet restore $PROJ
 RUN dotnet publish -c Release -o /app --no-restore $PROJ
 
 FROM mcr.microsoft.com/dotnet/aspnet:9.0
