@@ -4,6 +4,7 @@
       <settings>
         <option name="envFilePath" value="" />
         <option name="sourceFilePath" value="compose.yaml" />
+        <option name="upForceRecreate" value="true" />
       </settings>
     </deployment>
     <EXTENSION ID="com.jetbrains.rider.docker.debug" isFastModeEnabled="true" isSslEnabled="false" />
