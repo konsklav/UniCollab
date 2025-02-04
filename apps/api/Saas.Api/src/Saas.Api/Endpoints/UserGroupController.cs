@@ -36,31 +36,10 @@ public class UserGroupController : ControllerBase
         };
     }
     
-    [HttpPost(Name = "Create Group")]
-    public async Task<IResult> Create(
-        [FromRoute] Guid creatorId,
-        [FromBody] CreateGroupRequest request, 
-        [FromServices] CreateGroup createGroup)
-    {
-        var result = await createGroup.Handle(
-            name: request.Name,
-            userIds: request.InitialMembers,
-            creatorId: creatorId);
-
-        if (!result.IsSuccess)
-            return result.ToMinimalApiResult();
-
-        var group = result.Value;
-        return Results.CreatedAtRoute(
-            routeName: "Get Group",
-            routeValues: new { chatRoomId = group.Id },
-            value: GroupDto.From(group));
-    }
-    
     /// <summary>
     /// Attempts to insert the specified user in the specified group.
     /// </summary>
-    [HttpPost("{groupId:guid}/join", Name = "Join Group")]
+    [HttpPost("{groupId:guid}", Name = "Join Group")]
     public async Task<IResult> JoinGroup(
         [FromRoute] Guid userId, 
         [FromRoute] Guid groupId,
@@ -75,7 +54,7 @@ public class UserGroupController : ControllerBase
     /// <summary>
     /// Attempts to remove the specified user from the specified group.
     /// </summary>
-    [HttpPost("{groupId:guid}/leave", Name = "Leave Group")]
+    [HttpDelete("{groupId:guid}", Name = "Leave Group")]
     public async Task<IResult> LeaveGroup(
         [FromRoute] Guid userId, 
         [FromRoute] Guid groupId,
