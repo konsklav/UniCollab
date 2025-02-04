@@ -35,5 +35,7 @@ internal sealed class PostRepository(UniCollabContext context) : IPostRepository
         return posts;
     }
 
+    public void Add(Post post) => context.Posts.Add(post);
+
     public async Task SaveChangesAsync() => await context.SaveChangesAsync();
 }

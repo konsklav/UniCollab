@@ -2,7 +2,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Saas.Api.Contracts;
+using Saas.Api.Contracts.Requests;
 using Saas.Application.UseCases.Posts;
+using Saas.Domain;
 
 namespace Saas.Api.Endpoints;
 
@@ -63,5 +65,24 @@ public class PostsController : ControllerBase
 
         var posts = result.Value;
         return Results.Ok(posts.Select(PostDto.From));
+    }
+
+    [HttpPost("user/{userId:guid}/create")]
+    public async Task<IResult> CreatePost(
+        [FromRoute] Guid userId,
+        [FromBody] CreatePostRequest request,
+        [FromServices] CreatePost createPost)
+    {
+        var result = await createPost.Handle(
+            title: request.Title,
+            content: request.Content,
+            subjects: request.Subjects,
+            authorId: userId);
+
+        if (!result.IsSuccess)
+            return result.ToMinimalApiResult();
+
+        var post = result.Value;
+        return Results.Ok(PostDto.From(post));
     }
 }
