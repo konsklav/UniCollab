@@ -6,6 +6,9 @@ namespace Saas.Application;
 
 public static class DependencyInjection
 {
+    /// <summary>
+    /// Register application layer services. This includes use cases.
+    /// </summary>
     public static void AddApplication(this IServiceCollection services)
     {
         var useCaseInterface = typeof(IApplicationUseCase);

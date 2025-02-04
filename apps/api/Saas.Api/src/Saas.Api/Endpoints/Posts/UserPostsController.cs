@@ -37,7 +37,7 @@ public class UserPostsController : ControllerBase
         var result = await createPost.Handle(
             title: request.Title,
             content: request.Content,
-            subjects: request.Subjects,
+            subjectIds: request.Subjects,
             authorId: userId);
 
         if (!result.IsSuccess)

@@ -18,7 +18,7 @@ internal static class ResultExtensions
 
     public static async Task<IResult> ToHttp<T, TSuccess>(
         this Task<Result<T>> resultTask,
-        Func<T, TSuccess>? onSuccess)
+        Func<T, TSuccess>? onSuccess = null)
     {
         var result = await resultTask;
         if (!result.IsSuccess || onSuccess is null)
