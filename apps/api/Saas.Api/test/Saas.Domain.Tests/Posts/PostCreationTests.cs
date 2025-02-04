@@ -4,7 +4,7 @@ using Saas.Tests.Fakes;
 
 namespace Saas.Domain.Tests.Posts;
 
-public class PostTests
+public class PostCreationTests
 {
     [Fact]
     public void Create_ShouldReturnInvalid_IfTitleIsTooLong()
