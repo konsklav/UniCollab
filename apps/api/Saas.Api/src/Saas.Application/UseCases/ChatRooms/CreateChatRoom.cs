@@ -12,7 +12,7 @@ public class CreateChatRoom(
     public async Task<Result<ChatRoom>> Handle(string name, List<Guid> userIds)
     {
         var users = await userRepository.GetByIdsAsync(userIds);
-        if (users is null)
+        if (users.Count != userIds.Count)
             return Result.NotFound("One or more users do not exist.");
 
         var chatRoomResult = ChatRoom.Create(name, users);

@@ -14,7 +14,7 @@ internal class UserRepository(UniCollabContext context) : IUserRepository
             .Include(u => u.Posts)
             .FirstOrDefaultAsync(u => u.Id == userId);
 
-    public async Task<List<User>?> GetByIdsAsync(List<Guid> userIds) =>
+    public async Task<List<User>> GetByIdsAsync(List<Guid> userIds) =>
         await context.Users
             .Where(u => userIds.Contains(u.Id))
             .ToListAsync();

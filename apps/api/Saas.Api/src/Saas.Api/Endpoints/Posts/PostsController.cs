@@ -2,11 +2,9 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Saas.Api.Contracts;
-using Saas.Api.Contracts.Requests;
 using Saas.Application.UseCases.Posts;
-using Saas.Domain;
 
-namespace Saas.Api.Endpoints;
+namespace Saas.Api.Endpoints.Posts;
 
 /// <summary>
 /// Methods for interacting with/modifying posts

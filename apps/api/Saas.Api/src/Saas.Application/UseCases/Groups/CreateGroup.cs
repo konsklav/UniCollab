@@ -12,7 +12,7 @@ public class CreateGroup(
     public async Task<Result<Group>> Handle(string name, List<Guid> userIds, Guid creatorId)
     {
         var users = await userRepository.GetByIdsAsync(userIds);
-        if (users is null)
+        if (users.Count != userIds.Count)
             return Result.NotFound("One or more users do not exist.");
 
         var creator = await userRepository.GetByIdAsync(creatorId);
