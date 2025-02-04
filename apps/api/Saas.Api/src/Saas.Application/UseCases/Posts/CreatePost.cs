@@ -7,16 +7,19 @@ namespace Saas.Application.UseCases.Posts;
 
 public class CreatePost(
     IUserRepository userRepository,
-    IPostRepository postRepository) : IApplicationUseCase
+    IPostRepository postRepository,
+    ISubjectRepository subjectRepository) : IApplicationUseCase
 {
-    public async Task<Result<Post>> Handle(string title, string content, List<string> subjects, Guid authorId)
+    public async Task<Result<Post>> Handle(string title, string content, List<Guid> subjectIds, Guid authorId)
     {
         var author = await userRepository.GetByIdAsync(authorId);
         if (author is null)
-            return Result.NotFound($"Could not find the author (user with id: {authorId}).");
+            return Result.NotFound($"Could not find the author (user with ID: {authorId}).");
         
-        // TODO - Subject Repository: Get by IDs 
-        
+        var subjects = await subjectRepository.GetByNamesAsync(subjectIds);
+        if (subjects.Count != subjectIds.Count)
+            return Result.NotFound($"Couldn't find one or more subjects.");
+
         var postCreationResult = Post.Create(title,  content, subjects, author);
         if (!postCreationResult.IsSuccess)
             return postCreationResult;
@@ -26,7 +29,6 @@ public class CreatePost(
         postRepository.Add(post);
         
         await postRepository.SaveChangesAsync();
-
         return post;
     }
 }
