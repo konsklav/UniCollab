@@ -24,6 +24,7 @@ public static class DependencyInjection
         services.AddScoped<IPostRepository, PostRepository>();
         services.AddScoped<IChatRoomRepository, ChatRoomRepository>();
         services.AddScoped<IGroupRepository, GroupRepository>();
+        services.AddScoped<ISubjectRepository, SubjectRepository>();
         
         services.AddScoped<IAuthenticationHelper, BasicAuthenticationHelper>();
         

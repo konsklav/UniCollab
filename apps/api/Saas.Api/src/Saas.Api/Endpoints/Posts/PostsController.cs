@@ -11,7 +11,6 @@ namespace Saas.Api.Endpoints.Posts;
 /// </summary>
 [ApiController]
 [Route("/posts")]
-[Authorize]
 public class PostsController : ControllerBase
 {
     /// <summary>

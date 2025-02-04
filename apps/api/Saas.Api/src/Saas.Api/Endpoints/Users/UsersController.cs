@@ -46,21 +46,4 @@ public class UsersController : ControllerBase
         var user = result.Value;
         return Results.Ok(UserDto.From(user));
     }
-
-    /// <summary>
-    /// Retrieve all users posts, if found.
-    /// </summary>
-    /// <param name="userId"></param>
-    /// <param name="getUsersPosts"></param>
-    /// <returns>A list of posts</returns>
-    [HttpGet("{userId:guid}/posts")]
-    public async Task<IResult> GetUsersPosts(Guid userId, [FromServices] GetUsersPostsUseCase getUsersPosts)
-    {
-        var result = await getUsersPosts.Handle(userId);
-        if(!result.IsSuccess)
-            return result.ToMinimalApiResult();
-        
-        var posts = result.Value;
-        return Results.Ok(posts.Select(PostDto.From));
-    }
 }
