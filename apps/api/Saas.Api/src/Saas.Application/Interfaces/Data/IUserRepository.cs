@@ -1,5 +1,4 @@
-﻿using System.Linq.Expressions;
-using Saas.Domain;
+﻿using Saas.Domain;
 
 namespace Saas.Application.Interfaces.Data;
 

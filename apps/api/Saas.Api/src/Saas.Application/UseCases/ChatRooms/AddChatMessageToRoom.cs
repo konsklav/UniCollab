@@ -1,5 +1,4 @@
 ﻿using Ardalis.Result;
-using Microsoft.VisualBasic.CompilerServices;
 using Saas.Application.Interfaces;
 using Saas.Application.Interfaces.Data;
 using Saas.Application.UseCases.Users;
