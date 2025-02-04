@@ -1,3 +1,3 @@
 namespace Saas.Api.Contracts.Requests;
 
-public sealed record CreateGroupRequest(string Name, List<Guid> InitialMembers);
+public sealed record CreateGroupRequest(string Name, Guid CreatorId, List<Guid> InitialMembers);

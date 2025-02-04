@@ -7,11 +7,11 @@ public sealed record GroupInformationDto(
     Guid Id,
     string Name,
     int MemberCount,
-    UserInformationDto Creator)
+    UserInformationDto? Creator)
 {
     internal static GroupInformationDto From(Group group) =>
         new(Id: group.Id,
             Name: group.Name.Value,
             MemberCount: group.Members?.Count ?? 0,
-            Creator: UserInformationDto.From(group.Creator));
+            Creator: group.Creator is null ? null : UserInformationDto.From(group.Creator));
 }

@@ -33,14 +33,13 @@ public class GroupController : ControllerBase
     
     [HttpPost(Name = "Create Group")]
     public async Task<IResult> Create(
-        [FromRoute] Guid creatorId,
         [FromBody] CreateGroupRequest request, 
         [FromServices] CreateGroup createGroup)
     {
         var result = await createGroup.Handle(
             name: request.Name,
             userIds: request.InitialMembers,
-            creatorId: creatorId);
+            creatorId: request.CreatorId);
 
         if (!result.IsSuccess)
             return result.ToMinimalApiResult();
