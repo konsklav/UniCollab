@@ -7,7 +7,7 @@ using Saas.Api.Extensions;
 using Saas.Application.Contracts;
 using Saas.Application.UseCases.ChatRooms;
 
-namespace Saas.Api.Endpoints;
+namespace Saas.Api.Endpoints.Chat;
 
 [ApiController]
 [Route("/chats")]

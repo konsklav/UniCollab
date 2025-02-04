@@ -3,10 +3,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Saas.Api.Contracts;
 using Saas.Api.Contracts.Requests;
-using Saas.Api.Extensions;
 using Saas.Application.UseCases.Auth;
 
-namespace Saas.Api.Endpoints;
+namespace Saas.Api.Endpoints.Users;
 
 /// <summary>
 /// Endpoints that allow the end-user to authenticate with this API. 

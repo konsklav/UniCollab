@@ -4,7 +4,7 @@ using Saas.Api.Contracts;
 using Saas.Api.Contracts.Requests;
 using Saas.Application.UseCases.Posts;
 
-namespace Saas.Api.Endpoints;
+namespace Saas.Api.Endpoints.Posts;
 
 [ApiController]
 [Route("/users/{userId:guid}/posts")]

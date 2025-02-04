@@ -3,11 +3,10 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Saas.Api.Contracts;
 using Saas.Api.Contracts.Queries;
-using Saas.Api.Contracts.Requests;
 using Saas.Api.Extensions;
 using Saas.Application.UseCases.Groups;
 
-namespace Saas.Api.Endpoints;
+namespace Saas.Api.Endpoints.Groups;
 
 /// <summary>
 /// How a user can interact with the group.

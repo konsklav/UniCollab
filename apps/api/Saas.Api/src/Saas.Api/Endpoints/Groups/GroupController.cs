@@ -5,7 +5,7 @@ using Saas.Api.Contracts;
 using Saas.Api.Contracts.Requests;
 using Saas.Application.UseCases.Groups;
 
-namespace Saas.Api.Endpoints;
+namespace Saas.Api.Endpoints.Groups;
 
 [ApiController]
 [Route("/groups")]

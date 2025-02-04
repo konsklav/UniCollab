@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Saas.Application.UseCases.Users;
 
-namespace Saas.Api.Endpoints;
+namespace Saas.Api.Endpoints.Users;
 
 /// <summary>
 /// Actions for retrieving/modifying a specific users friends.

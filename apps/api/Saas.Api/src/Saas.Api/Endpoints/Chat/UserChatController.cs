@@ -1,14 +1,11 @@
-﻿using Ardalis.Result;
-using Ardalis.Result.AspNetCore;
-using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Mvc;
 using Saas.Api.Contracts;
 using Saas.Api.Contracts.Queries;
 using Saas.Api.Extensions;
 using Saas.Application.UseCases.ChatRooms;
 using IResult = Microsoft.AspNetCore.Http.IResult;
 
-namespace Saas.Api.Endpoints;
+namespace Saas.Api.Endpoints.Chat;
 
 /// <summary>
 /// How a user can interact with the chat.

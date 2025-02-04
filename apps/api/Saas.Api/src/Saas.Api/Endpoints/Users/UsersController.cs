@@ -5,7 +5,7 @@ using Saas.Api.Contracts;
 using Saas.Application.Contracts;
 using Saas.Application.UseCases.Users;
 
-namespace Saas.Api.Endpoints;
+namespace Saas.Api.Endpoints.Users;
 
 /// <summary>
 /// Actions for retrieving/modifying users.
