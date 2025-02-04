@@ -9,11 +9,13 @@ public class CreatePost(
     IUserRepository userRepository,
     IPostRepository postRepository) : IApplicationUseCase
 {
-    public async Task<Result<Post>> Handle(string title, string content, List<Subject> subjects, Guid authorId)
+    public async Task<Result<Post>> Handle(string title, string content, List<string> subjects, Guid authorId)
     {
         var author = await userRepository.GetByIdAsync(authorId);
         if (author is null)
             return Result.NotFound($"Could not find the author (user with id: {authorId}).");
+        
+        // TODO - Subject Repository: Get by IDs 
         
         var postCreationResult = Post.Create(title,  content, subjects, author);
         if (!postCreationResult.IsSuccess)
