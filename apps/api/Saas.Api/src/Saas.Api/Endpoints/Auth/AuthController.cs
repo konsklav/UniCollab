@@ -71,6 +71,6 @@ public class AuthController : ControllerBase
     {
         return await login
             .GoogleAsync(request.Credential)
-            .ToHttp(authenticatedUser => authenticatedUser);
+            .ToHttp(AuthenticatedUserDto.From);
     }
 }

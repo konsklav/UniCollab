@@ -16,12 +16,7 @@ builder.Configuration.AddEnvironmentVariables("UNICOLLAB_");
 builder.Services.AddControllers(op => op.Filters.Add(new AuthorizeFilter()));
 builder.Services.ConfigureCors(builder.Configuration);
 
-builder.Services.AddAuthentication(options =>
-    {
-        options.DefaultScheme = "Basic";
-        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
-    })
-    .AddScheme<BasicAuthenticationOptions, BasicAuthenticationHandler>("Basic", null)
+builder.Services.AddAuthentication()
     .AddJwtBearer(options =>
     {
         options.TokenValidationParameters = new TokenValidationParameters
@@ -33,7 +28,13 @@ builder.Services.AddAuthentication(options =>
             ValidIssuer = builder.Configuration["Auth:JwtIssuer"],
             IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Auth:JwtKey"]))
         };
-    });
+    })
+    .AddScheme<BasicAuthenticationOptions, BasicAuthenticationHandler>("Basic", null);
+
+builder.Services.AddAuthorizationBuilder()
+    .AddDefaultPolicy("UniCollab", policyBuilder => policyBuilder
+        .RequireAuthenticatedUser()
+        .AddAuthenticationSchemes(JwtBearerDefaults.AuthenticationScheme, "Basic"));
 
 builder.Services.AddSwaggerGen(options =>
 {
