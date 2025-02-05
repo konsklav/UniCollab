@@ -1,10 +1,10 @@
 ﻿namespace Saas.Api.Contracts.Queries;
 
-public sealed record GetUsersQuery(string? Metadata, Guid? Target)
+public sealed record GetUsersQuery(string? Info, Guid? Target)
 {
-    internal GetUsersQueryType Type => (Metadata, Target) switch
+    internal GetUsersQueryType Type => (Info, Target) switch
     {
-        ("friend", not null) => GetUsersQueryType.WithFriendMetadata,
+        ("detail", not null) => GetUsersQueryType.Detailed,
         _ => GetUsersQueryType.Regular
     };
 }

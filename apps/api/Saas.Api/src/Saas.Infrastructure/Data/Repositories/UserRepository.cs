@@ -10,6 +10,7 @@ internal class UserRepository(UniCollabContext context) : IUserRepository
     {
         return await context.Users
             .AsSplitQuery()
+            .Include(u => u.Posts)
             .Include(u => u.Friends)
             .ToListAsync();
     }
@@ -31,6 +32,8 @@ internal class UserRepository(UniCollabContext context) : IUserRepository
 
     public async Task<User?> GetByUsernameAsync(string username) => 
         await context.Users.FirstOrDefaultAsync(u => u.Username == username);
+
+    
 
     public void Add(User user) => context.Users.Add(user);
 

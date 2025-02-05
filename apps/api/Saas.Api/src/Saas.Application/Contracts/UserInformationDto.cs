@@ -15,11 +15,3 @@ public record UserInformationDto(
         new(Id: user.Id,
             Username: user.Username);
 }
-
-public sealed record RichUserInformationDto(Guid Id, string Username, bool IsFriend) 
-{
-    public static RichUserInformationDto From(User user, User queryUser) =>
-        new(Id: user.Id,
-            Username: user.Username,
-            IsFriend: queryUser.Friends.Contains(user)); 
-}

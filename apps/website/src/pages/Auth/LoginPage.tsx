@@ -4,6 +4,7 @@ import LoginForm from "../../features/Users/Login/LoginForm";
 import { UserCredentials } from "../../features/Users/Users.types";
 import { useState } from "react";
 import { useLogin } from "../../hooks/useLogin";
+import { Button } from "../../components/Button";
 
 export default function LoginPage() {
     const [validationMessages, setValidationMessages] = useState<readonly string[]>([])
@@ -28,14 +29,21 @@ export default function LoginPage() {
             await login(user)
         }
     }
+
+    const handleGoogleLogin = async () => {
+    }
     
     return <div>
         <LoginForm onLogin={handleLogin}/>
         {validationMessages.map(message => (
             <div key={message} className="text-danger">{message}</div>
         ))}
+        <div className="mt-2">
+            <Button color={'danger'} onClick={handleGoogleLogin}>Login with Google</Button>
+        </div>
         <div>
             To create an account, <NavLink to='/register'>sign up</NavLink>.
         </div>
+        
     </div>
 }

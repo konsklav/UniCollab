@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Saas.Api.Contracts;
 using Saas.Api.Contracts.Queries;
+using Saas.Api.Extensions;
 using Saas.Application.Contracts;
 using Saas.Application.UseCases.Users;
 
@@ -23,27 +24,18 @@ public class UsersController : ControllerBase
     [HttpGet]
     public async Task<IResult> GetAll(
         [FromServices] GetAllUsersUseCase getAllUsers,
-        [FromServices] GetUserUseCase getUser,
         [FromQuery] GetUsersQuery query)
     {
-        var result = await getAllUsers.Handle();
-        if (!result.IsSuccess)
-            return result.ToMinimalApiResult();
-
-        var users = result.Value;
-        if (query.Type is GetUsersQueryType.WithFriendMetadata && query.Target.HasValue)
+        return query.Type switch
         {
-            var userResult = await getUser.Handle(query.Target.Value);
-            if (!userResult.IsSuccess)
-                return result.ToMinimalApiResult();
-
-            var queryUser = userResult.Value;
-            return Results.Ok(users
-                .Except([queryUser])
-                .Select(u => RichUserInformationDto.From(u, queryUser)));
-        }
-        
-        return Results.Ok(users.Select(UserInformationDto.From));
+            GetUsersQueryType.Detailed when query.Target.HasValue => await getAllUsers
+                .HandleDetailedAsync(query.Target.Value)
+                .ToHttp(userInfo => userInfo.Select(RichUserInformationDto.From)),
+                
+            _ => await getAllUsers
+                .Handle()
+                .ToHttp(users => users.Select(UserInformationDto.From))
+        };
     }
 
     /// <summary>

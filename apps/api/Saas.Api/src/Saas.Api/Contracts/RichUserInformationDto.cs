@@ -1,15 +1,22 @@
-﻿using Saas.Domain;
+﻿using Saas.Application.Contracts;
+using Saas.Application.Models;
+using Saas.Domain;
 
-namespace Saas.Application.Contracts;
+namespace Saas.Api.Contracts;
 
 public sealed record RichUserInformationDto(
-    UserInformationDto user, 
+    UserInformationDto User, 
     bool IsFriend,
-    List<UserInformationDto> MutualFriends,
-    List<ChatR) 
+    IEnumerable<UserInformationDto> MutualFriends,
+    IEnumerable<ChatRoomInformationDto> MutualChats,
+    int TotalPostsUploaded,
+    IEnumerable<SubjectCountDto> PostsPerSubject)
 {
-    public static RichUserInformationDto From(User user, User queryUser) =>
-        new(Id: user.Id,
-            Username: user.Username,
-            IsFriend: queryUser.Friends.Contains(user)); 
+    public static RichUserInformationDto From(DetailedUserInformation info) =>
+        new(User: UserInformationDto.From(info.User),
+            IsFriend: info.IsFriend,
+            MutualFriends: info.MutualFriends.Select(UserInformationDto.From),
+            MutualChats: info.MutualChats.Select(ChatRoomInformationDto.From),
+            TotalPostsUploaded: info.TotalPostsUploaded,
+            PostsPerSubject: info.PostsPerSubject.Select(SubjectCountDto.From));
 }
