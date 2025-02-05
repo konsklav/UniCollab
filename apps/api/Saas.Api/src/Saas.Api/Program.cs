@@ -18,7 +18,7 @@ builder.Services.AddAuthentication(options =>
     {
         options.DefaultScheme = "Basic";
     })
-    .AddScheme<BasicAuthenticationOptions, BasicAuthenticationHandler>("Basic", null)
+    .AddScheme<BasicAuthenticationOptions, BasicAuthenticationHandler>("Basic", null);
 
 builder.Services.AddSwaggerGen(options =>
 {
