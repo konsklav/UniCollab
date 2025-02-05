@@ -1,5 +1,6 @@
 using System.Reflection;
 using System.Text;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Microsoft.IdentityModel.Tokens;
 using Saas.Api.Authentication;
@@ -18,6 +19,7 @@ builder.Services.ConfigureCors(builder.Configuration);
 builder.Services.AddAuthentication(options =>
     {
         options.DefaultScheme = "Basic";
+        options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
     })
     .AddScheme<BasicAuthenticationOptions, BasicAuthenticationHandler>("Basic", null)
     .AddJwtBearer(options =>
