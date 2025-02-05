@@ -4,12 +4,11 @@ import LoginForm from "../../features/Users/Login/LoginForm";
 import { UserCredentials } from "../../features/Users/Users.types";
 import { useState } from "react";
 import { useLogin } from "../../hooks/useLogin";
-import { Button } from "../../components/Button";
 import { CredentialResponse, GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 
 export default function LoginPage() {
     const [validationMessages, setValidationMessages] = useState<readonly string[]>([])
-    const login = useLogin(() => {
+    const {basicLogin, googleLogin} = useLogin(() => {
         setValidationMessages(['Incorrect username or password.'])
     })
 
@@ -27,12 +26,12 @@ export default function LoginPage() {
         }
 
         if (isValid) {
-            await login(user)
+            await basicLogin(user)
         }
     }
 
     const handleGoogleSuccess = async (response: CredentialResponse) => {
-        console.log(response)
+        await googleLogin(response)
     }
 
     const handleGoogleFailure = async () => {

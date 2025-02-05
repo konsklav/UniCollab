@@ -70,7 +70,7 @@ public class AuthController : ControllerBase
         [FromServices] LoginUseCase login)
     {
         return await login
-            .GoogleAsync(request.Token)
+            .GoogleAsync(request.Credential)
             .ToHttp(authenticatedUser => authenticatedUser);
     }
 }

@@ -21,12 +21,12 @@ export const useLogin = (onUnauthorized?: () => void): LoginCallbacks => {
 
     return {
         basicLogin: async user => {
-            basicLogin(user)
+            return basicLogin(user)
             .then(succeedAuth)
             .catch(() => onUnauthorized?.())
         },
         googleLogin: async token => {
-            googleLogin(token)
+            return googleLogin(token)
             .then(succeedAuth)
             .catch(() => onUnauthorized?.())
         }
