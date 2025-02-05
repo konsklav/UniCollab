@@ -1,5 +1,6 @@
 ﻿using System.Reflection;
 using Microsoft.Extensions.DependencyInjection;
+using Saas.Application.Authentication;
 using Saas.Application.Interfaces;
 
 namespace Saas.Application;

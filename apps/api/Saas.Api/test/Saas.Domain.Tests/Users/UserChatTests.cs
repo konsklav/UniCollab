@@ -1,7 +1,7 @@
 using FluentAssertions;
 using Saas.Tests.Fakes;
 
-namespace Saas.Domain.Tests.User;
+namespace Saas.Domain.Tests.Users;
 
 public class UserChatTests
 {

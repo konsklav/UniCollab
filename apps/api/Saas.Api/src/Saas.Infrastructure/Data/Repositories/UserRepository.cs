@@ -6,7 +6,14 @@ namespace Saas.Infrastructure.Data.Repositories;
 
 internal class UserRepository(UniCollabContext context) : IUserRepository
 {
-    public async Task<List<User>> GetAllAsync() => await context.Users.ToListAsync();
+    public async Task<List<User>> GetAllAsync()
+    {
+        return await context.Users
+            .AsSplitQuery()
+            .Include(u => u.Posts)
+            .Include(u => u.Friends)
+            .ToListAsync();
+    }
 
     public async Task<User?> GetByIdAsync(Guid userId) =>
         await context.Users
@@ -19,12 +26,20 @@ internal class UserRepository(UniCollabContext context) : IUserRepository
             .Where(u => userIds.Contains(u.Id))
             .ToListAsync();
 
-    public async Task<User?> GetByCredentialsAsync(string username, string password) =>
+    public async Task<User?> GetByBasicCredentialsAsync(string username, string password) =>
         await context.Users.FirstOrDefaultAsync(u => u.Username == username &&
                                                      u.Password == password);
 
+    public async Task<User?> GetByGoogleCredentialsAsync(string email, string googleId) =>
+        await context.Users.FirstOrDefaultAsync(u => u.Username == email &&
+                                                     u.GoogleId == googleId);
+
     public async Task<User?> GetByUsernameAsync(string username) => 
         await context.Users.FirstOrDefaultAsync(u => u.Username == username);
+
+    public async Task<bool> GoogleIdExistsAsync(string googleId) =>
+        await context.Users.AnyAsync(u => u.GoogleId == googleId);
+
 
     public void Add(User user) => context.Users.Add(user);
 

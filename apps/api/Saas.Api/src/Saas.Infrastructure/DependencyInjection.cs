@@ -26,7 +26,7 @@ public static class DependencyInjection
         services.AddScoped<IGroupRepository, GroupRepository>();
         services.AddScoped<ISubjectRepository, SubjectRepository>();
         
-        services.AddScoped<IAuthenticationHelper, BasicAuthenticationHelper>();
+        services.AddScoped<IAuthenticationHelper, AuthenticationHelper>();
         
         services.AddTransient<ISeeder, Seeder>();
         services.AddDbContext<UniCollabContext>(options =>

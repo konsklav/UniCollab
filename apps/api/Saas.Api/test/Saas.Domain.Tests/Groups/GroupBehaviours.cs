@@ -2,7 +2,7 @@ using Ardalis.Result;
 using FluentAssertions;
 using Saas.Tests.Fakes;
 
-namespace Saas.Domain.Tests;
+namespace Saas.Domain.Tests.Groups;
 
 public class GroupBehaviours
 {

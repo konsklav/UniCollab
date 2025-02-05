@@ -2,7 +2,7 @@
 using FluentAssertions;
 using Saas.Domain.Common;
 
-namespace Saas.Domain.Tests.Posts;
+namespace Saas.Domain.Tests.Tittles;
 
 public class TitleTests
 {

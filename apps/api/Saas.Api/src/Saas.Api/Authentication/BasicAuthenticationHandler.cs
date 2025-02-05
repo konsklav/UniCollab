@@ -17,29 +17,31 @@ internal sealed class BasicAuthenticationHandler(
     ISystemClock clock)
     : AuthenticationHandler<BasicAuthenticationOptions>(options, logger, encoder, clock)
 {
-    protected override Task<AuthenticateResult> HandleAuthenticateAsync()
+    protected override async Task<AuthenticateResult> HandleAuthenticateAsync()
     {
         if (!Request.Headers.TryGetValue("Authorization", out var token))
-            return Task.FromResult(AuthenticateResult.Fail("Missing Authorization Header"));
+            return await Task.FromResult(AuthenticateResult.Fail("Missing Authorization Header"));
 
         if (token.Count != 1)
-            return Task.FromResult(AuthenticateResult.Fail("Invalid Authorization Header"));
+            return await Task.FromResult(AuthenticateResult.Fail("Invalid Authorization Header"));
 
         var tokens = token.ToString().Split(" ");
 
         if (tokens.Length != 2)
-            return Task.FromResult(AuthenticateResult.Fail("Invalid Authorization Form"));
+            return await Task.FromResult(AuthenticateResult.Fail("Invalid Authorization Form"));
         
         var scheme = tokens[0];
 
         if (scheme != "Basic")
-            return Task.FromResult(AuthenticateResult.Fail("Invalid Authorization Scheme"));
+        {
+            return await Task.FromResult(AuthenticateResult.Fail("Invalid Authorization Scheme"));
+        }
         
         var encodedCredentials = tokens[1];
         var decodedCredentials = Encoding.UTF8.GetString(Convert.FromBase64String(encodedCredentials)).Split(':');
 
         if (decodedCredentials.Length != 2)
-            return Task.FromResult(AuthenticateResult.Fail("Invalid Authorization Header"));
+            return await Task.FromResult(AuthenticateResult.Fail("Invalid Authorization Header"));
         
         var username = decodedCredentials[0];
         var password = decodedCredentials[1];
@@ -54,6 +56,6 @@ internal sealed class BasicAuthenticationHandler(
         var principal = new ClaimsPrincipal(claimsIdentity);
         var ticket = new AuthenticationTicket(principal, UniCollabAuthSchemes.Basic);
         
-        return Task.FromResult(AuthenticateResult.Success(ticket));
+        return await Task.FromResult(AuthenticateResult.Success(ticket));
     }
 }

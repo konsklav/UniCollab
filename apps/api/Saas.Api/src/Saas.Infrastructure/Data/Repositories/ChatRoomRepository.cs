@@ -50,6 +50,15 @@ internal class ChatRoomRepository(UniCollabContext context) : IChatRoomRepositor
 
         return room?.Messages;
     }
+    
+    public async Task<List<ChatRoom>> GetMutualChatsOf(Guid userId1, Guid userId2)
+    {
+        return await context.ChatRooms
+            .Include(c => c.Participants)
+            .Where(c => c.Participants.Any(p => p.Id == userId1) &&
+                        c.Participants.Any(p => p.Id == userId2))
+            .ToListAsync();
+    }
 
     public void Add(ChatRoom room) => context.ChatRooms.Add(room);
 
