@@ -10,6 +10,10 @@ export interface UserInformation {
     username: string
 }
 
+export interface RichUserInformation extends UserInformation {
+    isFriend: boolean
+}
+
 export interface User {
     id: UUIDTypes
     username: string
