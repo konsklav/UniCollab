@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Saas.Api.Contracts;
+using Saas.Api.Contracts.Queries;
+using Saas.Api.Extensions;
 using Saas.Application.Contracts;
 using Saas.Application.UseCases.Users;
 
@@ -20,14 +22,20 @@ public class UsersController : ControllerBase
     /// </summary>
     /// <returns>A list of users</returns>
     [HttpGet]
-    public async Task<IResult> GetAll([FromServices] GetAllUsersUseCase getAllUsers)
+    public async Task<IResult> GetAll(
+        [FromServices] GetAllUsersUseCase getAllUsers,
+        [FromQuery] GetUsersQuery query)
     {
-        var result = await getAllUsers.Handle();
-        if (!result.IsSuccess)
-            return result.ToMinimalApiResult();
-
-        var users = result.Value;
-        return Results.Ok(users.Select(UserInformationDto.From));
+        return query.Type switch
+        {
+            GetUsersQueryType.Detailed when query.Target.HasValue => await getAllUsers
+                .HandleDetailedAsync(query.Target.Value)
+                .ToHttp(userInfo => userInfo.Select(RichUserInformationDto.From)),
+                
+            _ => await getAllUsers
+                .Handle()
+                .ToHttp(users => users.Select(UserInformationDto.From))
+        };
     }
 
     /// <summary>

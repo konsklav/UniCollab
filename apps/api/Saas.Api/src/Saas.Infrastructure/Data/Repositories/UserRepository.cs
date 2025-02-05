@@ -6,7 +6,14 @@ namespace Saas.Infrastructure.Data.Repositories;
 
 internal class UserRepository(UniCollabContext context) : IUserRepository
 {
-    public async Task<List<User>> GetAllAsync() => await context.Users.ToListAsync();
+    public async Task<List<User>> GetAllAsync()
+    {
+        return await context.Users
+            .AsSplitQuery()
+            .Include(u => u.Posts)
+            .Include(u => u.Friends)
+            .ToListAsync();
+    }
 
     public async Task<User?> GetByIdAsync(Guid userId) =>
         await context.Users
@@ -25,6 +32,8 @@ internal class UserRepository(UniCollabContext context) : IUserRepository
 
     public async Task<User?> GetByUsernameAsync(string username) => 
         await context.Users.FirstOrDefaultAsync(u => u.Username == username);
+
+    
 
     public void Add(User user) => context.Users.Add(user);
 

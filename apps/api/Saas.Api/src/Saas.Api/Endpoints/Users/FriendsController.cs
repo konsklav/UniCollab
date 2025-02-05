@@ -1,6 +1,7 @@
 ﻿using Ardalis.Result.AspNetCore;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Saas.Application.Contracts;
 using Saas.Application.UseCases.Users;
 
 namespace Saas.Api.Endpoints.Users;
@@ -10,7 +11,6 @@ namespace Saas.Api.Endpoints.Users;
 /// </summary>
 [ApiController]
 [Route("/users/{userId:guid}/friends")]
-[Authorize]
 public class FriendsController : ControllerBase
 {
     /// <summary>
@@ -26,7 +26,7 @@ public class FriendsController : ControllerBase
             return result.ToMinimalApiResult();
 
         var user = result.Value;
-        return Results.Ok(user.Friends);
+        return Results.Ok(user.Friends.Select(UserInformationDto.From));
     }
 
     /// <summary>
@@ -36,7 +36,7 @@ public class FriendsController : ControllerBase
     /// <param name="userId">The user who will get the friend</param>
     /// <param name="friendId">The target</param>
     /// <returns></returns>
-    [HttpPut("{friendId:guid}")]
+    [HttpPost("{friendId:guid}")]
     public async Task<IResult> AddFriend(Guid userId, Guid friendId, [FromServices] AddFriendUseCase addFriend)
     {
         var result = await addFriend.Handle(userId, friendId);

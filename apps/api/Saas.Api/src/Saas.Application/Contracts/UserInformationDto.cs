@@ -7,7 +7,7 @@ namespace Saas.Application.Contracts;
 /// </summary>
 /// <param name="Id">User's unique ID</param>
 /// <param name="Username">Username, not unique!</param>
-public sealed record UserInformationDto(
+public record UserInformationDto(
     Guid Id,
     string Username)
 {
