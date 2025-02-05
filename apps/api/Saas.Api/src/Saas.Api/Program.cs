@@ -1,4 +1,5 @@
 using System.Reflection;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Saas.Api.Authentication;
 using Saas.Api.Configuration;
@@ -13,8 +14,11 @@ builder.Configuration.AddEnvironmentVariables("UNICOLLAB_");
 builder.Services.AddControllers(op => op.Filters.Add(new AuthorizeFilter()));
 builder.Services.ConfigureCors(builder.Configuration);
 
-builder.Services.AddAuthentication("Basic")
-    .AddScheme<BasicAuthenticationOptions, BasicAuthenticationHandler>("Basic", null);
+builder.Services.AddAuthentication(options =>
+    {
+        options.DefaultScheme = "Basic";
+    })
+    .AddScheme<BasicAuthenticationOptions, BasicAuthenticationHandler>("Basic", null)
 
 builder.Services.AddSwaggerGen(options =>
 {
