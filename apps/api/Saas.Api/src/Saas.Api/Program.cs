@@ -1,5 +1,4 @@
 using System.Reflection;
-using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Mvc.Authorization;
 using Saas.Api.Authentication;
 using Saas.Api.Configuration;
