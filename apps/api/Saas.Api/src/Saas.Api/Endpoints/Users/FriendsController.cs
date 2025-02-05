@@ -36,7 +36,7 @@ public class FriendsController : ControllerBase
     /// <param name="userId">The user who will get the friend</param>
     /// <param name="friendId">The target</param>
     /// <returns></returns>
-    [HttpPut("{friendId:guid}")]
+    [HttpPost("{friendId:guid}")]
     public async Task<IResult> AddFriend(Guid userId, Guid friendId, [FromServices] AddFriendUseCase addFriend)
     {
         var result = await addFriend.Handle(userId, friendId);
