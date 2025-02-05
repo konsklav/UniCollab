@@ -23,7 +23,8 @@ public class User : Entity
     }
 
     public string Username { get; private set; }
-    public string Password { get; private set; }
+    public string? Password { get; private set; }
+    public string? GoogleId { get; private set; }
 
     public IReadOnlyList<User> Friends => _friends;
 
