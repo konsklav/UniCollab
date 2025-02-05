@@ -1,5 +1,7 @@
 using System.Reflection;
+using System.Text;
 using Microsoft.AspNetCore.Mvc.Authorization;
+using Microsoft.IdentityModel.Tokens;
 using Saas.Api.Authentication;
 using Saas.Api.Configuration;
 using Saas.Application;
@@ -17,7 +19,19 @@ builder.Services.AddAuthentication(options =>
     {
         options.DefaultScheme = "Basic";
     })
-    .AddScheme<BasicAuthenticationOptions, BasicAuthenticationHandler>("Basic", null);
+    .AddScheme<BasicAuthenticationOptions, BasicAuthenticationHandler>("Basic", null)
+    .AddJwtBearer(options =>
+    {
+        options.TokenValidationParameters = new TokenValidationParameters
+        {
+            ValidateIssuer = true,
+            ValidateAudience = false,
+            ValidateLifetime = true,
+            ValidateIssuerSigningKey = true,
+            ValidIssuer = builder.Configuration["Auth:JwtIssuer"],
+            IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Auth:JwtKey"]))
+        };
+    });
 
 builder.Services.AddSwaggerGen(options =>
 {
