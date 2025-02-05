@@ -19,8 +19,12 @@ public class UserConfiguration : IEntityTypeConfiguration<User>
             .HasMany(u => u.Posts)
             .WithOne(p => p.Author);
 
+        builder.Property(u => u.Password).IsRequired(false);
+        builder.Property(u => u.GoogleId).IsRequired(false);
+
         builder.Property(u => u.Username)
             .HasColumnType($"varchar({User.MaxUsernameLength})");
+        
         builder.Property(u => u.Password)
             .HasColumnType($"varchar({User.MaxPasswordLength})");
     }

@@ -46,7 +46,7 @@ public class AuthController : ControllerBase
         [FromBody] RegisterRequest request,
         [FromServices] CreateUser createUser)
     {
-        var createUserResult = await createUser.HandleAsync(request.Username, request.Password);
+        var createUserResult = await createUser.WithBasicAsync(request.Username, request.Password);
         if (!createUserResult.IsSuccess)
             return createUserResult.ToMinimalApiResult();
 
