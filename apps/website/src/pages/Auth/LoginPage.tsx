@@ -5,6 +5,7 @@ import { UserCredentials } from "../../features/Users/Users.types";
 import { useState } from "react";
 import { useLogin } from "../../hooks/useLogin";
 import { Button } from "../../components/Button";
+import { CredentialResponse, GoogleLogin, GoogleOAuthProvider } from "@react-oauth/google";
 
 export default function LoginPage() {
     const [validationMessages, setValidationMessages] = useState<readonly string[]>([])
@@ -30,7 +31,12 @@ export default function LoginPage() {
         }
     }
 
-    const handleGoogleLogin = async () => {
+    const handleGoogleSuccess = async (response: CredentialResponse) => {
+        console.log(response)
+    }
+
+    const handleGoogleFailure = async () => {
+        console.log('ERROR OH SHIT!')
     }
     
     return <div>
@@ -39,7 +45,13 @@ export default function LoginPage() {
             <div key={message} className="text-danger">{message}</div>
         ))}
         <div className="mt-2">
-            <Button color={'danger'} onClick={handleGoogleLogin}>Login with Google</Button>
+            <GoogleOAuthProvider clientId={'993988601504-kva11gp8kea0t764esg6ga76pgqstap7.apps.googleusercontent.com'}>
+                <GoogleLogin 
+                    locale=""
+                    text={'signin_with'}
+                    onSuccess={handleGoogleSuccess}
+                    onError={handleGoogleFailure}/>
+            </GoogleOAuthProvider>
         </div>
         <div>
             To create an account, <NavLink to='/register'>sign up</NavLink>.

@@ -10,8 +10,8 @@ public class CreateUser(IUserRepository userRepository) : IApplicationUseCase
     public async Task<Result<User>> WithBasicAsync(string username, string password) =>
         await CreateUserCore(username, () => User.Create(username, password));
 
-    public async Task<Result<User>> WithGoogleAsync(string username, string googleId) =>
-        await CreateUserCore(username, () => User.CreateWithGoogle(username, googleId));
+    public async Task<Result<User>> WithGoogleAsync(string email, string googleId) =>
+        await CreateUserCore(email, () => User.CreateWithGoogle(email, googleId));
 
     private async Task<Result<User>> CreateUserCore(string username, Func<Result<User>> userFactory)
     {

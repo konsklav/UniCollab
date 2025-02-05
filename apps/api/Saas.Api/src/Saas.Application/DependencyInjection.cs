@@ -23,7 +23,5 @@ public static class DependencyInjection
         {
             services.AddScoped(useCase);
         }
-
-        services.AddScoped<JwtHelper>();
     }
 }
