@@ -16,7 +16,6 @@
 - ```bash
   npm i vite
   ```
-- Τρέξτε την εντολή
 - ```bash
   npm start
   ```
