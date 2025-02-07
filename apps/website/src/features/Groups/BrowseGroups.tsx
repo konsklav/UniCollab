@@ -24,14 +24,20 @@ export default function BrowseGroups() {
     }
 
     return (
-        <WaitForQuery query={query}>
-            {query.data?.map(group => ( 
-                <GroupCard key={group.info.id} group={group}>
-                    <Button color={'success'} onClick={() => handleJoin(group)} loadingText={`Joining ${group.info.name}`}>
-                        Join
-                    </Button>
-                </GroupCard>
-            ))}
-        </WaitForQuery>
+        <div className="container">
+            <div className="row">
+            <WaitForQuery query={query}>
+                {query.data?.map(group => ( 
+                    <div className="col-auto">
+                        <GroupCard key={group.info.id} group={group}>
+                            <Button color={'success'} onClick={() => handleJoin(group)} loadingText={`Joining ${group.info.name}`}>
+                                Join
+                            </Button>
+                        </GroupCard>
+                    </div>
+                ))}
+            </WaitForQuery>
+            </div>
+        </div>
     )
 }
