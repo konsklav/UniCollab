@@ -3,13 +3,14 @@ import InputText from "../../components/Form/InputText"
 import { ChatRoomInformation, CreateChatRoomRequest } from "./Chat.types"
 import { UserInformation } from "../Users/Users.types"
 import { useGetAllUsers } from "../../hooks/queries/useGetAllUsers"
-import Select, { MultiValue } from "react-select"
+import { MultiValue } from "react-select"
 import WaitForQuery from "../../components/WaitForQuery"
 import { useMutation } from "@tanstack/react-query"
 import { createChatRoom } from "../../endpoints/chatEndpoints"
 import { useSession } from "../../hooks/useSession"
 import { UniCollabForm } from "../../components/Form/UniCollabForm"
 import { SubmitButton } from "../../components/Button"
+import UserSelect from "../../components/Users/UserSelect"
 
 const initialState: CreateChatRoomRequest = {
     name: '',
@@ -59,13 +60,7 @@ export default function CreateChatForm() {
                 <InputText label="Name" value={request.name} onChange={setName}/>
 
                 <label className="form-label">Participants</label>
-                <Select 
-                    isMulti
-                    defaultValue={new Array<UserInformation>()}
-                    getOptionLabel={p => p.username}
-                    getOptionValue={p => p.id}
-                    onChange={setParticipants}
-                    options={query.data?.filter(u => u.id !== user.id)}/>
+                <UserSelect onChange={setParticipants} options={query.data?.filter(u => u.id !== user.id)} />
 
                 <SubmitButton 
                     color={'primary'}

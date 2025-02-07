@@ -1,4 +1,4 @@
-import { CreateGroupRequest, GroupDto, GroupInformationDto } from "../features/Groups/Group.types"
+import { CreateGroupRequest, DetailedGroupInformationDto, GroupDto } from "../features/Groups/Group.types"
 import { api } from "../services/apiService"
 
 export const getGroupById = async (groupId: string): Promise<GroupDto> => {
@@ -6,18 +6,18 @@ export const getGroupById = async (groupId: string): Promise<GroupDto> => {
     return response.data
 } 
 
-export const getUserGroups = async (userId: string): Promise<readonly GroupInformationDto[]> => {
+export const getUserGroups = async (userId: string): Promise<readonly DetailedGroupInformationDto[]> => {
     const response = await api.get(`/users/${userId}/groups?type=participating`)
     return response.data
 }
 
-export const getJoinableGroups = async (userId: string): Promise<readonly GroupInformationDto[]> => {
+export const getJoinableGroups = async (userId: string): Promise<readonly DetailedGroupInformationDto[]> => {
     const response = await api.get(`/users/${userId}/groups?type=joinable`)
     return response.data
 }
 
-export const createGroup = async (request: CreateGroupRequest) => 
-    await api.post(`/groups`, request)
+export const createGroup = async (userId: string, request: CreateGroupRequest) => 
+    await api.post(`/users/${userId}/groups`, request)
 
 export const joinGroup = async (userId: string, groupId: string) => 
     await api.post(`/users/${userId}/groups/${groupId}`)

@@ -16,6 +16,11 @@ export interface GroupInformationDto {
     creator: GroupCreator
 }
 
+export interface DetailedGroupInformationDto {
+    info: GroupInformationDto
+    friendsInGroup: readonly UserInformation[]
+}
+
 export interface CreateGroupRequest {
     name: string,
     initialMembers: readonly string[]

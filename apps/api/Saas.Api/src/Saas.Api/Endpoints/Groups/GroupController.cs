@@ -9,7 +9,6 @@ namespace Saas.Api.Endpoints.Groups;
 
 [ApiController]
 [Route("/groups")]
-[Authorize]
 public class GroupController : ControllerBase
 {
     /// <summary>
@@ -29,25 +28,5 @@ public class GroupController : ControllerBase
     
         var group = result.Value;
         return Results.Ok(GroupDto.From(group));
-    }
-    
-    [HttpPost(Name = "Create Group")]
-    public async Task<IResult> Create(
-        [FromBody] CreateGroupRequest request, 
-        [FromServices] CreateGroup createGroup)
-    {
-        var result = await createGroup.Handle(
-            name: request.Name,
-            userIds: request.InitialMembers,
-            creatorId: request.CreatorId);
-
-        if (!result.IsSuccess)
-            return result.ToMinimalApiResult();
-
-        var group = result.Value;
-        return Results.CreatedAtRoute(
-            routeName: "Get Group",
-            routeValues: new { groupId = group.Id },
-            value: GroupDto.From(group));
     }
 }

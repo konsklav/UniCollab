@@ -23,7 +23,7 @@ export default function App() {
             <Route index element={<HomePage/>}/>
             <Route path="chat/:state?" element={<ChatPage/>}/>
             <Route path="users" element={<UsersPage/>}/>
-            <Route path="groups" element={<GroupsPage/>}/>
+            <Route path="groups/:state?" element={<GroupsPage/>}/>
             <Route path="user/posts/:state?" element={<MyPostsPage/>}/>
             <Route path="posts/:slug" element={<ReadPostPage/>}/>
           </Route>
