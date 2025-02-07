@@ -18,7 +18,7 @@ if docker ps --filter "ancestor=$DB_IMG" --format "{{.ID}}" | grep -q .; then
     echo "✅ Found running database container!"
 else 
     echo "🐳 No running container found, firing up a new database container."
-    docker run --rm -e "POSTGRES_PASSWORD=$DB_PASS" -p 5433:5432 -d $DB_IMG
+    docker run --rm -e "POSTGRES_PASSWORD=$DB_PASS" -p 5433:5432 -d $DB_IMG -v postgres-data:/var/lib/postgresql/data
 fi
 
 echo "🛠️ Building .NET API"

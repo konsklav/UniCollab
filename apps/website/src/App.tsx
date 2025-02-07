@@ -12,6 +12,10 @@ import ReadPostPage from "./pages/ReadPostPage";
 import { ToastContainer } from "./components/Toasts/ToastContainer";
 import NotificationsManager from "./components/Notifications/NotificationsManager";
 import UsersPage from "./pages/UsersPage";
+import UsersGroups from "./features/Groups/UsersGroups";
+import CreateGroupForm from "./features/Groups/CreateGroupForm";
+import BrowseGroups from "./features/Groups/BrowseGroups";
+import GroupDisplay from "./features/Groups/GroupInformation";
 
 export default function App() {
   return (
@@ -23,7 +27,12 @@ export default function App() {
             <Route index element={<HomePage/>}/>
             <Route path="chat/:state?" element={<ChatPage/>}/>
             <Route path="users" element={<UsersPage/>}/>
-            <Route path="groups/:state?" element={<GroupsPage/>}/>
+            <Route path="groups" element={<GroupsPage/>}>
+              <Route index element={<UsersGroups/>}/>
+              <Route path=":state" element={<GroupDisplay/>}/>
+              <Route path="create" element={<CreateGroupForm/>}/>
+              <Route path="browse" element={<BrowseGroups/>}/>
+            </Route>
             <Route path="user/posts/:state?" element={<MyPostsPage/>}/>
             <Route path="posts/:slug" element={<ReadPostPage/>}/>
           </Route>

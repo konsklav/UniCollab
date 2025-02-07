@@ -29,7 +29,7 @@ internal class GroupRepository(UniCollabContext context) : IGroupRepository
     {
         var groups = context.Groups
             .Include(c => c.Members)
-            .Where(c => c.Members.Any(u => u.Id != userId))
+            .Where(c => c.Members.All(u => u.Id != userId))
             .ToListAsync();
         return groups;
     }

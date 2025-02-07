@@ -6,8 +6,6 @@ import WaitForQuery from "../../components/WaitForQuery";
 import GroupCard from "./GroupCard";
 import { Button } from "../../components/Button";
 import { Link } from "react-router-dom";
-import NavigationButtons from "../../components/NavigationButtons";
-
 
 export default function UsersGroups() {
     const {user} = useSession()

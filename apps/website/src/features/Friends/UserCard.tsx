@@ -3,7 +3,7 @@ import { Button } from "../../components/Button";
 import { RichUserInformation } from "../Users/Users.types";
 
 interface UserCardProps {
-    info: RichUserInformation,
+    info: RichUserInformation
     onAddFriend: (friendId: string) => Promise<void>
     onRemoveFriend: (unfriendId: string) => Promise<void>
 }
