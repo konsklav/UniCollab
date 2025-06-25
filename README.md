@@ -8,4 +8,4 @@ A "MS Teams"-like web application for collaboration of students.
 - [Vite](https://vite.dev/)
 
 ## Project Assignment
-[description](assignment.pdf)
+[Description](assignment.pdf)
